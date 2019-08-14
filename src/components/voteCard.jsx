@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Card, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { Doughnut } from "react-chartjs-2";
 import Comment from "./comment";
@@ -132,7 +131,7 @@ class VoteCard extends Component {
   };
 
   render() {
-    const { text, _id, agree, disagree } = this.props.data;
+    const { text } = this.props.data;
     this.loadUser();
 
     return (
@@ -215,7 +214,7 @@ class VoteCard extends Component {
             <CommentTextarea user={this.props.user} vote={this.state.vote} />
           </div>
           <SharePanel data={this.props.data} vote={this.state.vote} />
-          <div class="ui stackable two column grid yorumlar">
+          <div className="ui stackable two column grid yorumlar">
             {this.state.comments
               .slice(0)
               .reverse()

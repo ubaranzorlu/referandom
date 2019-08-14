@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Container, Form, Button } from "react-bootstrap";
 
 class CommentTextarea extends Component {
   state = {
@@ -33,11 +32,7 @@ class CommentTextarea extends Component {
         <div className="ui form">
           <div className="yorum">
             <div className="ui avatar image foto">
-              <img
-                src={this.props.user ? this.props.user.ppLink : ""}
-                alt=""
-                srcset=""
-              />
+              <img src={this.props.user ? this.props.user.ppLink : ""} alt="" />
             </div>
             <div className="kutu">
               <textarea

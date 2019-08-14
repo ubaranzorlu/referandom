@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Container, Row } from "react-bootstrap";
 import VoteCard from "./voteCard";
 import ProfileCard from "./profileCard";
 import LoadingSpinner from "./loadingSpinner";
@@ -37,7 +36,7 @@ class Akis extends Component {
           className={`ui container d-${this.state.isLoaded ? "flex" : "none"}`}
         >
           <div className="ui stackable grid" id="akis">
-            <div class="five wide column tablet hidden mobile hidden">
+            <div className="five wide column tablet hidden mobile hidden">
               <ProfileCard user={this.state.user} />
             </div>
             <div className="eleven wide column" id="onergeler">

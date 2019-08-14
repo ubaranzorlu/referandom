@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
 import { Dropdown, Menu } from "semantic-ui-react";
-import { Navbar } from "react-bootstrap";
 import sizeMe from "react-sizeme";
 import Joi from "joi-browser";
 import FormClass from "./common/form";
@@ -14,7 +13,6 @@ class NavBar extends FormClass {
     trigger: this.props.user ? (
       <span>
         <img
-          avatar
           src={this.props.user.ppLink}
           className="ui avatar image"
           width="20"

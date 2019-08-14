@@ -9,7 +9,6 @@ import Logout from "./components/logout";
 import NotFound from "./components/notFound";
 import NavBar from "./components/navBar";
 import Footer from "./components/footer";
-import LoadingSpinner from "./components/loadingSpinner";
 import auth from "./services/authService";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -36,7 +35,12 @@ class App extends Component {
             {this.state.validUser && <Redirect exact to="/akis" from="/" />}
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
-            <Route path="/akis" render={props => <Akis {...props} />} />
+            <Route
+              path="/akis"
+              render={props => (
+                <Akis {...props} navbarMargin={this.state.navbarMargin} />
+              )}
+            />
             <Route path="/profile" render={props => <Profile {...props} />} />
             <Route path="/logout" component={Logout} />
             <Route path="/not-found" component={NotFound} />

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Card, Image, ListGroup } from "react-bootstrap";
 
 class ProfileCard extends Component {
   render() {
@@ -9,12 +8,12 @@ class ProfileCard extends Component {
         {user && (
           <div className="ui segment profile a-profile-card ">
             <div className="ui image cover">
-              <img src="img/cover.jpg" />
+              <img src="img/cover.jpg" alt="cover" />
             </div>
             <div className="content">
               <a className="info" href="/">
                 <div className="ui avatar image">
-                  <img src="img/img_avatar3.png" alt="" srcset="" />
+                  <img src="img/img_avatar3.png" alt="" />
                 </div>
                 <div className="header" href="#">
                   <h3>Furkan Atasoy</h3>

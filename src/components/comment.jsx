@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Card, Button, Row, Col, Image } from "react-bootstrap";
 
 class Comment extends Component {
   state = { isUpvote: false };
