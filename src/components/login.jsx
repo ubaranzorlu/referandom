@@ -76,7 +76,7 @@ class Login extends FormClass {
                   <h2 className="ui inverted header mb-4">Giriş yap</h2>
                   <div className="ui">
                     <div className="field">
-                      <div className="ui left icon input">
+                      <div className="ui left icon input d-flex flex-column">
                         <i className="user icon" />
                         {this.renderInput(
                           "username",
@@ -87,7 +87,7 @@ class Login extends FormClass {
                       </div>
                     </div>
                     <div className="field">
-                      <div className="ui left icon input">
+                      <div className="ui left icon input d-flex flex-column">
                         <i className="lock icon" />
                         {this.renderInput(
                           "password",

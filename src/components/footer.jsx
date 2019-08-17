@@ -1,23 +1,13 @@
 import React, { Component } from "react";
 import ContactModal from "./contactModal";
-import PrivacyModal from "./privacyModal";
-import TermsModal from "./termsModal";
 
 class Footer extends Component {
   state = {
-    contactModalShow: false,
-    privacyModalShow: false,
-    termsModalShow: false
+    contactModalShow: false
   };
 
   contactModalClose = () => {
     this.setState({ contactModalShow: false });
-  };
-  privacyModalClose = () => {
-    this.setState({ privacyModalShow: false });
-  };
-  termsModalClose = () => {
-    this.setState({ termsModalShow: false });
   };
 
   render() {
@@ -26,20 +16,12 @@ class Footer extends Component {
         <footer className="a-bg-special-2 border-top border-light p-3 mx-0">
           <ul className="row list-inline text-uppercase text-center">
             <li className="col list-inline-item a-footer-item-1 a-footer-text">
-              <a
-                href="#"
-                className="text-light"
-                onClick={() => this.setState({ termsModalShow: true })}
-              >
+              <a href="/terms" className="text-light">
                 HİZMET POLİTİKASI
               </a>
             </li>
             <li className="col list-inline-item a-footer-item-2 a-footer-text">
-              <a
-                href="#"
-                className="text-light"
-                onClick={() => this.setState({ privacyModalShow: true })}
-              >
+              <a href="/privacy" className="text-light">
                 GİZLİLİK SÖZLEŞMESİ
               </a>
             </li>
@@ -75,14 +57,6 @@ class Footer extends Component {
         <ContactModal
           show={this.state.contactModalShow}
           onHide={this.contactModalClose}
-        />
-        <PrivacyModal
-          show={this.state.privacyModalShow}
-          onHide={this.privacyModalClose}
-        />
-        <TermsModal
-          show={this.state.termsModalShow}
-          onHide={this.termsModalClose}
         />
       </React.Fragment>
     );

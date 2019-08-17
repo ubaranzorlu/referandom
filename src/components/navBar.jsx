@@ -4,7 +4,6 @@ import sizeMe from "react-sizeme";
 import Joi from "joi-browser";
 import FormClass from "./common/form";
 import auth from "../services/authService";
-import SigninModal from "./signinModal";
 
 class NavBar extends FormClass {
   state = {
@@ -70,7 +69,7 @@ class NavBar extends FormClass {
       return (
         <div className="ui form">
           <div className="fields item login">
-            <div className="seven wide field email">
+            <div className="seven wide field email d-flex flex-column">
               {this.renderInput(
                 "username",
                 "Kullanıcı Adı",
@@ -78,7 +77,7 @@ class NavBar extends FormClass {
                 "a-more-radius"
               )}
             </div>
-            <div className="six wide field password ">
+            <div className="six wide field password d-flex flex-column">
               {this.renderInput(
                 "password",
                 "Şifre",
@@ -123,10 +122,6 @@ class NavBar extends FormClass {
             </div>
           </div>
         </Menu>
-        <SigninModal
-          show={this.state.signinModalShow}
-          onHide={this.signinModalClose}
-        />
       </div>
     );
   }

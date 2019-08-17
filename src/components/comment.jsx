@@ -19,14 +19,14 @@ class Comment extends Component {
   }
 
   render() {
-    const { owner, date, text, upvote } = this.props.data;
+    const { owner, date, text, upvote, vote } = this.props.data;
     const { isUpvote } = this.state;
     this.loadUser();
 
     return (
       <div className="column">
         <div
-          className={`ui segment yorum a-more-radius ${true ? "green" : "red"}`}
+          className={`ui segment yorum a-more-radius ${vote ? "green" : "red"}`}
         >
           <a className="info" href={owner.username}>
             <div className="ui avatar image">
@@ -36,7 +36,7 @@ class Comment extends Component {
               <h3>{owner.username}</h3>
               <p className="sub">
                 <i className="bookmark icon" />
-                <b>{true ? "Katılmak" : "Katılmamak"}</b> için en iyi sebep.
+                <b>{vote ? "Katılmak" : "Katılmamak"}</b> için sebep.
               </p>
             </div>
           </a>

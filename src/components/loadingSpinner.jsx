@@ -8,7 +8,6 @@ class LoadingSpinner extends Component {
         className={`justify-content-center text-white mb-4  d-${
           this.props.isLoaded ? "none" : "flex"
         }`}
-        style={{ marginTop: this.props.navbarMargin + 9 }}
       >
         <Spinner animation="border" />
       </div>

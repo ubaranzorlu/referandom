@@ -1,14 +1,10 @@
 import React, { Component } from "react";
-import { Button, Modal } from "react-bootstrap";
 
-class privacyModal extends Component {
+class Privacy extends Component {
   render() {
     return (
-      <Modal show={this.props.show} onHide={this.props.onHide}>
-        <Modal.Header closeButton>
-          <Modal.Title>GİZLİLİK SÖZLEŞMESİ</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+      <div className="a-container text-white d-flex justify-content-center">
+        <p>
           <p>1.TOPLADIĞIMIZ VE KULLANDIĞIMIZ BİLGİLER </p>
           <p>
             {" "}
@@ -64,14 +60,9 @@ class privacyModal extends Component {
             bir soru için destek@referandom.com adresinden iletişim
             kurabilirsiniz.
           </p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={this.props.onHide}>
-            Kapat
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        </p>
+      </div>
     );
   }
 }
-export default privacyModal;
+export default Privacy;

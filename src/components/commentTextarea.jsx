@@ -18,31 +18,39 @@ class CommentTextarea extends Component {
 
   render() {
     return (
-      <div
-        className={`content ${
-          this.props.vote === "agree" ? "katiliyorum" : "katilmiyorum"
-        }`}
-      >
-        <h3>
-          <b>
-            {this.props.vote === "agree" ? "Katılıyorum " : "Katılmıyorum "}
-          </b>
-          çünkü;
-        </h3>
-        <div className="ui form">
-          <div className="yorum">
-            <div className="ui avatar image foto">
-              <img src={this.props.user ? this.props.user.ppLink : ""} alt="" />
-            </div>
-            <div className="kutu">
-              <textarea
-                rows="3"
-                maxLength="500"
-                value={this.state.text}
-                onChange={this.handleChange}
-              />
-              <span className="enter">{this.state.remainingWord}</span>
-              <div className="ui blue button noborder mt-2">Yorum Yap</div>
+      <div className="kullanici-yorum">
+        <div
+          className={`content ${
+            this.props.vote ? "katiliyorum" : "katilmiyorum"
+          }`}
+        >
+          <h3>
+            <b>{this.props.vote ? "Katılıyorum " : "Katılmıyorum "}</b>
+            çünkü;
+          </h3>
+          <div className="ui form">
+            <div className="yorum">
+              <div className="ui avatar image foto">
+                <img
+                  src={this.props.user ? this.props.user.ppLink : ""}
+                  alt=""
+                />
+              </div>
+              <div className="kutu">
+                <textarea
+                  rows="3"
+                  maxLength="500"
+                  value={this.state.text}
+                  onChange={this.handleChange}
+                />
+                <span className="enter">{this.state.remainingWord}</span>
+                <div
+                  className="ui blue button noborder mt-2"
+                  onClick={this.handleSubmit}
+                >
+                  Yorum Yap
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -51,19 +59,3 @@ class CommentTextarea extends Component {
   }
 }
 export default CommentTextarea;
-// <Container className="bg-white rounded py-4 mb-3 ">
-//   <Form className="w-100">
-//     <Form.Group className="text-dark">
-//       <Form.Label>Katılıyorum çünkü...</Form.Label>
-//       <Form.Control
-//         as="textarea"
-//         value={this.state.text}
-//         className="w-100"
-//         onChange={this.handleChange}
-//       />
-//     </Form.Group>
-//     <Button variant="info" onClick={this.handleSubmit}>
-//       Sebep ekle
-//     </Button>
-//   </Form>
-// </Container>

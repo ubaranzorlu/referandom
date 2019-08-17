@@ -28,10 +28,7 @@ class Akis extends Component {
   render() {
     return (
       <React.Fragment>
-        <LoadingSpinner
-          navbarMargin={this.props.navbarMargin}
-          isLoaded={this.state.isLoaded}
-        />
+        <LoadingSpinner isLoaded={this.state.isLoaded} />
         <main
           className={`ui container d-${this.state.isLoaded ? "flex" : "none"}`}
         >

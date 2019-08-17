@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { toast } from "react-toastify";
-import { Doughnut } from "react-chartjs-2";
+import Onerge from "./onerge";
 import Comment from "./comment";
 import CommentTextarea from "./commentTextarea";
 import SharePanel from "./sharePanel";
+import ExpandButton from "./expandButton";
+import VoteButtons from "./voteButtons";
 import logger from "../services/logService";
 import { updateVoteCard } from "../services/voteCardService";
 import { addComment, updateComment } from "../services/commentService";
@@ -11,9 +13,9 @@ import { updateUser } from "../services/userService";
 
 class VoteCard extends Component {
   state = {
-    vote: null,
     display: false,
-    background: "bg-secondary",
+    expand: true,
+    vote: null,
     comments: this.props.data.comments,
     chartData: {
       labels: ["Katılıyorum", "Katılmıyorum"],
@@ -31,8 +33,7 @@ class VoteCard extends Component {
           fontColor: "white"
         }
       }
-    },
-    expand: true
+    }
   };
 
   loadUser() {
@@ -49,16 +50,17 @@ class VoteCard extends Component {
 
       this.state.expand = this.props.modalMode ? true : false;
       this.state.display = this.props.modalMode ? true : false;
-      this.state.background = `a-bg-${vote ? "agree" : "disagree"}`;
+      this.state.vote = vote;
       this.state.isLoaded = true;
     }
   }
 
   handleVote = async vote => {
+    console.log(vote);
     this.setState({ vote });
     const voteCard = { ...this.props.data };
-    voteCard[vote] = this.props.data[vote] + 1;
-    const index = vote === "agree" ? 0 : 1;
+    voteCard[vote] = this.props.data[vote ? "agree" : "disagree"] + 1;
+    const index = vote ? 0 : 1;
 
     const chartData = { ...this.state.chartData };
     chartData.datasets[0].data[index] = voteCard[vote];
@@ -73,12 +75,12 @@ class VoteCard extends Component {
       }
     }
 
-    this.setState({ display: true, background: `a-bg-${vote}`, chartData });
+    this.setState({ display: true, vote, chartData });
 
     let user = { ...this.props.user };
     user.votedCards.push({
       mainCard: voteCard._id,
-      vote: vote === "agree" ? true : false
+      vote: vote
     });
     user.numberOfVote = user.votedCards.length;
     await updateUser(user);
@@ -94,6 +96,7 @@ class VoteCard extends Component {
       owner: this.props.user,
       date: "10 minutes ago",
       text: text,
+      vote: this.state.vote,
       upvote: 0,
       mainCardId: this.props.data._id,
       upvotedUsers: []
@@ -131,89 +134,36 @@ class VoteCard extends Component {
   };
 
   render() {
-    const { text } = this.props.data;
     this.loadUser();
 
     return (
       <div className="onerge">
-        <div className="ui segment icerik mb-0">
-          <div
-            className="content"
-            style={{
-              backgroundImage: "img/cover.jpg",
-              backgroundSize: "cover",
-              backgroundPosition: "center"
-            }}
-          >
-            <div className="overlay ilk" />
-            <div className="overlay iki" />
-            <p className="info">{text}</p>
-            <p className="sub">
-              <span>
-                <i className="user icon" /> Onergeyi Veren
-              </span>
-              <span>
-                <i className="calendar outline icon" /> 30 Mayis 2019
-              </span>
-              <span>
-                <i className="pencil alternate icon" />
-                Kategori
-              </span>
-            </p>
-            <a href="${onerge.baslik}" className="onergeMetni">
-              <i className="chain icon" />
-              Önerge Metni
-            </a>
-            <div className="justify-content-center d-flex  mt-4 mb-2">
-              {this.state.display && (
-                <Doughnut
-                  data={this.state.chartData}
-                  options={this.state.chartOptions}
-                />
-              )}
-            </div>
-          </div>
-        </div>
-        <div
-          className={`ui two column grid butonlar d-${
-            this.state.display ? "none" : this.state.expand ? "flex" : "none"
-          }`}
-        >
-          <div
-            className="column katiliyorum"
-            onClick={() => this.handleVote("agree")}
-          >
-            Katılıyorum
-          </div>
-          <div
-            className="column katilmiyorum"
-            onClick={() => this.handleVote("disagree")}
-          >
-            Katılmıyorum
-          </div>
-        </div>
-        <div
-          className={`ui grid butonlar d-${
-            this.state.expand ? "none" : "block"
-          }`}
-        >
-          <div
-            className={`column ${
-              this.state.background === "a-bg-agree"
-                ? "katiliyorum"
-                : "katilmiyorum"
-            }`}
-            onClick={this.handleExpand}
-          >
-            Genişlet
-            <i className="fa fa-chevron-down ml-3" aria-hidden="true" />
-          </div>
-        </div>
+        <Onerge
+          data={this.props.data}
+          display={this.state.display}
+          chartData={this.state.chartData}
+          chartOptions={this.state.chartOptions}
+        />
+        <VoteButtons
+          display={this.state.display}
+          expand={this.state.expand}
+          onClick={this.handleVote}
+        />
+        <ExpandButton
+          onClick={this.handleExpand}
+          role="expand"
+          vote={this.state.vote}
+          display={!this.state.expand}
+        />
+
         <div className={`d-${this.state.display ? "block" : "none"}`}>
-          <div className="kullanici-yorum">
-            <CommentTextarea user={this.props.user} vote={this.state.vote} />
-          </div>
+          <CommentTextarea
+            user={this.props.user}
+            vote={this.state.vote}
+            onAddReason={this.handleAddComment}
+          />
           <SharePanel data={this.props.data} vote={this.state.vote} />
+
           <div className="ui stackable two column grid yorumlar">
             {this.state.comments
               .slice(0)
@@ -227,23 +177,13 @@ class VoteCard extends Component {
                 />
               ))}
           </div>
-          <div
-            className={`ui grid a-more-radius butonlar d-${
-              this.state.expand ? "block" : "none"
-            }`}
-          >
-            <div
-              className={`column a-daralt ${
-                this.state.background === "a-bg-agree"
-                  ? "katiliyorum"
-                  : "katilmiyorum"
-              }`}
-              onClick={this.handleExpand}
-            >
-              Daralt
-              <i className="fa fa-chevron-up ml-3" aria-hidden="true" />
-            </div>
-          </div>
+
+          <ExpandButton
+            onClick={this.handleExpand}
+            role="collapse"
+            vote={this.state.vote}
+            display={this.state.expand}
+          />
         </div>
       </div>
     );

@@ -48,7 +48,12 @@ class contactModal extends FormClass {
             </Form.Group>
             <Form.Group>
               <InputGroup>
-                {this.renderInput("email", "Email", "email", "rounded-0")}
+                {this.renderBootstrapInput(
+                  "email",
+                  "Email",
+                  "email",
+                  "rounded-0"
+                )}
 
                 <InputGroup.Append>
                   <Button

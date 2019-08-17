@@ -82,7 +82,7 @@ class Home extends FormClass {
                   <p className="ui inverted">Demokraside aktif ol!</p>
                   <div className="ui">
                     <div className="field">
-                      <div className="ui left icon input">
+                      <div className="ui left icon input d-flex flex-column">
                         <i className="user icon" />
                         {this.renderInput(
                           "username",
@@ -93,7 +93,7 @@ class Home extends FormClass {
                       </div>
                     </div>
                     <div className="field">
-                      <div className="ui left icon input">
+                      <div className="ui left icon input d-flex flex-column">
                         <i className="envelope outline icon" />
                         {this.renderInput(
                           "email",
@@ -104,7 +104,7 @@ class Home extends FormClass {
                       </div>
                     </div>
                     <div className="field">
-                      <div className="ui left icon input">
+                      <div className="ui left icon input d-flex flex-column">
                         <i className="lock icon" />
                         {this.renderInput(
                           "password",

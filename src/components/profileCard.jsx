@@ -16,22 +16,24 @@ class ProfileCard extends Component {
                   <img src="img/img_avatar3.png" alt="" />
                 </div>
                 <div className="header" href="#">
-                  <h3>Furkan Atasoy</h3>
-                  <p>@{user.username}</p>
+                  <h3>{user.username}</h3>
                 </div>
                 <div className="ui blue button duzenle a-more-radius">
                   Düzenle
                 </div>
               </a>
               <p className="bio">
-                Student at Bogazici University. Loves to build new tools using
-                popular technologies as a creator.
+                {user.status
+                  ? user.status
+                  : "Student at University. Loves to build new tools using popular technologies as a creator."}
               </p>
               <ul className="links">
                 <li>
                   <i className="chain icon" />
-                  <a href="http://www.referandombeta.herokuapp.com">
-                    referandombeta.herokuapp.com
+                  <a
+                    href={user.url ? user.url : "referandombeta.herokuapp.com"}
+                  >
+                    {user.url ? user.url : "referandombeta.herokuapp.com"}
                   </a>
                 </li>
                 <li>

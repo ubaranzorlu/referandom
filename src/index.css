@@ -47,6 +47,7 @@
     #ada996
   );
   background: linear-gradient(to right, #eaeaea, #dbdbdb, #f2f2f2, #ada996);
+  border-radius: 20px !important;
 }
 #top .fixed.menu {
   padding: 10px 0px;
@@ -146,6 +147,16 @@
     top: 0px;
     height: 100%;
   }
+  .a-container {
+    background: #005c97;
+    background: -webkit-linear-gradient(to right, #363795, #005c97);
+    background: linear-gradient(to right, #363795, #005c97) !important;
+    border-radius: 20px;
+    padding: 25px;
+    margin-left: 120px;
+    margin-right: 120px;
+    margin-bottom: 20px;
+  }
 }
 @media screen and (max-width: 800px) {
   .referandummy {
@@ -161,6 +172,16 @@
     width: 50px;
     height: 50px;
     transform: rotate(0deg);
+  }
+  .a-container {
+    background: #005c97;
+    background: -webkit-linear-gradient(to right, #363795, #005c97);
+    background: linear-gradient(to right, #363795, #005c97) !important;
+    border-radius: 20px;
+    padding: 25px;
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-bottom: 20px;
   }
 }
 @media screen and (max-width: 800px) {
@@ -278,7 +299,7 @@
 .onerge .segment.icerik .content {
   border-radius: 20px 20px 0px 0px;
   position: relative;
-  padding: 20px 40px;
+  padding: 20px;
   width: 100%;
 }
 .onerge .segment.icerik .content .info {
@@ -310,7 +331,7 @@
   display: block;
   width: 100%;
 }
-.onerge .segment.icerik .content * {
+.content * {
   z-index: 2;
   position: relative;
 }
@@ -319,33 +340,14 @@
   top: 0;
   z-index: 0;
   height: 100%;
-  border-radius: 20px 20px 20px 20px;
   background: #005c97;
   background: -webkit-linear-gradient(to right, #363795, #005c97);
   background: linear-gradient(to right, #363795, #005c97) !important;
   opacity: 0.8;
-}
-.onerge .segment.icerik .content .overlay.ilk {
-  border-radius: 20px 0px 0px 0px;
-  color: #004606;
-  left: 0;
-  width: 0%;
-}
-.onerge .segment.icerik .content .overlay.iki {
   border-radius: 20px 20px 0px 0px;
   color: #55060f;
   right: 0;
   width: 100%;
-}
-.onerge .segment.icerik .content .overlay .percent {
-  position: absolute;
-  bottom: -30px;
-  right: 0;
-  left: 0;
-  z-index: 1;
-  text-align: center;
-  font-weight: 600;
-  font-size: 15px;
 }
 .onerge h3.share-heading {
   color: #fff;
