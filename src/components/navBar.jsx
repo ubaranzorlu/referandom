@@ -116,7 +116,7 @@ class NavBar extends FormClass {
             <div className="ui container">
               <a className="item logo" href="/">
                 <img src="img/referandom-w.svg" />
-                <h1>REFERANDOM</h1>
+                <h1 id="logo">REFERANDOM</h1>
               </a>
               <div className="right menu">{this.renderNavItems()}</div>
             </div>

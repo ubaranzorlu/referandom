@@ -56,7 +56,6 @@ class VoteCard extends Component {
   }
 
   handleVote = async vote => {
-    console.log(vote);
     this.setState({ vote });
     const voteCard = { ...this.props.data };
     voteCard[vote] = this.props.data[vote ? "agree" : "disagree"] + 1;
