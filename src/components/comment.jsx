@@ -1,27 +1,17 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 class Comment extends Component {
   state = { isUpvote: false };
 
-  loadUser() {
-    const { upvotedUsers } = this.props.data;
-    if (this.props.user)
-      this.state.isUpvote = upvotedUsers.includes(this.props.user._id);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.data.upvote < this.props.data.upvote) {
-      this.setState({ isUpvote: true });
-    }
-    if (prevProps.data.upvote > this.props.data.upvote) {
-      this.setState({ isUpvote: false });
-    }
+  componentWillUpdate() {
+    this.state.isUpvote = this.props.data.upvotedUsers.includes(
+      this.props.user._id
+    );
   }
 
   render() {
-    const { owner, date, text, upvote, vote } = this.props.data;
-    const { isUpvote } = this.state;
-    this.loadUser();
+    const { owner, text, upvote, vote } = this.props.data;
 
     return (
       <div className="column">
@@ -43,12 +33,18 @@ class Comment extends Component {
           <p className="content">{text}</p>
           <div
             className={`ui button destekle a-more-radius ${
-              isUpvote ? "yellow" : "basic"
+              this.state.isUpvote ? "yellow" : "basic"
             }`}
             onClick={this.props.onUpvote}
           >
-            <i className={`hand paper icon ${isUpvote ? "" : "yellow"}`} />
-            <span className="text">Destekle{isUpvote ? "ndi " : " "}</span>
+            <i
+              className={`hand paper icon ${
+                this.state.isUpvote ? "" : "yellow"
+              }`}
+            />
+            <span className="text">
+              Destekle{this.state.isUpvote ? "ndi " : " "}
+            </span>
             <b>{upvote}</b>
           </div>
         </div>
@@ -57,4 +53,10 @@ class Comment extends Component {
   }
 }
 
-export default Comment;
+const mapStateToProps = state => {
+  return {
+    user: state.user.data
+  };
+};
+
+export default connect(mapStateToProps)(Comment);

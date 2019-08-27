@@ -26,12 +26,13 @@ class FormClass extends Component {
     return error ? error.details[0].message : null;
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e, callback) => {
     e.preventDefault();
     const errors = this.validate();
     this.setState({ errors: errors || {} });
     if (errors) return;
-    this.doSubmit();
+    if (callback) callback();
+    else this.doSubmit();
   };
 
   handleChange = ({ currentTarget: input }) => {
@@ -65,6 +66,16 @@ class FormClass extends Component {
     else return error;
   };
 
+  renderError = name => {
+    return (
+      this.state.errors[name] && (
+        <Alert className="a-more-radius mt-2" variant="danger">
+          {this.translateText(this.state.errors[name])}
+        </Alert>
+      )
+    );
+  };
+
   renderButton = (label, type = "submit", variant = "primary") => {
     return (
       <Button variant={variant} block type={type}>
@@ -84,13 +95,9 @@ class FormClass extends Component {
           type={type}
           placeholder={placeholder}
           value={data[name]}
+          onKeyPress={this.enterPressed}
           onChange={this.handleChange}
         />
-        {errors[name] && (
-          <Alert className="a-more-radius mt-2" variant="danger">
-            {this.translateText(errors[name])}
-          </Alert>
-        )}
       </React.Fragment>
     );
   };

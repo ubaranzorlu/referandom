@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import Onerge from "./onerge";
 import Comment from "./comment";
@@ -7,16 +8,19 @@ import SharePanel from "./sharePanel";
 import ExpandButton from "./expandButton";
 import VoteButtons from "./voteButtons";
 import logger from "../services/logService";
-import { updateVoteCard } from "../services/voteCardService";
-import { addComment, updateComment } from "../services/commentService";
-import { updateUser } from "../services/userService";
+import {
+  updateVoteCard,
+  updateUser,
+  updateComment,
+  addComment,
+  upvoteComment
+} from "../store/actions/index";
 
 class VoteCard extends Component {
   state = {
     display: false,
-    expand: true,
+    expand: false,
     vote: null,
-    comments: this.props.data.comments,
     chartData: {
       labels: ["Katılıyorum", "Katılmıyorum"],
       datasets: [
@@ -35,10 +39,7 @@ class VoteCard extends Component {
       }
     }
   };
-
-  loadUser() {
-    if (this.state.isLoaded) return;
-
+  componentDidMount() {
     let index = -1;
     if (this.props.user)
       this.props.user.votedCards.forEach((value, i) => {
@@ -47,11 +48,7 @@ class VoteCard extends Component {
 
     if (index !== -1) {
       const vote = this.props.user.votedCards[index].vote;
-
-      this.state.expand = this.props.modalMode ? true : false;
-      this.state.display = this.props.modalMode ? true : false;
-      this.state.vote = vote;
-      this.state.isLoaded = true;
+      this.setState({ vote });
     }
   }
 
@@ -65,7 +62,7 @@ class VoteCard extends Component {
     chartData.datasets[0].data[index] = voteCard[vote];
 
     try {
-      await updateVoteCard(voteCard);
+      await this.props.onUpdateVoteCard(voteCard);
     } catch (error) {
       if (error.response && error.response.status === 400) {
         logger.log(error);
@@ -82,7 +79,7 @@ class VoteCard extends Component {
       vote: vote
     });
     user.numberOfVote = user.votedCards.length;
-    await updateUser(user);
+    await this.props.onUpdateUser(user);
   };
 
   handleExpand = () => {
@@ -100,41 +97,16 @@ class VoteCard extends Component {
       mainCardId: this.props.data._id,
       upvotedUsers: []
     };
-    const comments = [...this.state.comments];
-    const { data: newComment } = await addComment(comment);
-    newComment.owner = comment.owner;
-
-    comments.push(newComment);
-    this.setState({ comments });
-
-    let user = { ...this.props.user };
-    user.numberOfComment = user.numberOfComment + 1;
-    await updateUser(user);
+    this.props.onAddComment(comment, this.props.id);
   };
 
   handleUpvote = async comment => {
-    const comments = [...this.state.comments];
-    const index = comments.indexOf(comment);
-    comments[index] = { ...comments[index] };
-
-    const indexOfUser = comments[index].upvotedUsers.indexOf(
-      this.props.user._id
-    );
-    if (indexOfUser !== -1) {
-      comments[index].upvote--;
-      comments[index].upvotedUsers.splice(indexOfUser);
-    } else {
-      comments[index].upvote++;
-      comments[index].upvotedUsers.push(this.props.user._id);
-    }
-
-    this.setState({ comments });
-    await updateComment(comments[index]);
+    this.props.onUpvoteComment(comment, this.props.id);
+    this.forceUpdate();
+    this.props.onUpdateComment(comment);
   };
 
   render() {
-    this.loadUser();
-
     return (
       <div className="onerge">
         <Onerge
@@ -164,14 +136,13 @@ class VoteCard extends Component {
           <SharePanel data={this.props.data} vote={this.state.vote} />
 
           <div className="ui stackable two column grid yorumlar">
-            {this.state.comments
+            {this.props.data.comments
               .slice(0)
               .reverse()
               .map(element => (
                 <Comment
                   key={element._id}
                   data={element}
-                  user={this.props.user}
                   onUpvote={() => this.handleUpvote(element)}
                 />
               ))}
@@ -189,4 +160,25 @@ class VoteCard extends Component {
   }
 }
 
-export default VoteCard;
+const mapStateToProps = state => {
+  return {
+    user: state.user.data
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onUpdateVoteCard: voteCard => dispatch(updateVoteCard(voteCard)),
+    onUpdateUser: user => dispatch(updateUser(user)),
+    onAddComment: (comment, voteCardId) =>
+      dispatch(addComment(comment, voteCardId)),
+    onUpdateComment: comment => dispatch(updateComment(comment)),
+    onUpvoteComment: (comment, voteCardId) =>
+      dispatch(upvoteComment(comment, voteCardId))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(VoteCard);

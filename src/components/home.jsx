@@ -7,7 +7,8 @@ import auth from "../services/authService";
 class Home extends FormClass {
   state = {
     data: { email: "", password: "", username: "" },
-    errors: {}
+    errors: {},
+    isRegister: true
   };
 
   schema = {
@@ -24,21 +25,48 @@ class Home extends FormClass {
       .label("Password")
   };
 
-  doSubmit = async () => {
+  register = async () => {
     try {
       const response = await userService.register(this.state.data);
       auth.loginWithJwt(response.headers["x-auth-token"]);
       window.location = "/akis";
     } catch (ex) {
-      if (ex.response && ex.response.status === 400) {
-        const errors = { ...this.state.errors };
-        errors.username = ex.response.data;
-        this.setState({ errors });
-      }
+      this.handleError(ex);
+    }
+  };
+
+  login = async () => {
+    try {
+      const { data } = this.state;
+      await auth.login(data.username, data.password);
+      window.location = "/akis";
+    } catch (ex) {
+      this.handleError(ex);
+    }
+  };
+
+  handleError = ex => {
+    if (ex.response && ex.response.status === 400) {
+      const errors = { ...this.state.errors };
+      errors.username = ex.response.data;
+      this.setState({ errors });
+    }
+  };
+
+  changeMode = () => {
+    this.setState({ isRegister: !this.state.isRegister });
+  };
+
+  enterPressed = event => {
+    const code = event.keyCode || event.which;
+    if (code === 13) {
+      if (this.state.isRegister) this.handleSubmit(event, this.register);
+      else this.handleSubmit(event, this.login);
     }
   };
 
   render() {
+    const { isRegister } = this.state;
     return (
       <React.Fragment>
         <main
@@ -78,7 +106,9 @@ class Home extends FormClass {
               </div>
               <div className="column">
                 <form className="ui large form">
-                  <h2 className="ui inverted header">Kayıt ol</h2>
+                  <h2 className="ui inverted header">
+                    {isRegister ? "Kayıt ol" : "Giriş yap"}
+                  </h2>
                   <p className="ui inverted">Demokraside aktif ol!</p>
                   <div className="ui">
                     <div className="field">
@@ -90,19 +120,23 @@ class Home extends FormClass {
                           "text",
                           "a-more-radius"
                         )}
+                        {this.renderError("username")}
                       </div>
                     </div>
-                    <div className="field">
-                      <div className="ui left icon input d-flex flex-column">
-                        <i className="envelope outline icon" />
-                        {this.renderInput(
-                          "email",
-                          "E-posta adresi",
-                          "text",
-                          "a-more-radius"
-                        )}
+                    {isRegister && (
+                      <div className="field">
+                        <div className="ui left icon input d-flex flex-column">
+                          <i className="envelope outline icon" />
+                          {this.renderInput(
+                            "email",
+                            "E-posta adresi",
+                            "text",
+                            "a-more-radius"
+                          )}
+                          {this.renderError("email")}
+                        </div>
                       </div>
-                    </div>
+                    )}
                     <div className="field">
                       <div className="ui left icon input d-flex flex-column">
                         <i className="lock icon" />
@@ -112,16 +146,25 @@ class Home extends FormClass {
                           "password",
                           "a-more-radius"
                         )}
+                        {this.renderError("password")}
                       </div>
                     </div>
                     <div
                       className="ui fluid large blue submit button a-more-radius"
-                      onClick={this.handleSubmit}
+                      onClick={
+                        isRegister
+                          ? e => this.handleSubmit(e, this.register)
+                          : e => this.handleSubmit(e, this.login)
+                      }
+                      onKeyPress={this.enterPressed}
                     >
-                      Kayıt ol
+                      {isRegister ? "Kayıt ol " : "Giriş yap "}
                     </div>
                     <p className="inverted" style={{ marginTop: "10px" }}>
-                      Hesabın mı var? <a href="/login">Giriş Yap</a>
+                      {isRegister ? "Hesabın mı var? " : "Hesabın yok mu? "}
+                      <a href="#" onClick={this.changeMode}>
+                        {isRegister ? "Giriş Yap" : "Üye ol"}
+                      </a>
                     </p>
                   </div>
 

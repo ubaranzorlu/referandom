@@ -1,5 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Dropdown, Menu } from "semantic-ui-react";
+import { Alert } from "react-bootstrap";
 import sizeMe from "react-sizeme";
 import Joi from "joi-browser";
 import FormClass from "./common/form";
@@ -42,6 +44,14 @@ class NavBar extends FormClass {
     }
   };
 
+  enterPressed = event => {
+    const code = event.keyCode || event.which;
+    if (code === 13) {
+      if (this.state.isRegister) this.handleSubmit(event, this.register);
+      else this.handleSubmit(event, this.login);
+    }
+  };
+
   renderNavItems = () => {
     const { user } = this.props;
     if (user) {
@@ -74,7 +84,9 @@ class NavBar extends FormClass {
                 "username",
                 "Kullanıcı Adı",
                 "text",
-                "a-more-radius"
+                `a-more-radius  ${
+                  this.state.errors["username"] ? "a-red-border" : ""
+                }`
               )}
             </div>
             <div className="six wide field password d-flex flex-column">
@@ -82,7 +94,9 @@ class NavBar extends FormClass {
                 "password",
                 "Şifre",
                 "password",
-                "a-more-radius"
+                `a-more-radius  ${
+                  this.state.errors["password"] ? "a-red-border" : ""
+                }`
               )}
               <a className="unuttum" href="#">
                 Şifremi unuttum
@@ -90,7 +104,6 @@ class NavBar extends FormClass {
             </div>
             <div
               className="ui three wide field animated inverted white button login-button  a-more-radius"
-              tabindex="0"
               onClick={this.handleSubmit}
             >
               <div className="visible content">Giriş Yap</div>
@@ -127,4 +140,12 @@ class NavBar extends FormClass {
   }
 }
 
-export default sizeMe({ monitorHeight: true })(NavBar);
+const mapStateToProps = state => {
+  return {
+    user: state.auth.currentUser
+  };
+};
+
+export default connect(mapStateToProps)(
+  sizeMe({ monitorHeight: true })(NavBar)
+);

@@ -33,7 +33,9 @@
     margin-right: 25rem;
   }
 }
-
+.a-red-border {
+  border-color: red !important;
+}
 .a-body-bg {
   background-color: #0b0833;
 }

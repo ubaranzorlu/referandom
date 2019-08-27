@@ -13,7 +13,7 @@ class Footer extends Component {
   render() {
     return (
       <React.Fragment>
-        <footer className="a-bg-special-2 border-top border-light p-3 mx-0">
+        <footer className="a-bg-special-2 border-top border-light p-3 mx-0 sticky-bottom">
           <ul className="row list-inline text-uppercase text-center">
             <li className="col list-inline-item a-footer-item-1 a-footer-text">
               <a href="/terms" className="text-light">
