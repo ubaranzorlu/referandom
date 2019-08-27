@@ -26,11 +26,17 @@ class FormClass extends Component {
     return error ? error.details[0].message : null;
   };
 
-  handleSubmit = (e, callback) => {
+  handleSubmit = (e, callback, isRegister) => {
     e.preventDefault();
     const errors = this.validate();
     this.setState({ errors: errors || {} });
-    if (errors) return;
+
+    if (errors) {
+      if (
+        !(!isRegister && !errors.username && !errors.password && errors.email)
+      )
+        return;
+    }
     if (callback) callback();
     else this.doSubmit();
   };

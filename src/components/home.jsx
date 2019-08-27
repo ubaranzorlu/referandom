@@ -153,8 +153,18 @@ class Home extends FormClass {
                       className="ui fluid large blue submit button a-more-radius"
                       onClick={
                         isRegister
-                          ? e => this.handleSubmit(e, this.register)
-                          : e => this.handleSubmit(e, this.login)
+                          ? e =>
+                              this.handleSubmit(
+                                e,
+                                this.register,
+                                this.state.isRegister
+                              )
+                          : e =>
+                              this.handleSubmit(
+                                e,
+                                this.login,
+                                this.state.isRegister
+                              )
                       }
                     >
                       {isRegister ? "Kayıt ol " : "Giriş yap "}
