@@ -156,7 +156,6 @@ class Home extends FormClass {
                           ? e => this.handleSubmit(e, this.register)
                           : e => this.handleSubmit(e, this.login)
                       }
-                      onKeyPress={this.enterPressed}
                     >
                       {isRegister ? "Kayıt ol " : "Giriş yap "}
                     </div>

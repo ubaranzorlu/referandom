@@ -5,7 +5,7 @@ class ExpandButton extends Component {
     const { vote, onClick, role, display } = this.props;
 
     return (
-      <button className={`ui grid butonlar d-${display ? "block" : "none"}`}>
+      <div className={`ui grid butonlar d-${display ? "block" : "none"}`}>
         <div
           className={`column ${vote ? "katiliyorum" : "katilmiyorum"} ${
             role === "collapse" ? "a-daralt" : ""
@@ -20,7 +20,7 @@ class ExpandButton extends Component {
             aria-hidden="true"
           />
         </div>
-      </button>
+      </div>
     );
   }
 }
