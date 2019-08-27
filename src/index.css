@@ -498,14 +498,21 @@
   background: -webkit-linear-gradient(to right, #147700, #00be4c);
   background: linear-gradient(to right, #147700, #00be4c);
 }
+.onerge .butonlar .column.katiliyorum:hover {
+  background: #00f260;
+  background: -webkit-linear-gradient(to right, #147700, #147700);
+  background: linear-gradient(to right, #147700, #147700);
+}
 .onerge .butonlar .column.katilmiyorum {
   display: flex !important;
   background: #ed213a;
   background: -webkit-linear-gradient(to left, #93291e, #c20f24);
   background: linear-gradient(to left, #93291e, #c20f24);
 }
-.onerge .butonlar .column:hover {
-  position: relative;
+.onerge .butonlar .column.katilmiyorum:hover {
+  background: #ed213a;
+  background: -webkit-linear-gradient(to left, #c20f24, #c20f24);
+  background: linear-gradient(to left, #c20f24, #c20f24);
 }
 * {
   transition: all 0.5s linear;
