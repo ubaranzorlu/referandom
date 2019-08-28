@@ -1,6 +1,7 @@
 import axios from "axios";
 import logger from "./logService";
-import { toast } from "react-toastify";
+import store from "../index";
+import { handleShowToast } from "../store/actions/index";
 
 axios.interceptors.response.use(null, error => {
   const expectedError =
@@ -10,12 +11,8 @@ axios.interceptors.response.use(null, error => {
 
   if (!expectedError) {
     logger.log(error);
-    toast.error("Beklenmedik bir hata gerçekleşti.");
+    store.dispatch(handleShowToast("Beklenmedik bir hata gerçekleşti", "red"));
   }
-  // if (error.response.status === 400) {
-  //   logger.log(error);
-  //   toast.error("Oy kullanabilmek için giriş yapın.");
-  // }
 
   return Promise.reject(error);
 });

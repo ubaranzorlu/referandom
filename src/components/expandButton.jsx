@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class ExpandButton extends Component {
   render() {
-    const { vote, onClick, role, display } = this.props;
+    const { vote, onClick, role, role2, display, text } = this.props;
 
     return (
       <div className={`ui grid butonlar d-${display ? "block" : "none"}`}>
@@ -12,10 +12,10 @@ class ExpandButton extends Component {
           }`}
           onClick={onClick}
         >
-          {role === "expand" ? "Genişlet" : "Daralt"}
+          {text}
           <i
             className={`fa fa-chevron-${
-              role === "expand" ? "down" : "up"
+              role === "expand" ? "down" : role2 === "viewAll" ? "" : "up"
             } ml-3`}
             aria-hidden="true"
           />

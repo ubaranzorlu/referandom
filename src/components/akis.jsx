@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import VoteCard from "./voteCard";
+import VoteCardForAkis from "./voteCardForAkis";
 import ProfileCard from "./profileCard";
 import LoadingSpinner from "./loadingSpinner";
 import { getData, getCurrentUserWithDetails } from "../store/actions/index";
@@ -27,7 +27,11 @@ class Akis extends Component {
             <div class="five wide column sidebar mobile-hidden" />
             <div class="eleven wide column" id="onergeler">
               {this.props.data.map(element => (
-                <VoteCard key={element._id} id={element._id} data={element} />
+                <VoteCardForAkis
+                  key={element._id}
+                  id={element._id}
+                  data={element}
+                />
               ))}
             </div>{" "}
           </div>

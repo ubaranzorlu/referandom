@@ -74,6 +74,15 @@ body {
   background: linear-gradient(to right, #eaeaea, #dbdbdb, #f2f2f2, #ada996);
   border-radius: 20px !important;
 }
+.a-toast-container {
+  display: flex;
+  justify-content: center;
+}
+.a-toast {
+  position: fixed;
+  bottom: 20px;
+  z-index: 1;
+}
 #top .fixed.menu {
   padding: 10px 0px;
   background: #005c97;
@@ -195,9 +204,10 @@ body {
     background: linear-gradient(to right, #363795, #005c97) !important; */
     border-radius: 20px;
     padding: 25px;
-    margin-left: 120px;
-    margin-right: 120px;
+    margin-left: 205px;
+    margin-right: 205px;
     margin-bottom: 20px;
+    text-align: justify;
   }
 }
 @media screen and (max-width: 800px) {
@@ -234,11 +244,43 @@ body {
     margin-top: 115px;
   }
 }
+@media screen and (min-width: 1062px) {
+  .a-sticky {
+    width: 300px;
+    height: 262.531px;
+    left: 52px !important;
+    margin-top: 115px;
+  }
+}
 @media screen and (min-width: 1147px) {
   .a-sticky {
     width: 300px;
     height: 262.531px;
+    left: 83px !important;
+    margin-top: 115px;
+  }
+}
+@media screen and (min-width: 1247px) {
+  .a-sticky {
+    width: 300px;
+    height: 262.531px;
     left: 103px !important;
+    margin-top: 115px;
+  }
+}
+@media screen and (min-width: 1326px) {
+  .a-sticky {
+    width: 300px;
+    height: 262.531px;
+    left: 140px !important;
+    margin-top: 115px;
+  }
+}
+@media screen and (min-width: 1390px) {
+  .a-sticky {
+    width: 300px;
+    height: 262.531px;
+    left: 178px !important;
     margin-top: 115px;
   }
 }

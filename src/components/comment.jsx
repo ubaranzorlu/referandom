@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { url } from "../config.json";
 
 class Comment extends Component {
   state = { isUpvote: false };
 
   componentWillUpdate() {
-    this.state.isUpvote = this.props.data.upvotedUsers.includes(
-      this.props.user._id
-    );
+    if (this.props.user)
+      this.state.isUpvote = this.props.data.upvotedUsers.includes(
+        this.props.user._id
+      );
   }
 
   render() {
@@ -20,13 +22,14 @@ class Comment extends Component {
         >
           <a className="info" href={owner.username}>
             <div className="ui avatar image">
-              <img src={owner.ppLink} alt="" />
+              <img src={url + owner.ppLink} alt="" />
             </div>
             <div className="header" href="#">
               <h3>{owner.username}</h3>
               <p className="sub">
                 <i className="bookmark icon" />
-                <b>{vote ? "Katılmak" : "Katılmamak"}</b> için sebep.
+                <b>{vote ? "Katılmak" : "Katılmamak"}</b> için
+                {this.props.best ? " en iyi " : " "} sebep.
               </p>
             </div>
           </a>

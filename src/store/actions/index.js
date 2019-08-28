@@ -1,5 +1,23 @@
-export { getData, updateVoteCard, stateData } from "./voteCard";
-export { uiFinishLoading } from "./ui";
+export {
+  getData,
+  updateVoteCard,
+  getVoteCardById,
+  stateData,
+  setVoteCard
+} from "./voteCard";
+export {
+  uiFinishLoading,
+  uiStartLoading,
+  uiShowToast,
+  uiCloseToast,
+  uiStartCommentButton,
+  uiStopCommentButton,
+  uiStartLoginButton,
+  uiStopLoginButton,
+  uiStartRegisterButton,
+  uiStopRegisterButton,
+  handleShowToast
+} from "./ui";
 export {
   setUser,
   register,

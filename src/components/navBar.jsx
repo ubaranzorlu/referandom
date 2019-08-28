@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Dropdown, Menu } from "semantic-ui-react";
-import { Alert } from "react-bootstrap";
 import sizeMe from "react-sizeme";
 import Joi from "joi-browser";
 import FormClass from "./common/form";
 import auth from "../services/authService";
+import { uiStartLoginButton, uiStopLoginButton } from "../store/actions/index";
+import { url } from "../config.json";
 
 class NavBar extends FormClass {
   state = {
@@ -14,7 +15,7 @@ class NavBar extends FormClass {
     trigger: this.props.user ? (
       <span>
         <img
-          src={this.props.user.ppLink}
+          src={url + this.props.user.ppLink}
           className="ui avatar image"
           width="20"
         />
@@ -32,14 +33,17 @@ class NavBar extends FormClass {
 
   doSubmit = async () => {
     try {
+      this.props.onStartLoginButton();
       const { data } = this.state;
       await auth.login(data.username, data.password);
       window.location = "/akis";
+      this.props.onStopLoginButton();
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
         errors.username = ex.response.data;
         this.setState({ errors });
+        this.props.onStopLoginButton();
       }
     }
   };
@@ -106,7 +110,9 @@ class NavBar extends FormClass {
                 </a>
               </div>
               <div
-                className="ui three wide field animated inverted white button login-button  a-more-radius"
+                className={`ui three wide field animated inverted white button login-button  a-more-radius ${
+                  this.props.loginButton ? "loading" : ""
+                }`}
                 onClick={this.handleSubmit}
               >
                 <div className="visible content">Giriş Yap</div>
@@ -132,7 +138,7 @@ class NavBar extends FormClass {
           >
             <div className="ui container d-flex justify-content-center">
               <a className="item logo" href="/">
-                <img className="img" src="img/referandom-w.svg" />
+                <img className="img" src={url + "img/referandom-w.svg"} />
                 <h1 id="logo">REFERANDOM</h1>
               </a>
               {this.renderNavItems()}
@@ -146,10 +152,19 @@ class NavBar extends FormClass {
 
 const mapStateToProps = state => {
   return {
-    user: state.auth.currentUser
+    user: state.auth.currentUser,
+    loginButton: state.ui.loginButton
   };
 };
 
-export default connect(mapStateToProps)(
-  sizeMe({ monitorHeight: true })(NavBar)
-);
+const mapDispatchToProps = dispatch => {
+  return {
+    onStartLoginButton: () => dispatch(uiStartLoginButton()),
+    onStopLoginButton: () => dispatch(uiStopLoginButton())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(sizeMe({ monitorHeight: true })(NavBar));

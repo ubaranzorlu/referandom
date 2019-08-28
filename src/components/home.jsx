@@ -1,9 +1,16 @@
 import React from "react";
+import { connect } from "react-redux";
 import Joi from "joi-browser";
 import FormClass from "./common/form";
 import Footer from "./footer";
 import * as userService from "../services/userService";
 import auth from "../services/authService";
+import {
+  uiStartRegisterButton,
+  uiStopRegisterButton,
+  uiStartLoginButton,
+  uiStopLoginButton
+} from "../store/actions/index";
 
 class Home extends FormClass {
   state = {
@@ -28,21 +35,27 @@ class Home extends FormClass {
 
   register = async () => {
     try {
+      this.props.onStartRegisterButton();
       const response = await userService.register(this.state.data);
       auth.loginWithJwt(response.headers["x-auth-token"]);
       window.location = "/akis";
+      this.props.onStopRegisterButton();
     } catch (ex) {
       this.handleError(ex);
+      this.props.onStopRegisterButton();
     }
   };
 
   login = async () => {
     try {
+      this.props.onStartLoginButton();
       const { data } = this.state;
       await auth.login(data.username, data.password);
       window.location = "/akis";
+      this.props.onStopLoginButton();
     } catch (ex) {
       this.handleError(ex);
+      this.props.onStopLoginButton();
     }
   };
 
@@ -151,7 +164,15 @@ class Home extends FormClass {
                       </div>
                     </div>
                     <div
-                      className="ui fluid large blue submit button a-more-radius"
+                      className={`ui fluid large blue submit button a-more-radius ${
+                        isRegister
+                          ? this.props.registerButton
+                            ? "loading"
+                            : ""
+                          : this.props.loginButton
+                          ? "loading"
+                          : ""
+                      }`}
                       onClick={
                         isRegister
                           ? e =>
@@ -192,4 +213,23 @@ class Home extends FormClass {
     );
   }
 }
-export default Home;
+const mapStateToProps = state => {
+  return {
+    registerButton: state.ui.registerButton,
+    loginButton: state.ui.loginButton
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    onStartRegisterButton: () => dispatch(uiStartRegisterButton()),
+    onStopRegisterButton: () => dispatch(uiStopRegisterButton()),
+
+    onStartLoginButton: () => dispatch(uiStartLoginButton()),
+    onStopLoginButton: () => dispatch(uiStopLoginButton())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);

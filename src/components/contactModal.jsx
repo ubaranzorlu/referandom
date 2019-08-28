@@ -1,11 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Modal, Button, Form, InputGroup } from "react-bootstrap";
-import { toast } from "react-toastify";
 import Joi from "joi-browser";
 import FormClass from "./common/form";
 import { sendContact } from "../services/contactService";
+import { handleShowToast } from "../store/actions/index";
 
-class contactModal extends FormClass {
+class ContactModal extends FormClass {
   state = {
     data: { message: "", email: "" },
     errors: {}
@@ -25,13 +26,14 @@ class contactModal extends FormClass {
       const { data } = this.state;
       await sendContact(data);
       this.props.onHide();
-      toast.info("Gönderildi");
+      this.props.onShowToast("Gönderildi", "green");
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
         errors.username = ex.response.data;
         this.setState({ errors });
       }
+      this.props.onShowToast("Gönderilmedi", "red");
     }
   };
 
@@ -72,4 +74,14 @@ class contactModal extends FormClass {
     );
   }
 }
-export default contactModal;
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onShowToast: (text, variant) => dispatch(handleShowToast(text, variant))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ContactModal);

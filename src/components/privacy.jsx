@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class Privacy extends Component {
   render() {
     return (
-      <div className="a-container text-white d-flex justify-content-center">
+      <div className=" a-container text-white d-flex justify-content-center">
         <p>
           <p>1.TOPLADIĞIMIZ VE KULLANDIĞIMIZ BİLGİLER </p>
           <p>

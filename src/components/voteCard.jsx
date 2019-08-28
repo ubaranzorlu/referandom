@@ -1,35 +1,30 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { toast } from "react-toastify";
 import Onerge from "./onerge";
 import Comment from "./comment";
 import CommentTextarea from "./commentTextarea";
 import SharePanel from "./sharePanel";
 import ExpandButton from "./expandButton";
 import VoteButtons from "./voteButtons";
+import LoadingSpinner from "./loadingSpinner";
 import logger from "../services/logService";
 import {
   updateVoteCard,
   updateUser,
   updateComment,
   addComment,
-  upvoteComment
+  upvoteComment,
+  handleShowToast,
+  getVoteCardById,
+  getCurrentUserWithDetails
 } from "../store/actions/index";
 
 class VoteCard extends Component {
   state = {
     display: false,
-    expand: false,
+    expand: true,
     vote: null,
-    chartData: {
-      labels: ["Katılıyorum", "Katılmıyorum"],
-      datasets: [
-        {
-          data: [this.props.data.agree, this.props.data.disagree],
-          backgroundColor: ["#09c635", "#d31021"]
-        }
-      ]
-    },
+    chartData: null,
     chartOptions: {
       responsive: false,
       legend: {
@@ -39,7 +34,23 @@ class VoteCard extends Component {
       }
     }
   };
-  componentDidMount() {
+  async componentWillMount() {
+    const id = this.props.history.location.pathname.slice(8);
+    await this.props.onGetCurrentUserWithDetails();
+    await this.props.onGetVoteCardById(id);
+
+    this.setState({
+      chartData: {
+        labels: ["Katılıyorum", "Katılmıyorum"],
+        datasets: [
+          {
+            data: [this.props.data.agree, this.props.data.disagree],
+            backgroundColor: ["#09c635", "#d31021"]
+          }
+        ]
+      }
+    });
+
     let index = -1;
     if (this.props.user)
       this.props.user.votedCards.forEach((value, i) => {
@@ -50,6 +61,8 @@ class VoteCard extends Component {
       const vote = this.props.user.votedCards[index].vote;
       this.setState({ vote });
     }
+    if (this.props.user) this.setState({ expand: true });
+    this.setState({ display: true });
   }
 
   handleVote = async vote => {
@@ -66,7 +79,7 @@ class VoteCard extends Component {
     } catch (error) {
       if (error.response && error.response.status === 400) {
         logger.log(error);
-        toast.error("Oy kullanabilmek için giriş yapın.");
+        this.props.onShowToast("Oy kullanabilmek için giriş yapınız", "red");
         return;
       }
     }
@@ -97,72 +110,99 @@ class VoteCard extends Component {
       mainCardId: this.props.data._id,
       upvotedUsers: []
     };
-    this.props.onAddComment(comment, this.props.id);
+    await this.props.onAddComment(comment, this.props.id);
   };
 
   handleUpvote = async comment => {
     this.props.onUpvoteComment(comment, this.props.id);
     this.forceUpdate();
-    this.props.onUpdateComment(comment);
+    await this.props.onUpdateComment(comment);
+  };
+
+  handleComments = vote => {
+    let comments = [];
+    this.props.data.comments
+      .slice(0)
+      .reverse()
+      .forEach(item => {
+        if (item.vote === vote) {
+          comments.push(item);
+        }
+      });
+    return comments;
   };
 
   render() {
     return (
-      <div className="onerge">
-        <Onerge
-          data={this.props.data}
-          display={this.state.display}
-          chartData={this.state.chartData}
-          chartOptions={this.state.chartOptions}
-        />
-        <VoteButtons
-          display={this.state.display}
-          expand={this.state.expand}
-          onClick={this.handleVote}
-        />
-        <ExpandButton
-          onClick={this.handleExpand}
-          role="expand"
-          vote={this.state.vote}
-          display={!this.state.expand}
-        />
-
-        <div className={`d-${this.state.display ? "block" : "none"}`}>
-          <CommentTextarea
-            user={this.props.user}
-            vote={this.state.vote}
-            onAddReason={this.handleAddComment}
-          />
-          <SharePanel data={this.props.data} vote={this.state.vote} />
-
-          <div className="ui stackable two column grid yorumlar">
-            {this.props.data.comments
-              .slice(0)
-              .reverse()
-              .map(element => (
-                <Comment
-                  key={element._id}
-                  data={element}
-                  onUpvote={() => this.handleUpvote(element)}
+      <React.Fragment>
+        <LoadingSpinner isLoaded={this.props.isLoaded} />
+        <main
+          className={`row justify-content-center d-${
+            this.props.isLoaded ? "flex" : "none"
+          }`}
+          style={{ marginTop: "70px" }}
+        >
+          <div class="col-11 col-sm-10 col-md-9 col-lg-6" id="onergeler">
+            {this.props.data && (
+              <div className="onerge">
+                <Onerge
+                  data={this.props.data}
+                  display={this.state.display}
+                  chartData={this.state.chartData}
+                  chartOptions={this.state.chartOptions}
                 />
-              ))}
-          </div>
+                <VoteButtons
+                  display={this.state.display}
+                  expand={this.state.expand}
+                  onClick={this.handleVote}
+                />
+                <div className={`d-${this.state.display ? "block" : "none"}`}>
+                  <CommentTextarea
+                    user={this.props.user}
+                    vote={this.state.vote}
+                    onAddReason={this.handleAddComment}
+                  />
+                  <SharePanel data={this.props.data} vote={this.state.vote} />
 
-          <ExpandButton
-            onClick={this.handleExpand}
-            role="collapse"
-            vote={this.state.vote}
-            display={this.state.expand}
-          />
-        </div>
-      </div>
+                  <div className="row">
+                    <div className="col yorumlar">
+                      {this.handleComments(true).map(element => (
+                        <div className="mb-4">
+                          <Comment
+                            key={element._id}
+                            data={element}
+                            onUpvote={() => this.handleUpvote(element)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                    <div className="col yorumlar">
+                      {this.handleComments(false).map(element => (
+                        <div className="mb-4">
+                          <Comment
+                            key={element._id}
+                            data={element}
+                            onUpvote={() => this.handleUpvote(element)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </main>
+      </React.Fragment>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    user: state.user.data
+    user: state.user.data,
+    data: state.voteCard.voteCard,
+    isLoaded: state.ui.isLoaded
   };
 };
 
@@ -174,7 +214,10 @@ const mapDispatchToProps = dispatch => {
       dispatch(addComment(comment, voteCardId)),
     onUpdateComment: comment => dispatch(updateComment(comment)),
     onUpvoteComment: (comment, voteCardId) =>
-      dispatch(upvoteComment(comment, voteCardId))
+      dispatch(upvoteComment(comment, voteCardId)),
+    onShowToast: (text, variant) => dispatch(handleShowToast(text, variant)),
+    onGetVoteCardById: id => dispatch(getVoteCardById(id)),
+    onGetCurrentUserWithDetails: () => dispatch(getCurrentUserWithDetails())
   };
 };
 

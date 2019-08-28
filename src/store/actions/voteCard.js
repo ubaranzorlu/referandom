@@ -1,9 +1,23 @@
 import http from "../../services/httpService";
 import { apiUrl } from "../../config.json";
-import { STATE_DATA } from "./actionTypes";
+import { STATE_DATA, SET_VOTE_CARD } from "./actionTypes";
 import { uiFinishLoading } from "./index";
 
 const apiEndpoint = apiUrl + "/main-cards";
+
+export const stateData = data => {
+  return {
+    type: STATE_DATA,
+    data: data
+  };
+};
+
+export const setVoteCard = data => {
+  return {
+    type: SET_VOTE_CARD,
+    data: data
+  };
+};
 
 export const getData = () => {
   return async dispatch => {
@@ -15,10 +29,12 @@ export const getData = () => {
   };
 };
 
-export const stateData = data => {
-  return {
-    type: STATE_DATA,
-    data: data
+export const getVoteCardById = id => {
+  return async dispatch => {
+    const respond = await http.get(apiEndpoint + "/" + id);
+    dispatch(setVoteCard(respond.data));
+
+    dispatch(uiFinishLoading());
   };
 };
 

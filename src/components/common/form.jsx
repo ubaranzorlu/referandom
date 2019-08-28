@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Button, Alert, Form } from "react-bootstrap";
 import Joi from "joi-browser";
-import { toast } from "react-toastify";
 
 class FormClass extends Component {
   state = {

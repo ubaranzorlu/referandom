@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Route, Redirect, Switch } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import { getCurrentUser } from "./store/actions/index";
+import ToastNotification from "./components/toastNotification";
 import Home from "./components/home";
 import Akis from "./components/akis";
 import Logout from "./components/logout";
 import NotFound from "./components/notFound";
 import NavBar from "./components/navBar";
-import Footer from "./components/footer";
 import Terms from "./components/terms";
 import Privacy from "./components/privacy";
+import VoteCard from "./components/voteCard";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
@@ -27,7 +27,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <ToastContainer />
+        <ToastNotification />
         <NavBar onSize={this.onSize} />
         <div style={{ marginTop: this.state.navbarMargin }}>
           <Switch>
@@ -38,6 +38,7 @@ class App extends Component {
             <Route path="/not-found" component={NotFound} />
             <Route path="/terms" component={Terms} />
             <Route path="/privacy" component={Privacy} />
+            <Route path="/onerge" component={VoteCard} />
             <Redirect to="/not-found" />
           </Switch>
         </div>

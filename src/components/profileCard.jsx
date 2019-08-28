@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import FooterCard from "./footerCard";
+import { url } from "../config.json";
 
 class ProfileCard extends Component {
   render() {
@@ -11,12 +12,12 @@ class ProfileCard extends Component {
           <React.Fragment>
             <div className="ui segment profile a-profile-card ">
               <div className="ui image cover">
-                <img src="img/cover.jpg" alt="cover" />
+                <img src={url + "img/cover.jpg"} alt="cover" />
               </div>
               <div className="content">
                 <a className="info" href="/">
                   <div className="ui avatar image">
-                    <img src="img/img_avatar3.png" alt="" />
+                    <img src={url + "img/img_avatar3.png"} alt="" />
                   </div>
                   <div className="header" href="#">
                     <h3>{user.username}</h3>

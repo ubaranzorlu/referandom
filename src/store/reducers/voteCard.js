@@ -1,7 +1,8 @@
-import { STATE_DATA } from "../actions/actionTypes";
+import { STATE_DATA, SET_VOTE_CARD } from "../actions/actionTypes";
 
 const initialState = {
-  data: []
+  data: [],
+  voteCard: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -10,6 +11,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         data: action.data
+      };
+    case SET_VOTE_CARD:
+      return {
+        ...state,
+        voteCard: action.data
       };
     default:
       return state;
