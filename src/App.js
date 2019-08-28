@@ -22,7 +22,7 @@ class App extends Component {
   }
 
   onSize = size => {
-    this.setState({ navbarMargin: size.height + 24 });
+    this.setState({ navbarMargin: size.height });
   };
   render() {
     return (

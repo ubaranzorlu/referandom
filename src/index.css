@@ -1,8 +1,11 @@
 #root {
-  font-family: "Avenir-next" sans-serif;
+  font-family: "Raleway", sans-serif !important;
 }
 #logo {
-  font-family: "Roboto", sans-serif;
+  font-family: sans-serif !important;
+}
+body {
+  font-family: "Raleway", sans-serif !important;
 }
 .a-footer-text {
   font-weight: 640;
@@ -135,6 +138,21 @@
   font-weight: 900;
   margin: 15px 5px 0px 5px;
 }
+@media screen and (max-width: 321px) {
+  #top .logo .img {
+    margin-left: -24px;
+    width: 30px;
+  }
+}
+@media screen and (max-width: 376px) {
+  #top .logo h1 {
+    margin: 15px 0px 0px 0px;
+    font-size: 23px;
+  }
+  #top .logo .img {
+    width: 30px;
+  }
+}
 #top .fixed.menu {
   padding: 0px 0px;
 }
@@ -198,14 +216,38 @@
     transform: rotate(0deg);
   }
   .a-container {
-    background: #005c97;
+    /* background: #005c97;
     background: -webkit-linear-gradient(to right, #363795, #005c97);
-    background: linear-gradient(to right, #363795, #005c97) !important;
+    background: linear-gradient(to right, #363795, #005c97) !important; */
     border-radius: 20px;
     padding: 25px;
     margin-left: 12px;
     margin-right: 12px;
     margin-bottom: 20px;
+  }
+}
+@media screen and (min-width: 913px) {
+  .a-sticky {
+    width: 300px;
+    height: 262.531px;
+    left: 28px !important;
+    margin-top: 115px;
+  }
+}
+@media screen and (min-width: 1147px) {
+  .a-sticky {
+    width: 300px;
+    height: 262.531px;
+    left: 103px !important;
+    margin-top: 115px;
+  }
+}
+@media screen and (min-width: 1451px) {
+  .a-sticky {
+    width: 300px;
+    height: 262.531px;
+    left: 218px !important;
+    margin-top: 115px;
   }
 }
 @media screen and (max-width: 800px) {
@@ -522,10 +564,10 @@
   background: -webkit-linear-gradient(to left, #c20f24, #c20f24);
   background: linear-gradient(to left, #c20f24, #c20f24);
 }
-* {
+/* * {
   transition: all 0.5s linear;
-}
-@media screen and (max-width: 987px) {
+} */
+@media screen and (max-width: 914px) {
   .mobile-hidden {
     display: none !important;
   }

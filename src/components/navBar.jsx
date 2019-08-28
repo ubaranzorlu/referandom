@@ -132,7 +132,7 @@ class NavBar extends FormClass {
           >
             <div className="ui container d-flex justify-content-center">
               <a className="item logo" href="/">
-                <img src="img/referandom-w.svg" />
+                <img className="img" src="img/referandom-w.svg" />
                 <h1 id="logo">REFERANDOM</h1>
               </a>
               {this.renderNavItems()}

@@ -18,15 +18,18 @@ class Akis extends Component {
         <main
           className={`ui container d-${this.props.isLoaded ? "flex" : "none"}`}
         >
-          <div className="ui stackable grid" id="akis">
-            <div className="five wide column mobile-hidden">
-              <ProfileCard />
+          <div class="ui stackable grid basic segment" id="akis">
+            <div class="ui rail mobile-hidden" style={{ width: "31.3%" }}>
+              <div class="ui sticky fixed top  a-sticky">
+                <ProfileCard />
+              </div>
             </div>
-            <div className="eleven wide column" id="onergeler">
+            <div class="five wide column sidebar mobile-hidden" />
+            <div class="eleven wide column" id="onergeler">
               {this.props.data.map(element => (
                 <VoteCard key={element._id} id={element._id} data={element} />
               ))}
-            </div>
+            </div>{" "}
           </div>
         </main>
       </React.Fragment>
