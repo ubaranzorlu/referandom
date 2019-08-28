@@ -18,7 +18,7 @@ class SharePanel extends Component {
             <a
               className="column i"
               href={`javascript:fbShare('https://referandom.com/onerge/${_id}', 'Referandomda bir önergeye ${
-                vote === "agree" ? "katılıyorum" : "katılmıyorum"
+                vote ? "katılıyorum" : "katılmıyorum"
               }`}
             >
               <i className="facebook f icon" />
@@ -34,7 +34,7 @@ class SharePanel extends Component {
             <a
               className="column i"
               href={`https://api.whatsapp.com/send?text=Referandomda bir önergeye ${
-                vote === "agree" ? "katılıyorum" : "katılmıyorum"
+                vote ? "katılıyorum" : "katılmıyorum"
               } https://referandom.com/onerge/${_id}`}
               target="_blank"
             >

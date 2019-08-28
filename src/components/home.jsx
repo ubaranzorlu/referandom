@@ -1,6 +1,7 @@
 import React from "react";
 import Joi from "joi-browser";
 import FormClass from "./common/form";
+import Footer from "./footer";
 import * as userService from "../services/userService";
 import auth from "../services/authService";
 
@@ -83,7 +84,7 @@ class Home extends FormClass {
           >
             <div className="row index" style={{ minHeight: "100%" }}>
               <div className="column">
-                <div className="ui container">
+                <div className="ui container a-text-align">
                   <h2 className="ui inverted header">
                     <img
                       src="img/referandom-w.svg"
@@ -183,6 +184,7 @@ class Home extends FormClass {
             </div>
           </div>
         </main>
+        <Footer />
         <div className="referandummy">
           <img src="img/referandom-w.svg" alt="" />
         </div>

@@ -19,7 +19,7 @@ class Akis extends Component {
           className={`ui container d-${this.props.isLoaded ? "flex" : "none"}`}
         >
           <div className="ui stackable grid" id="akis">
-            <div className="five wide column tablet hidden mobile hidden">
+            <div className="five wide column mobile-hidden">
               <ProfileCard />
             </div>
             <div className="eleven wide column" id="onergeler">
