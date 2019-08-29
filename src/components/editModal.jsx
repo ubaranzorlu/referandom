@@ -78,7 +78,7 @@ class EditModal extends FormClass {
                     </div>
                     <div className="header" href="#">
                       <div className="d-flex" style={{ overFlow: "hidden" }}>
-                        <div style={{ width: "45%" }} className="mr-2">
+                        <div style={{ width: "44.5%" }} className="mr-2">
                           {this.renderBootstrapInput(
                             "name",
                             "Ad",
@@ -87,7 +87,7 @@ class EditModal extends FormClass {
                             false
                           )}
                         </div>
-                        <div style={{ width: "45%" }}>
+                        <div style={{ width: "44.5%" }}>
                           {this.renderBootstrapInput(
                             "surname",
                             "Soyad",
