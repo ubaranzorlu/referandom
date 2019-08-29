@@ -49,9 +49,8 @@ class VoteCardForAkis extends Component {
 
     if (index !== -1) {
       const vote = this.props.user.votedCards[index].vote;
-      this.setState({ vote });
+      this.setState({ vote, expand: false });
     }
-    if (this.props.user) this.setState({ expand: false });
 
     let comments = [];
     let maxAgree = 0,

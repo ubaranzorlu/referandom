@@ -32,4 +32,10 @@ export {
   getJwt,
   logout
 } from "./auth";
-export { addComment, updateComment, upvoteComment } from "./comment";
+export {
+  addComment,
+  updateComment,
+  upvoteComment,
+  upvoteCommentForOneVoteCard,
+  addCommentForOneVoteCard
+} from "./comment";

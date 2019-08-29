@@ -4,16 +4,16 @@ import Onerge from "./onerge";
 import Comment from "./comment";
 import CommentTextarea from "./commentTextarea";
 import SharePanel from "./sharePanel";
-import ExpandButton from "./expandButton";
 import VoteButtons from "./voteButtons";
 import LoadingSpinner from "./loadingSpinner";
 import logger from "../services/logService";
 import {
   updateVoteCard,
+  getData,
   updateUser,
   updateComment,
-  addComment,
-  upvoteComment,
+  addCommentForOneVoteCard,
+  upvoteCommentForOneVoteCard,
   handleShowToast,
   getVoteCardById,
   getCurrentUserWithDetails
@@ -37,6 +37,7 @@ class VoteCard extends Component {
   async componentWillMount() {
     const id = this.props.history.location.pathname.slice(8);
     await this.props.onGetCurrentUserWithDetails();
+    await this.props.onGetData();
     await this.props.onGetVoteCardById(id);
 
     this.setState({
@@ -110,11 +111,11 @@ class VoteCard extends Component {
       mainCardId: this.props.data._id,
       upvotedUsers: []
     };
-    await this.props.onAddComment(comment, this.props.id);
+    await this.props.onAddCommentForOneVoteCard(comment);
   };
 
   handleUpvote = async comment => {
-    this.props.onUpvoteComment(comment, this.props.id);
+    this.props.onUpvoteCommentForOneVoteCard(comment);
     this.forceUpdate();
     await this.props.onUpdateComment(comment);
   };
@@ -210,14 +211,15 @@ const mapDispatchToProps = dispatch => {
   return {
     onUpdateVoteCard: voteCard => dispatch(updateVoteCard(voteCard)),
     onUpdateUser: user => dispatch(updateUser(user)),
-    onAddComment: (comment, voteCardId) =>
-      dispatch(addComment(comment, voteCardId)),
+    onAddCommentForOneVoteCard: comment =>
+      dispatch(addCommentForOneVoteCard(comment)),
     onUpdateComment: comment => dispatch(updateComment(comment)),
-    onUpvoteComment: (comment, voteCardId) =>
-      dispatch(upvoteComment(comment, voteCardId)),
+    onUpvoteCommentForOneVoteCard: comment =>
+      dispatch(upvoteCommentForOneVoteCard(comment)),
     onShowToast: (text, variant) => dispatch(handleShowToast(text, variant)),
     onGetVoteCardById: id => dispatch(getVoteCardById(id)),
-    onGetCurrentUserWithDetails: () => dispatch(getCurrentUserWithDetails())
+    onGetCurrentUserWithDetails: () => dispatch(getCurrentUserWithDetails()),
+    onGetData: () => dispatch(getData())
   };
 };
 
