@@ -4,8 +4,11 @@ import { Dropdown, Menu } from "semantic-ui-react";
 import sizeMe from "react-sizeme";
 import Joi from "joi-browser";
 import FormClass from "./common/form";
-import auth from "../services/authService";
-import { uiStartLoginButton, uiStopLoginButton } from "../store/actions/index";
+import {
+  login,
+  uiStartLoginButton,
+  uiStopLoginButton
+} from "../store/actions/index";
 import { url } from "../config.json";
 
 class NavBar extends FormClass {
@@ -18,6 +21,7 @@ class NavBar extends FormClass {
           src={url + this.props.user.ppLink}
           className="ui avatar image"
           width="20"
+          alt="profil"
         />
       </span>
     ) : null
@@ -35,7 +39,7 @@ class NavBar extends FormClass {
     try {
       this.props.onStartLoginButton();
       const { data } = this.state;
-      await auth.login(data.username, data.password);
+      await this.props.onLogin(data.username, data.password);
       window.location = "/akis";
       this.props.onStopLoginButton();
     } catch (ex) {
@@ -138,7 +142,11 @@ class NavBar extends FormClass {
           >
             <div className="ui container d-flex justify-content-center">
               <a className="item logo" href="/">
-                <img className="img" src={url + "img/referandom-w.svg"} />
+                <img
+                  className="img"
+                  src={url + "img/referandom-w.svg"}
+                  alt="logo"
+                />
                 <h1 id="logo">REFERANDOM</h1>
               </a>
               {this.renderNavItems()}
@@ -159,6 +167,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    onLogin: (username, password) => dispatch(login(username, password)),
+
     onStartLoginButton: () => dispatch(uiStartLoginButton()),
     onStopLoginButton: () => dispatch(uiStopLoginButton())
   };

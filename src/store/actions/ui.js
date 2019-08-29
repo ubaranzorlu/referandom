@@ -8,7 +8,9 @@ import {
   UI_START_LOGIN_BUTTON,
   UI_STOP_LOGIN_BUTTON,
   UI_START_REGISTER_BUTTON,
-  UI_STOP_REGISTER_BUTTON
+  UI_STOP_REGISTER_BUTTON,
+  UI_DISPLAY_VOTE_CARD,
+  UI_EXPAND_VOTE_CARD
 } from "./actionTypes";
 
 export const uiFinishLoading = () => {
@@ -66,6 +68,20 @@ export const uiStartRegisterButton = () => {
 export const uiStopRegisterButton = () => {
   return {
     type: UI_STOP_REGISTER_BUTTON
+  };
+};
+
+export const uiDisplayVoteCard = data => {
+  return {
+    type: UI_DISPLAY_VOTE_CARD,
+    data: data
+  };
+};
+
+export const uiExpandVoteCard = data => {
+  return {
+    type: UI_EXPAND_VOTE_CARD,
+    data: data
   };
 };
 

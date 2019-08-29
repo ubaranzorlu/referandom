@@ -16,7 +16,9 @@ export {
   uiStopLoginButton,
   uiStartRegisterButton,
   uiStopRegisterButton,
-  handleShowToast
+  handleShowToast,
+  uiDisplayVoteCard,
+  uiExpandVoteCard
 } from "./ui";
 export {
   setUser,

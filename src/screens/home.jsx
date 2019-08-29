@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import Joi from "joi-browser";
-import FormClass from "./common/form";
-import Footer from "./footer";
-import * as userService from "../services/userService";
-import auth from "../services/authService";
+import FormClass from "../components/common/form";
+import Footer from "../components/footer";
 import {
+  loginWithJwt,
+  register,
+  login,
   uiStartRegisterButton,
   uiStopRegisterButton,
   uiStartLoginButton,
@@ -36,8 +37,8 @@ class Home extends FormClass {
   register = async () => {
     try {
       this.props.onStartRegisterButton();
-      const response = await userService.register(this.state.data);
-      auth.loginWithJwt(response.headers["x-auth-token"]);
+      const response = await this.props.onRegister(this.state.data);
+      this.propss.onLoginWithJwt(response.headers["x-auth-token"]);
       window.location = "/akis";
       this.props.onStopRegisterButton();
     } catch (ex) {
@@ -50,7 +51,7 @@ class Home extends FormClass {
     try {
       this.props.onStartLoginButton();
       const { data } = this.state;
-      await auth.login(data.username, data.password);
+      await this.props.onLogin(data.username, data.password);
       window.location = "/akis";
       this.props.onStopLoginButton();
     } catch (ex) {
@@ -221,6 +222,10 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
+    onLoginWithJwt: jwt => dispatch(loginWithJwt(jwt)),
+    onRegister: user => dispatch(register(user)),
+    onLogin: (username, password) => dispatch(login(username, password)),
+
     onStartRegisterButton: () => dispatch(uiStartRegisterButton()),
     onStopRegisterButton: () => dispatch(uiStopRegisterButton()),
 

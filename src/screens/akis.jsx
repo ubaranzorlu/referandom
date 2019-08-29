@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import VoteCardForAkis from "./voteCardForAkis";
-import ProfileCard from "./profileCard";
-import LoadingSpinner from "./loadingSpinner";
+import VoteCardForAkis from "../components/voteCardForAkis";
+import ProfileCard from "../components/profileCard";
+import LoadingSpinner from "../components/loadingSpinner";
 import { getData, getCurrentUserWithDetails } from "../store/actions/index";
 
 class Akis extends Component {
@@ -18,19 +18,19 @@ class Akis extends Component {
         <main
           className={`ui container d-${this.props.isLoaded ? "flex" : "none"}`}
         >
-          <div class="ui stackable grid basic segment" id="akis">
-            <div class="ui rail mobile-hidden" style={{ width: "31.3%" }}>
-              <div class="ui sticky fixed top  a-sticky">
+          <div className="ui stackable grid basic segment" id="akis">
+            <div className="ui rail mobile-hidden" style={{ width: "31.3%" }}>
+              <div className="ui sticky fixed top  a-sticky">
                 <ProfileCard />
               </div>
             </div>
-            <div class="five wide column sidebar mobile-hidden" />
-            <div class="eleven wide column" id="onergeler">
+            <div className="five wide column sidebar mobile-hidden" />
+            <div className="eleven wide column" id="onergeler">
               {this.props.data.map(element => (
                 <VoteCardForAkis
                   key={element._id}
-                  id={element._id}
                   data={element}
+                  history={this.props.history}
                 />
               ))}
             </div>{" "}

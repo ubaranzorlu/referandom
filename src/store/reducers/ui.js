@@ -8,7 +8,9 @@ import {
   UI_START_LOGIN_BUTTON,
   UI_STOP_LOGIN_BUTTON,
   UI_START_REGISTER_BUTTON,
-  UI_STOP_REGISTER_BUTTON
+  UI_STOP_REGISTER_BUTTON,
+  UI_DISPLAY_VOTE_CARD,
+  UI_EXPAND_VOTE_CARD
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -20,7 +22,8 @@ const initialState = {
   },
   commentButton: false,
   loginButton: false,
-  registerButton: false
+  registerButton: false,
+  uiVoteCards: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -82,6 +85,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         registerButton: false
+      };
+    case UI_DISPLAY_VOTE_CARD:
+      return {
+        ...state,
+        uiVoteCards: [...state.uiVoteCards, action.data]
+      };
+    case UI_EXPAND_VOTE_CARD:
+      return {
+        ...state,
+        uiVoteCards: [...state.uiVoteCards, action.data]
       };
     default:
       return state;

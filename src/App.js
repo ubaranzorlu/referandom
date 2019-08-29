@@ -3,14 +3,14 @@ import { connect } from "react-redux";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { getCurrentUser } from "./store/actions/index";
 import ToastNotification from "./components/toastNotification";
-import Home from "./components/home";
-import Akis from "./components/akis";
-import Logout from "./components/logout";
-import NotFound from "./components/notFound";
 import NavBar from "./components/navBar";
-import Terms from "./components/terms";
-import Privacy from "./components/privacy";
-import VoteCard from "./components/voteCard";
+import Home from "./screens/home";
+import Akis from "./screens/akis";
+import Logout from "./screens/logout";
+import NotFound from "./screens/notFound";
+import Terms from "./screens/terms";
+import Privacy from "./screens/privacy";
+import VoteCard from "./screens/voteCard";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
@@ -32,6 +32,7 @@ class App extends Component {
         <div style={{ marginTop: this.state.navbarMargin }}>
           <Switch>
             {this.props.currentUser && <Redirect exact to="/akis" from="/" />}
+            {!this.props.currentUser && <Redirect exact to="/" from="/akis" />}
             <Route path="/akis" component={Akis} />
             <Route exact path="/" component={Home} />
             <Route path="/logout" component={Logout} />

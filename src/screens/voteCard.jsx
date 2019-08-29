@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Onerge from "./onerge";
-import Comment from "./comment";
-import CommentTextarea from "./commentTextarea";
-import SharePanel from "./sharePanel";
-import VoteButtons from "./voteButtons";
-import LoadingSpinner from "./loadingSpinner";
+import Onerge from "../components/onerge";
+import Comment from "../components/comment";
+import CommentTextarea from "../components/commentTextarea";
+import SharePanel from "../components/sharePanel";
+import VoteButtons from "../components/voteButtons";
+import LoadingSpinner from "../components/loadingSpinner";
 import logger from "../services/logService";
 import {
+  uiStartLoading,
   updateVoteCard,
-  getData,
   updateUser,
   updateComment,
   addCommentForOneVoteCard,
@@ -35,9 +35,9 @@ class VoteCard extends Component {
     }
   };
   async componentWillMount() {
+    this.props.OnUiStartLoading();
     const id = this.props.history.location.pathname.slice(8);
     await this.props.onGetCurrentUserWithDetails();
-    await this.props.onGetData();
     await this.props.onGetVoteCardById(id);
 
     this.setState({
@@ -115,6 +115,11 @@ class VoteCard extends Component {
   };
 
   handleUpvote = async comment => {
+    if (!this.props.user) {
+      this.props.onShowToast("Destekleyebilmek için giriş yapınız", "red");
+      return;
+    }
+
     this.props.onUpvoteCommentForOneVoteCard(comment);
     this.forceUpdate();
     await this.props.onUpdateComment(comment);
@@ -143,7 +148,7 @@ class VoteCard extends Component {
           }`}
           style={{ marginTop: "70px" }}
         >
-          <div class="col-11 col-sm-10 col-md-9 col-lg-6" id="onergeler">
+          <div className="col-11 col-sm-10 col-md-9 col-lg-6" id="onergeler">
             {this.props.data && (
               <div className="onerge">
                 <Onerge
@@ -168,9 +173,8 @@ class VoteCard extends Component {
                   <div className="row">
                     <div className="col yorumlar">
                       {this.handleComments(true).map(element => (
-                        <div className="mb-4">
+                        <div className="mb-4" key={element._id}>
                           <Comment
-                            key={element._id}
                             data={element}
                             onUpvote={() => this.handleUpvote(element)}
                           />
@@ -179,9 +183,8 @@ class VoteCard extends Component {
                     </div>
                     <div className="col yorumlar">
                       {this.handleComments(false).map(element => (
-                        <div className="mb-4">
+                        <div className="mb-4" key={element._id}>
                           <Comment
-                            key={element._id}
                             data={element}
                             onUpvote={() => this.handleUpvote(element)}
                           />
@@ -209,6 +212,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    OnUiStartLoading: () => dispatch(uiStartLoading()),
     onUpdateVoteCard: voteCard => dispatch(updateVoteCard(voteCard)),
     onUpdateUser: user => dispatch(updateUser(user)),
     onAddCommentForOneVoteCard: comment =>
@@ -218,8 +222,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(upvoteCommentForOneVoteCard(comment)),
     onShowToast: (text, variant) => dispatch(handleShowToast(text, variant)),
     onGetVoteCardById: id => dispatch(getVoteCardById(id)),
-    onGetCurrentUserWithDetails: () => dispatch(getCurrentUserWithDetails()),
-    onGetData: () => dispatch(getData())
+    onGetCurrentUserWithDetails: () => dispatch(getCurrentUserWithDetails())
   };
 };
 

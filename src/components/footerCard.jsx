@@ -18,38 +18,38 @@ class Footer extends Component {
             <img
               src="img/referandom-w.svg"
               alt=""
-              srcset=""
+              srcSet=""
               width="30"
               height="30"
             />
           </a>
-          <div class="ui inverted text">
-            <a class="item" href="/terms">
+          <div className="ui inverted text">
+            <a className="item" href="/terms">
               <span>Kullanım Şartları</span>
             </a>
-            <a class="item" href="/privacy">
+            <a className="item" href="/privacy">
               <span>Gizlilik Politikası</span>
             </a>
             <a
-              class="item"
+              className="item"
               href="#"
               onClick={() => this.setState({ contactModalShow: true })}
             >
               <span>İletişim</span>
             </a>
           </div>
-          <div class="ui inverted text social">
-            <a class="item" href="https://facebook.com/">
-              <i class="facebook f icon" />
+          <div className="ui inverted text social">
+            <a className="item" href="https://facebook.com/">
+              <i className="facebook f icon" />
             </a>
-            <a class="item" href="https://twitter.com/">
-              <i class="twitter icon" />
+            <a className="item" href="https://twitter.com/">
+              <i className="twitter icon" />
             </a>
-            <a class="item" href="https://instagram.com/">
-              <i class="instagram icon" />
+            <a className="item" href="https://instagram.com/">
+              <i className="instagram icon" />
             </a>
-            <a class="item" href="https://medium.com/">
-              <i class="medium icon" />
+            <a className="item" href="https://medium.com/">
+              <i className="medium icon" />
             </a>
           </div>
         </footer>

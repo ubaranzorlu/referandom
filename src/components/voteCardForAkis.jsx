@@ -13,14 +13,14 @@ import {
   updateComment,
   addComment,
   upvoteComment,
-  handleShowToast
+  handleShowToast,
+  uiDisplayVoteCard,
+  uiExpandVoteCard
 } from "../store/actions/index";
 
 class VoteCardForAkis extends Component {
   state = {
     comments: [],
-    display: false,
-    expand: true,
     vote: null,
     chartData: {
       labels: ["Katılıyorum", "Katılmıyorum"],
@@ -49,7 +49,13 @@ class VoteCardForAkis extends Component {
 
     if (index !== -1) {
       const vote = this.props.user.votedCards[index].vote;
-      this.setState({ vote, expand: false });
+      this.setState({ vote });
+      if (!this.handleDisplayVoteCards())
+        this.props.onUiExpandVoteCard({
+          _id: this.props.data._id,
+          expand: true,
+          display: false
+        });
     }
 
     let comments = [];
@@ -87,7 +93,12 @@ class VoteCardForAkis extends Component {
       }
     }
 
-    this.setState({ display: true, vote, chartData });
+    this.props.onUiDisplayVoteCard({
+      _id: this.props.data._id,
+      display: true,
+      expand: this.handleExpandVoteCards()
+    });
+    this.setState({ vote, chartData });
 
     let user = { ...this.props.user };
     user.votedCards.push({
@@ -99,8 +110,18 @@ class VoteCardForAkis extends Component {
   };
 
   handleExpand = () => {
-    if (this.state.expand) this.setState({ display: false, expand: false });
-    else this.setState({ display: true, expand: true });
+    //    if (!this.state.expand) this.setState({ display: false, expand: true });
+    // sorun var display false icin action cozumunu uretmelisin
+    //    else {
+    this.props.onUiDisplayVoteCard({
+      _id: this.props.data._id,
+      display: true,
+      expand: false
+    });
+  };
+
+  handleViewAll = () => {
+    this.props.history.push(`onerge/${this.props.data._id}`);
   };
 
   handleAddComment = async text => {
@@ -113,13 +134,32 @@ class VoteCardForAkis extends Component {
       mainCardId: this.props.data._id,
       upvotedUsers: []
     };
-    await this.props.onAddComment(comment, this.props.id);
+    await this.props.onAddComment(comment, this.props.data._id);
   };
 
   handleUpvote = async comment => {
-    this.props.onUpvoteComment(comment, this.props.id);
+    this.props.onUpvoteComment(comment, this.props.data._id);
     this.forceUpdate();
     await this.props.onUpdateComment(comment);
+  };
+
+  handleDisplayVoteCards = () => {
+    const uiVoteCards = this.findUiVoteCards();
+    return uiVoteCards && uiVoteCards.display;
+  };
+
+  handleExpandVoteCards = () => {
+    const uiVoteCards = this.findUiVoteCards();
+    return uiVoteCards && uiVoteCards.expand;
+  };
+
+  findUiVoteCards = () => {
+    return this.props.uiVoteCards
+      .slice(0)
+      .reverse()
+      .find(element => {
+        if (element._id === this.props.data._id) return element;
+      });
   };
 
   render() {
@@ -128,24 +168,26 @@ class VoteCardForAkis extends Component {
         <div className="onerge">
           <Onerge
             data={this.props.data}
-            display={this.state.display}
+            display={this.handleDisplayVoteCards()}
             chartData={this.state.chartData}
             chartOptions={this.state.chartOptions}
           />
           <VoteButtons
-            display={this.state.display}
-            expand={this.state.expand}
+            display={this.handleDisplayVoteCards()}
+            expand={this.handleExpandVoteCards()}
             onClick={this.handleVote}
           />
           <ExpandButton
             onClick={this.handleExpand}
             role="expand"
             vote={this.state.vote}
-            display={!this.state.expand}
+            display={this.handleExpandVoteCards()}
             text="Genişlet"
           />
 
-          <div className={`d-${this.state.display ? "block" : "none"}`}>
+          <div
+            className={`d-${this.handleDisplayVoteCards() ? "block" : "none"}`}
+          >
             <CommentTextarea
               user={this.props.user}
               vote={this.state.vote}
@@ -163,15 +205,14 @@ class VoteCardForAkis extends Component {
                 />
               ))}
             </div>
-            <a href={`onerge/${this.props.data._id}`}>
-              <ExpandButton
-                role="collapse"
-                role2="viewAll"
-                vote={this.state.vote}
-                display={this.state.expand}
-                text="Tümünü gör"
-              />
-            </a>
+            <ExpandButton
+              onClick={this.handleViewAll}
+              role="collapse"
+              role2="viewAll"
+              vote={this.state.vote}
+              display={!this.handleExpandVoteCards()}
+              text="Tümünü gör"
+            />
           </div>
         </div>
       </React.Fragment>
@@ -181,7 +222,8 @@ class VoteCardForAkis extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user.data
+    user: state.user.data,
+    uiVoteCards: state.ui.uiVoteCards
   };
 };
 
@@ -194,7 +236,9 @@ const mapDispatchToProps = dispatch => {
     onUpdateComment: comment => dispatch(updateComment(comment)),
     onUpvoteComment: (comment, voteCardId) =>
       dispatch(upvoteComment(comment, voteCardId)),
-    onShowToast: (text, variant) => dispatch(handleShowToast(text, variant))
+    onShowToast: (text, variant) => dispatch(handleShowToast(text, variant)),
+    onUiDisplayVoteCard: data => dispatch(uiDisplayVoteCard(data)),
+    onUiExpandVoteCard: data => dispatch(uiExpandVoteCard(data))
   };
 };
 
