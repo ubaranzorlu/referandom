@@ -180,13 +180,13 @@ class Home extends FormClass {
                               this.handleSubmit(
                                 e,
                                 this.register,
-                                this.state.isRegister
+                                this.state.isRegister ? "register" : "login"
                               )
                           : e =>
                               this.handleSubmit(
                                 e,
                                 this.login,
-                                this.state.isRegister
+                                this.state.isRegister ? "register" : "login"
                               )
                       }
                     >

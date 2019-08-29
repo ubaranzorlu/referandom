@@ -1,9 +1,16 @@
 import React, { Component } from "react";
 import { Doughnut } from "react-chartjs-2";
+import { url } from "../config.json";
 
 class Onerge extends Component {
   render() {
-    const { text, onergeyiVeren, date, category, url } = this.props.data;
+    const {
+      text,
+      onergeyiVeren,
+      date,
+      category,
+      backgroundImage
+    } = this.props.data;
     const { display, chartData, chartOptions } = this.props;
 
     return (
@@ -11,7 +18,7 @@ class Onerge extends Component {
         <div
           className="content"
           style={{
-            backgroundImage: "img/cover.jpg",
+            backgroundImage: `url(${url}${backgroundImage})`,
             backgroundSize: "cover",
             backgroundPosition: "center"
           }}
@@ -30,7 +37,7 @@ class Onerge extends Component {
               {category}
             </span>
           </p>
-          <a href={url} className="onergeMetni">
+          <a href={this.props.data.url} className="onergeMetni">
             <i className="chain icon" />
             Önerge Metni
           </a>

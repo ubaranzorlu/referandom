@@ -2,8 +2,17 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import FooterCard from "./footerCard";
 import { url } from "../config.json";
+import EditModal from "./editModal";
 
 class ProfileCard extends Component {
+  state = {
+    editModalShow: false
+  };
+
+  editModalClose = () => {
+    this.setState({ editModalShow: false });
+  };
+
   render() {
     const { user } = this.props;
     return (
@@ -15,14 +24,22 @@ class ProfileCard extends Component {
                 <img src={url + "img/cover.jpg"} alt="cover" />
               </div>
               <div className="content">
-                <a className="info" href="/">
+                <a className="info" href="#">
                   <div className="ui avatar image">
                     <img src={url + "img/img_avatar3.png"} alt="" />
                   </div>
                   <div className="header" href="#">
-                    <h3>{user.username}</h3>
+                    <h3>
+                      {user.name
+                        ? user.name + " " + user.surname
+                        : user.username}
+                    </h3>
+                    <p>@{user.username}</p>
                   </div>
-                  <div className="ui blue button duzenle a-more-radius">
+                  <div
+                    className="ui blue button duzenle a-more-radius"
+                    onClick={() => this.setState({ editModalShow: true })}
+                  >
                     Düzenle
                   </div>
                 </a>
@@ -36,10 +53,14 @@ class ProfileCard extends Component {
                     <i className="chain icon" />
                     <a
                       href={
-                        user.url ? user.url : "referandombeta.herokuapp.com"
+                        user.website
+                          ? user.website
+                          : "https://www.referandombeta.herokuapp.com"
                       }
                     >
-                      {user.url ? user.url : "referandombeta.herokuapp.com"}
+                      {user.website
+                        ? user.website
+                        : "referandombeta.herokuapp.com"}
                     </a>
                   </li>
                   <li>
@@ -47,7 +68,8 @@ class ProfileCard extends Component {
                     <a href={`mailto:${user.email}`}>{user.email}</a>
                   </li>
                   <li>
-                    <i className="map marker alternate icon" /> No Location
+                    <i className="map marker alternate icon" />{" "}
+                    {user.location ? user.location : "Konum yok"}
                   </li>
                 </ul>
               </div>
@@ -67,6 +89,10 @@ class ProfileCard extends Component {
             <FooterCard />
           </React.Fragment>
         )}
+        <EditModal
+          show={this.state.editModalShow}
+          onHide={this.editModalClose}
+        />
       </React.Fragment>
     );
   }

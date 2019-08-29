@@ -25,14 +25,19 @@ class FormClass extends Component {
     return error ? error.details[0].message : null;
   };
 
-  handleSubmit = (e, callback, isRegister) => {
+  handleSubmit = (e, callback, mode) => {
     e.preventDefault();
     const errors = this.validate();
     this.setState({ errors: errors || {} });
 
-    if (errors) {
+    if (errors && mode !== "editProfil") {
       if (
-        !(!isRegister && !errors.username && !errors.password && errors.email)
+        !(
+          mode === "login" &&
+          !errors.username &&
+          !errors.password &&
+          errors.email
+        )
       )
         return;
     }
@@ -107,7 +112,13 @@ class FormClass extends Component {
     );
   };
 
-  renderBootstrapInput = (name, placeholder, type = "text", className = "") => {
+  renderBootstrapInput = (
+    name,
+    placeholder,
+    type = "text",
+    className = "",
+    error = true
+  ) => {
     const { data, errors } = this.state;
 
     return (
@@ -121,19 +132,20 @@ class FormClass extends Component {
           value={data[name]}
           onChange={this.handleChange}
         />
-        {errors[name] && (
+        {error && errors[name] && (
           <Alert variant="danger"> {this.translateText(errors[name])}</Alert>
         )}
       </React.Fragment>
     );
   };
 
-  renderTextArea = (name, placeholder, rows) => {
+  renderTextArea = (name, placeholder, rows, className = "", error = true) => {
     const { data, errors } = this.state;
 
     return (
       <React.Fragment>
         <Form.Control
+          className={className}
           name={name}
           id={name}
           as="textarea"
@@ -142,7 +154,7 @@ class FormClass extends Component {
           value={data[name]}
           onChange={this.handleChange}
         />
-        {errors[name] && (
+        {error && errors[name] && (
           <Alert variant="danger">{this.translateText(errors[name])}</Alert>
         )}
       </React.Fragment>
