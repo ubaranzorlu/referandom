@@ -38,7 +38,7 @@ class Home extends FormClass {
     try {
       this.props.onStartRegisterButton();
       const response = await this.props.onRegister(this.state.data);
-      this.propss.onLoginWithJwt(response.headers["x-auth-token"]);
+      this.props.onLoginWithJwt(response.headers["x-auth-token"]);
       window.location = "/akis";
       this.props.onStopRegisterButton();
     } catch (ex) {

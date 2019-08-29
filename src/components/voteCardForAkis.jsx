@@ -174,7 +174,7 @@ class VoteCardForAkis extends Component {
           />
           <VoteButtons
             display={this.handleDisplayVoteCards()}
-            expand={this.handleExpandVoteCards()}
+            expand={!this.handleExpandVoteCards()}
             onClick={this.handleVote}
           />
           <ExpandButton

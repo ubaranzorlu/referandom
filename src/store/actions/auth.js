@@ -17,13 +17,13 @@ export const setCurrentUser = user => {
 export const login = (username, password) => {
   return async dispatch => {
     const { data: jwt } = await http.post(apiEndpoint, { username, password });
-    localStorage.setItem(tokenKey, jwt);
+    await localStorage.setItem(tokenKey, jwt);
   };
 };
 
 export const loginWithJwt = jwt => {
   return async dispatch => {
-    localStorage.setItem(tokenKey, jwt);
+    await localStorage.setItem(tokenKey, jwt);
   };
 };
 
@@ -46,8 +46,8 @@ export const logout = () => {
   };
 };
 
-export const getJwt = async () => {
-  return await localStorage.getItem(tokenKey);
+export const getJwt = () => {
+  return localStorage.getItem(tokenKey);
 };
 
 http.setJwt(getJwt());
