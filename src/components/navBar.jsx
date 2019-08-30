@@ -57,11 +57,15 @@ class NavBar extends FormClass {
     if (user) {
       return (
         <div className="right menu">
-          <Dropdown trigger={this.state.trigger} pointing className="link item">
+          <Dropdown
+            trigger={this.state.trigger}
+            pointing
+            className="link item mobile-hidden"
+          >
             <Dropdown.Menu>
               <Dropdown.Header>{user.username}</Dropdown.Header>
               <Dropdown.Divider />
-              <Dropdown.Item>
+              <Dropdown.Item href="/profile">
                 <i className="fa fa-user pr-3" />
                 Profil
               </Dropdown.Item>
@@ -75,6 +79,13 @@ class NavBar extends FormClass {
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
+          <a
+            href="#"
+            onClick={this.props.onClick}
+            className="desktop-hidden a-mobile-sidebar-link"
+          >
+            {this.state.trigger}
+          </a>
         </div>
       );
     } else {

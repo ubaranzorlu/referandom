@@ -4,12 +4,15 @@ import VoteCardForAkis from "../components/voteCardForAkis";
 import ProfileCard from "../components/profileCard";
 import FooterCard from "../components/footerCard";
 import LoadingSpinner from "../components/loadingSpinner";
-import { getData, getCurrentUserWithDetails } from "../store/actions/index";
+import {
+  getCurrentUserForProfileMoreDetails,
+  uiFinishLoading
+} from "../store/actions/index";
 
-class Akis extends Component {
+class Profile extends Component {
   async componentDidMount() {
-    await this.props.onGetCurrentUserWithDetails();
-    await this.props.onGetData();
+    await this.props.onGetCurrentUserForProfileMoreDetails();
+    this.props.onUiFinishLoading();
   }
 
   render() {
@@ -23,13 +26,18 @@ class Akis extends Component {
             }`}
           >
             <div className="col-11 col-sm-10 col-md-9 col-lg-6">
-              {this.props.data.map(element => (
-                <VoteCardForAkis
-                  key={element._id}
-                  data={element}
-                  history={this.props.history}
-                />
-              ))}
+              <ProfileCard />
+
+              {this.props.user &&
+                this.props.user.votedCards.map(element => (
+                  <VoteCardForAkis
+                    key={element._id}
+                    data={element.mainCard}
+                    vote={element.vote}
+                    history={this.props.history}
+                    mode="profile"
+                  />
+                ))}
             </div>
           </main>
         </section>
@@ -48,14 +56,17 @@ class Akis extends Component {
               </div>
               <div className="five wide column sidebar mobile-hidden" />
               <div className="eleven wide column" id="onergeler">
-                {this.props.data.map(element => (
-                  <VoteCardForAkis
-                    key={element._id}
-                    data={element}
-                    history={this.props.history}
-                  />
-                ))}
-              </div>{" "}
+                {this.props.user &&
+                  this.props.user.votedCards.map(element => (
+                    <VoteCardForAkis
+                      key={element._id}
+                      data={element.mainCard}
+                      vote={element.vote}
+                      history={this.props.history}
+                      mode="profile"
+                    />
+                  ))}
+              </div>
             </div>
           </main>
         </section>
@@ -74,12 +85,13 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetCurrentUserWithDetails: () => dispatch(getCurrentUserWithDetails()),
-    onGetData: () => dispatch(getData())
+    onGetCurrentUserForProfileMoreDetails: () =>
+      dispatch(getCurrentUserForProfileMoreDetails()),
+    onUiFinishLoading: () => dispatch(uiFinishLoading())
   };
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Akis);
+)(Profile);

@@ -15,14 +15,7 @@ class Onerge extends Component {
 
     return (
       <div className="ui segment icerik mb-0">
-        <div
-          className="content"
-          style={{
-            backgroundImage: `url(${url}${backgroundImage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center"
-          }}
-        >
+        <div className="content">
           <div
             className={`${
               mode === "profile"
@@ -49,12 +42,24 @@ class Onerge extends Component {
             <i className="chain icon" />
             Önerge Metni
           </a>
-          <div className="justify-content-center d-flex">
-            {display && (
-              <div className="mt-4">
-                <Doughnut data={chartData} options={chartOptions} />
-              </div>
-            )}
+          <h3 style={{ color: "red" }}>EXPIRED</h3>
+          <div className="justify-content-center d-flex row">
+            <div className="col">
+              {" "}
+              {display && (
+                <div className="mt-4">
+                  <Doughnut data={chartData} options={chartOptions} />
+                </div>
+              )}
+            </div>
+            <div className="col">
+              {" "}
+              {display && (
+                <div className="mt-4">
+                  <Doughnut data={chartData} options={chartOptions} />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

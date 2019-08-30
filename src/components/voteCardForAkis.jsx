@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Onerge from "./onerge";
+import OnergeExpired from "./onergeExpired";
 import Comment from "./comment";
 import CommentTextarea from "./commentTextarea";
 import SharePanel from "./sharePanel";
@@ -21,7 +22,7 @@ import {
 class VoteCardForAkis extends Component {
   state = {
     comments: [],
-    vote: null,
+    vote: this.props.vote && null,
     chartData: {
       labels: ["Katılıyorum", "Katılmıyorum"],
       datasets: [
@@ -166,30 +167,49 @@ class VoteCardForAkis extends Component {
     return (
       <React.Fragment>
         <div className="onerge">
-          <Onerge
-            data={this.props.data}
-            display={this.handleDisplayVoteCards()}
-            chartData={this.state.chartData}
-            chartOptions={this.state.chartOptions}
-          />
+          {!this.props.data.expired && (
+            <Onerge
+              data={this.props.data}
+              display={this.handleDisplayVoteCards()}
+              chartData={this.state.chartData}
+              chartOptions={this.state.chartOptions}
+              mode={this.props.mode}
+              vote={this.state.vote}
+            />
+          )}
+          {this.props.data.expired && (
+            <OnergeExpired
+              data={this.props.data}
+              display={this.handleDisplayVoteCards()}
+              chartData={this.state.chartData}
+              chartOptions={this.state.chartOptions}
+              mode={this.props.mode}
+              vote={this.state.vote}
+            />
+          )}
           <VoteButtons
             display={this.handleDisplayVoteCards()}
-            expand={!this.handleExpandVoteCards()}
+            expand={
+              this.props.data.expired ? true : !this.handleExpandVoteCards()
+            }
             onClick={this.handleVote}
           />
           <ExpandButton
             onClick={this.handleExpand}
             role="expand"
             vote={this.state.vote}
-            display={this.handleExpandVoteCards()}
+            display={
+              this.props.data.expired ? true : this.handleExpandVoteCards()
+            }
             text="Genişlet"
+            mode={this.props.mode}
           />
 
           <div
             className={`d-${this.handleDisplayVoteCards() ? "block" : "none"}`}
           >
             <CommentTextarea
-              user={this.props.user}
+              data={this.props.data}
               vote={this.state.vote}
               onAddReason={this.handleAddComment}
             />

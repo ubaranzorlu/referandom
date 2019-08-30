@@ -22,18 +22,25 @@ class CommentTextarea extends Component {
   handleSubmit = async e => {
     this.props.onStartCommentButton();
 
-    try {
-      await this.props.onAddReason(this.state.text);
-      this.props.onShowToast("Yorum gönderildi", "green");
-    } catch (error) {
-      this.props.onStopCommentButton();
-      if (
-        error.response &&
-        (error.response.status === 500 || error.response.status === 400)
-      ) {
-        logger.log(error);
-        this.props.onShowToast("Yorum gönderilemedi", "red");
-        return;
+    const isComment = this.props.data.comments.find(element => {
+      if (element.owner._id === this.props.user._id) return element;
+    });
+    if (isComment) {
+      this.props.onShowToast("En fazla bir yorum yapabilirsin", "red");
+    } else {
+      try {
+        await this.props.onAddReason(this.state.text);
+        this.props.onShowToast("Yorum gönderildi", "green");
+      } catch (error) {
+        this.props.onStopCommentButton();
+        if (
+          error.response &&
+          (error.response.status === 500 || error.response.status === 400)
+        ) {
+          logger.log(error);
+          this.props.onShowToast("Yorum gönderilemedi", "red");
+          return;
+        }
       }
     }
     this.setState({ text: "", remainingWord: 500 });
@@ -87,7 +94,8 @@ class CommentTextarea extends Component {
 }
 const mapStateToProps = state => {
   return {
-    commentButton: state.ui.commentButton
+    commentButton: state.ui.commentButton,
+    user: state.user.data
   };
 };
 

@@ -164,7 +164,7 @@ class VoteCard extends Component {
                 />
                 <div className={`d-${this.state.display ? "block" : "none"}`}>
                   <CommentTextarea
-                    user={this.props.user}
+                    data={this.props.data}
                     vote={this.state.vote}
                     onAddReason={this.handleAddComment}
                   />

@@ -11,7 +11,6 @@ class EditModal extends FormClass {
   state = {
     data: {
       name: "",
-      surname: "",
       status: "",
       website: "",
       email: "",
@@ -23,7 +22,6 @@ class EditModal extends FormClass {
 
   schema = {
     name: Joi.string(),
-    surname: Joi.string(),
     status: Joi.string(),
     website: Joi.string(),
     email: Joi.string()
@@ -97,20 +95,11 @@ class EditModal extends FormClass {
                     </div>
                     <div className="header" href="#">
                       <div className="d-flex" style={{ overFlow: "hidden" }}>
-                        <div style={{ width: "44.5%" }} className="mr-2">
+                        <div style={{ width: "91%" }} className="mr-2">
                           {this.renderBootstrapInput(
                             "name",
-                            "Ad",
+                            "İsim",
                             "name",
-                            "",
-                            false
-                          )}
-                        </div>
-                        <div style={{ width: "44.5%" }}>
-                          {this.renderBootstrapInput(
-                            "surname",
-                            "Soyad",
-                            "surname",
                             "",
                             false
                           )}
@@ -135,9 +124,20 @@ class EditModal extends FormClass {
                       maxFileSize={52428}
                       singleImage={true}
                     />
-                    {this.renderTextArea("status", "Durum", 3, "mb-2", false)}
+                    {this.renderTextArea(
+                      "status",
+                      "Kişisel bilgiler",
+                      3,
+                      "mb-2",
+                      false
+                    )}
                     <div className="ui left icon input d-flex flex-column mb-2">
-                      {this.renderInput("website", "Website", "website", "")}
+                      {this.renderInput(
+                        "website",
+                        "İnternet sitesi",
+                        "website",
+                        ""
+                      )}
                       <i className="chain icon" />
                     </div>
                     <div className="ui left icon input d-flex flex-column mb-2">

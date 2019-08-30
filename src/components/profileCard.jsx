@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import FooterCard from "./footerCard";
 import { url } from "../config.json";
 import EditModal from "./editModal";
 
@@ -29,11 +28,7 @@ class ProfileCard extends Component {
                     <img src={user.ppLink} alt="" />
                   </div>
                   <div className="header" href="#">
-                    <h3>
-                      {user.name
-                        ? user.name + " " + user.surname
-                        : user.username}
-                    </h3>
+                    <h3>{user.name ? user.name : user.username}</h3>
                     <p>@{user.username}</p>
                   </div>
                   <div
@@ -86,7 +81,6 @@ class ProfileCard extends Component {
                 </div>
               </div>
             </div>
-            <FooterCard />
           </React.Fragment>
         )}
         <EditModal

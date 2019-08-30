@@ -33,6 +33,18 @@ export const getCurrentUserWithDetails = () => {
   };
 };
 
+export const getCurrentUserForProfileMoreDetails = () => {
+  return async dispatch => {
+    const currentUser = await dispatch(getCurrentUser());
+    if (currentUser) {
+      console.log("ASD");
+      const response = await http.get(apiEndpoint + "/me/" + currentUser._id);
+      dispatch(setUser(response.data));
+      console.log("ASD");
+    }
+  };
+};
+
 // export const getUser = (id) => {
 //   return async dispatch => {
 //     //    dispatch(uiStartLoading());

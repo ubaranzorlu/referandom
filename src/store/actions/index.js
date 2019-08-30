@@ -24,6 +24,7 @@ export {
   setUser,
   register,
   getCurrentUserWithDetails,
+  getCurrentUserForProfileMoreDetails,
   updateUser
 } from "./user";
 export {
