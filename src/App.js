@@ -70,7 +70,10 @@ class App extends Component {
           <Sidebar.Pusher>
             <ToastNotification />
             <NavBar onClick={this.handleSidebarShow} onSize={this.onSize} />
-            <div style={{ marginTop: this.state.navbarMargin }}>
+            <div
+              style={{ marginTop: this.state.navbarMargin }}
+              onClick={this.handleSidebarClose}
+            >
               <Switch>
                 {this.props.currentUser && (
                   <Redirect exact to="/akis" from="/" />
