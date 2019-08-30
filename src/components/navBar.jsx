@@ -7,7 +7,8 @@ import FormClass from "./common/form";
 import {
   login,
   uiStartLoginButton,
-  uiStopLoginButton
+  uiStopLoginButton,
+  getCurrentUserWithDetails
 } from "../store/actions/index";
 import { url } from "../config.json";
 
@@ -26,6 +27,10 @@ class NavBar extends FormClass {
       .required()
       .label("Password")
   };
+
+  async componentDidMount() {
+    await this.props.onGetCurrentUserWithDetails();
+  }
 
   doSubmit = async () => {
     try {
@@ -190,6 +195,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    onGetCurrentUserWithDetails: () => dispatch(getCurrentUserWithDetails()),
     onLogin: (username, password) => dispatch(login(username, password)),
 
     onStartLoginButton: () => dispatch(uiStartLoginButton()),
