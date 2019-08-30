@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import ImageUploader from "react-images-upload";
 import { Modal, Button } from "react-bootstrap";
 import Joi from "joi-browser";
 import FormClass from "./common/form";
@@ -16,7 +17,8 @@ class EditModal extends FormClass {
       email: "",
       location: ""
     },
-    errors: {}
+    errors: {},
+    picture: null
   };
 
   schema = {
@@ -33,7 +35,11 @@ class EditModal extends FormClass {
 
   doSubmit = async () => {
     try {
-      const user = { ...this.props.user, ...this.state.data };
+      const user = {
+        ...this.props.user,
+        ...this.state.data,
+        ppLink: this.state.picture
+      };
       await this.props.onUpdateUser(user);
       this.props.onHide();
       this.props.onShowToast("Değiştirildi", "green");
@@ -45,6 +51,18 @@ class EditModal extends FormClass {
       }
       this.props.onShowToast("Değiştirilemedi", "red");
     }
+  };
+
+  enterPressed = event => {
+    const code = event.keyCode || event.which;
+    if (code === 13) {
+      this.handleSubmit(event, null, "editProfil");
+    }
+  };
+
+  onDrop = (pictureFiles, pictureDataURLs) => {
+    this.state.picture = pictureDataURLs.pop();
+    this.forceUpdate();
   };
 
   render() {
@@ -61,20 +79,21 @@ class EditModal extends FormClass {
             <Modal.Body style={{ padding: 0 }}>
               <div className="ui segment profile">
                 <div className="ui image cover">
-                  <a href="#">
-                    <img
-                      style={{ borderRadius: 0 }}
-                      src={url + "img/cover.jpg"}
-                      alt="cover"
-                    />
-                  </a>
+                  <img
+                    style={{ borderRadius: 0 }}
+                    src={url + "img/cover.jpg"}
+                    alt="cover"
+                  />
                 </div>
                 <div className="content">
                   <div className="info">
                     <div className="ui avatar image">
-                      <a href="#">
-                        <img src={url + "img/img_avatar3.png"} alt="" />
-                      </a>
+                      <img
+                        src={
+                          this.state.picture ? this.state.picture : user.ppLink
+                        }
+                        alt="profil"
+                      />
                     </div>
                     <div className="header" href="#">
                       <div className="d-flex" style={{ overFlow: "hidden" }}>
@@ -100,6 +119,22 @@ class EditModal extends FormClass {
                     </div>
                   </div>
                   <div className="bio">
+                    <ImageUploader
+                      fileContainerStyle={{
+                        background: "transparent",
+                        display: "inline",
+                        margin: "0",
+                        padding: "0"
+                      }}
+                      buttonStyles={{ marginTop: "-10px", marginLeft: "-11px" }}
+                      withIcon={false}
+                      withLabel={false}
+                      buttonText="Değiştir"
+                      onChange={this.onDrop}
+                      imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                      maxFileSize={52428}
+                      singleImage={true}
+                    />
                     {this.renderTextArea("status", "Durum", 3, "mb-2", false)}
                     <div className="ui left icon input d-flex flex-column mb-2">
                       {this.renderInput("website", "Website", "website", "")}

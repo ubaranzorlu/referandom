@@ -15,16 +15,8 @@ class NavBar extends FormClass {
   state = {
     data: { username: "", password: "" },
     errors: {},
-    trigger: this.props.user ? (
-      <span>
-        <img
-          src={url + this.props.user.ppLink}
-          className="ui avatar image"
-          width="20"
-          alt="profil"
-        />
-      </span>
-    ) : null
+    trigger: null,
+    loaded: false
   };
   schema = {
     username: Joi.string()
@@ -131,7 +123,26 @@ class NavBar extends FormClass {
     }
   };
 
+  loadUser = () => {
+    if (this.props.userWithDetails && !this.state.loaded) {
+      this.state.trigger = (
+        <span>
+          <img
+            src={this.props.userWithDetails.ppLink}
+            className="ui avatar image"
+            width="20"
+            alt=""
+          />
+        </span>
+      );
+      this.state.loaded = true;
+      this.forceUpdate();
+    }
+  };
+
   render() {
+    this.loadUser();
+
     return (
       <div className="ui" id="page">
         <Menu id="top">
@@ -160,6 +171,7 @@ class NavBar extends FormClass {
 
 const mapStateToProps = state => {
   return {
+    userWithDetails: state.user.data,
     user: state.auth.currentUser,
     loginButton: state.ui.loginButton
   };

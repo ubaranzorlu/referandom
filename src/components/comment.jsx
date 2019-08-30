@@ -22,7 +22,7 @@ class Comment extends Component {
         >
           <a className="info" href={owner.username}>
             <div className="ui avatar image">
-              <img src={url + owner.ppLink} alt="" />
+              <img src={owner.ppLink} alt="" />
             </div>
             <div className="header" href="#">
               <h3>{owner.username}</h3>

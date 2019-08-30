@@ -26,7 +26,7 @@ class ProfileCard extends Component {
               <div className="content">
                 <a className="info" href="#">
                   <div className="ui avatar image">
-                    <img src={url + "img/img_avatar3.png"} alt="" />
+                    <img src={user.ppLink} alt="" />
                   </div>
                   <div className="header" href="#">
                     <h3>

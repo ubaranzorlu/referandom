@@ -46,6 +46,7 @@ export const getCurrentUserWithDetails = () => {
 
 export const updateUser = user => {
   return async dispatch => {
+    console.log(user);
     const response = await http.put(apiEndpoint + "/" + user._id, user);
     dispatch(setUser(response.data));
   };

@@ -41,6 +41,9 @@ class FormClass extends Component {
       )
         return;
     }
+    if (errors && mode === "editProfil" && errors.email) {
+      return;
+    }
     if (callback) callback();
     else this.doSubmit();
   };
@@ -130,6 +133,7 @@ class FormClass extends Component {
           type={type}
           placeholder={placeholder}
           value={data[name]}
+          onKeyPress={this.enterPressed}
           onChange={this.handleChange}
         />
         {error && errors[name] && (

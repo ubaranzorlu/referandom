@@ -57,7 +57,7 @@ class CommentTextarea extends Component {
             <div className="yorum">
               <div className="ui avatar image foto">
                 <img
-                  src={`${url}${this.props.user ? this.props.user.ppLink : ""}`}
+                  src={`${this.props.user ? this.props.user.ppLink : ""}`}
                   alt=""
                 />
               </div>
