@@ -31,8 +31,8 @@ class App extends Component {
     await this.props.onGetCurrentUser();
   }
 
-  changeSidebarShow = () =>
-    this.setState({ sidebarShow: !this.state.sidebarShow });
+  handleSidebarShow = () => this.setState({ sidebarShow: true });
+  handleSidebarClose = () => this.setState({ sidebarShow: false });
 
   onSize = size => {
     this.setState({ navbarMargin: size.height });
@@ -48,7 +48,7 @@ class App extends Component {
             animation="overlay"
             icon="labeled"
             inverted
-            onHide={this.changeSidebarShow}
+            onHide={this.handleSidebarClose}
             vertical
             visible={sidebarShow}
             className="w-75 desktop-hidden"
@@ -69,7 +69,7 @@ class App extends Component {
 
           <Sidebar.Pusher>
             <ToastNotification />
-            <NavBar onClick={this.changeSidebarShow} onSize={this.onSize} />
+            <NavBar onClick={this.handleSidebarShow} onSize={this.onSize} />
             <div style={{ marginTop: this.state.navbarMargin }}>
               <Switch>
                 {this.props.currentUser && (

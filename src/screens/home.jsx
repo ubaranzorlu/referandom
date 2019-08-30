@@ -206,7 +206,6 @@ class Home extends FormClass {
             </div>
           </div>
         </main>
-        <Footer />
         <div className="referandummy">
           <img src="img/referandom-w.svg" alt="" />
         </div>
