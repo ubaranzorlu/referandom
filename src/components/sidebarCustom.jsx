@@ -30,8 +30,7 @@ class SidebarCustom extends Component {
               <div className="d-flex justify-content-start mt-4 ml-4 mb-2">
                 <img
                   src={this.props.user.ppLink}
-                  className="ui avatar image"
-                  style={{ width: "50px", height: "auto" }}
+                  style={{ width: "50px", height: "auto", borderRadius: "50%" }}
                   alt=""
                 />
               </div>
