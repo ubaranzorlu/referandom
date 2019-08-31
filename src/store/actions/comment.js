@@ -22,61 +22,6 @@ export const addComment = (comment, voteCardId) => {
   };
 };
 
-export const upvoteComment = (comment, voteCardId) => {
-  return (dispatch, getState) => {
-    const data = [...getState().voteCard.data];
-
-    const { comments } = data.find(element => element._id === voteCardId);
-    let index = -1;
-    comments.forEach((element, i) => {
-      if (element._id === comment._id) index = i;
-    });
-
-    const indexOfUser = comments[index].upvotedUsers.indexOf(
-      getState().user.data._id
-    );
-    if (indexOfUser !== -1) {
-      comments[index].upvote--;
-      comments[index].upvotedUsers.splice(indexOfUser);
-    } else {
-      comments[index].upvote++;
-      comments[index].upvotedUsers.push(getState().user.data._id);
-    }
-    dispatch(stateData(data));
-  };
-};
-
-export const updateComment = comment => {
-  return async dispatch => {
-    await http.put(apiEndpoint + "/" + comment._id, comment);
-  };
-};
-
-export const upvoteCommentForOneVoteCard = comment => {
-  return (dispatch, getState) => {
-    const data = { ...getState().voteCard.voteCard };
-
-    let index;
-    data.comments.forEach((element, i) => {
-      if (element._id === comment._id) {
-        index = i;
-      }
-    });
-    const indexOfUser = data.comments[index].upvotedUsers.indexOf(
-      getState().user.data._id
-    );
-    if (indexOfUser !== -1) {
-      data.comments[index].upvote--;
-      data.comments[index].upvotedUsers.splice(indexOfUser);
-    } else {
-      data.comments[index].upvote++;
-      data.comments[index].upvotedUsers.push(getState().user.data._id);
-    }
-
-    dispatch(setVoteCard(data));
-  };
-};
-
 export const addCommentForOneVoteCard = comment => {
   return async (dispatch, getState) => {
     const { data: newComment } = await http.post(apiEndpoint, comment);
@@ -91,5 +36,50 @@ export const addCommentForOneVoteCard = comment => {
     let user = { ...getState().user.data };
     user.numberOfComment = user.numberOfComment + 1;
     dispatch(updateUser(user));
+  };
+};
+
+export const upvoteComment = (comment, voteCardId) => {
+  return (dispatch, getState) => {
+    const voteCards = [...getState().voteCard.data];
+    const data = voteCards.find(element => element._id === voteCardId);
+
+    handleUpvote(comment, data, getState());
+
+    dispatch(stateData(voteCards));
+  };
+};
+
+export const upvoteCommentForOneVoteCard = comment => {
+  return (dispatch, getState) => {
+    const data = { ...getState().voteCard.voteCard };
+
+    handleUpvote(comment, data, getState());
+
+    dispatch(setVoteCard(data));
+  };
+};
+
+const handleUpvote = (comment, data, state) => {
+  let index = -1;
+  data.comments.forEach((element, i) => {
+    if (element._id === comment._id) index = i;
+  });
+
+  const indexOfUser = data.comments[index].upvotedUsers.indexOf(
+    state.user.data._id
+  );
+  if (indexOfUser !== -1) {
+    data.comments[index].upvote--;
+    data.comments[index].upvotedUsers.splice(indexOfUser);
+  } else {
+    data.comments[index].upvote++;
+    data.comments[index].upvotedUsers.push(state.user.data._id);
+  }
+};
+
+export const updateComment = comment => {
+  return async dispatch => {
+    await http.put(apiEndpoint + "/" + comment._id, comment);
   };
 };

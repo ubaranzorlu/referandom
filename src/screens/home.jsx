@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import Joi from "joi-browser";
 import FormClass from "../components/common/form";
-import Footer from "../components/footer";
 import {
   loginWithJwt,
   register,

@@ -144,14 +144,12 @@ class VoteCard extends Component {
     return (
       <React.Fragment>
         <LoadingSpinner isLoaded={this.props.isLoaded} />
-        <main
-          className={`row justify-content-center d-${
-            this.props.isLoaded ? "flex" : "none"
-          }`}
-          style={{ marginTop: "70px" }}
-        >
-          <div className="col-11 col-sm-10 col-md-9 col-lg-6" id="onergeler">
-            {this.props.data && (
+        {this.props.isLoaded && this.props.data && (
+          <main
+            className="row justify-content-center d-flex"
+            style={{ marginTop: "70px" }}
+          >
+            <div className="col-11 col-sm-10 col-md-9 col-lg-6" id="onergeler">
               <div className="onerge">
                 <Onerge
                   data={this.props.data}
@@ -196,9 +194,9 @@ class VoteCard extends Component {
                   </div>
                 </div>
               </div>
-            )}
-          </div>
-        </main>
+            </div>
+          </main>
+        )}
       </React.Fragment>
     );
   }

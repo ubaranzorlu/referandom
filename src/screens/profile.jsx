@@ -5,71 +5,76 @@ import ProfileCard from "../components/profileCard";
 import FooterCard from "../components/footerCard";
 import LoadingSpinner from "../components/loadingSpinner";
 import {
+  getData,
   getCurrentUserForProfileMoreDetails,
-  uiFinishLoading
+  uiFinishLoading,
+  uiStartLoading
 } from "../store/actions/index";
 
 class Profile extends Component {
   async componentDidMount() {
+    this.props.onUiStartLoading();
     await this.props.onGetCurrentUserForProfileMoreDetails();
+    await this.props.onGetData();
     this.props.onUiFinishLoading();
   }
+
+  findVoteCard = id => {
+    const data = this.props.data.find(element => element._id === id);
+    return data;
+  };
 
   render() {
     return (
       <React.Fragment>
         <LoadingSpinner isLoaded={this.props.isLoaded} />
-        <section className="desktop-hidden">
-          <main
-            className={`row justify-content-center d-${
-              this.props.isLoaded ? "flex" : "none"
-            }`}
-          >
-            <div className="col-11 col-sm-10 col-md-9 col-lg-6">
-              <ProfileCard />
-
-              {this.props.user &&
-                this.props.user.votedCards.map(element => (
-                  <VoteCardForAkis
-                    key={element._id}
-                    data={element.mainCard}
-                    vote={element.vote}
-                    history={this.props.history}
-                    mode="profile"
-                  />
-                ))}
-            </div>
-          </main>
-        </section>
-        <section className="mobile-hidden">
-          <main
-            className={`ui container d-${
-              this.props.isLoaded ? "flex" : "none"
-            }`}
-          >
-            <div className="ui stackable grid basic segment" id="akis">
-              <div className="ui rail" style={{ width: "31.3%" }}>
-                <div className="ui sticky fixed top  a-sticky">
+        {this.props.isLoaded && (
+          <React.Fragment>
+            <section className="desktop-hidden">
+              <main className="row justify-content-center d-flex">
+                <div className="col-11 col-sm-10 col-md-9 col-lg-6">
                   <ProfileCard />
-                  <FooterCard />
+
+                  {this.props.user &&
+                    this.props.user.votedCards.map(element => (
+                      <VoteCardForAkis
+                        key={element._id}
+                        data={this.findVoteCard(element.mainCard._id)}
+                        vote={element.vote}
+                        history={this.props.history}
+                        mode="profile"
+                      />
+                    ))}
                 </div>
-              </div>
-              <div className="five wide column sidebar mobile-hidden" />
-              <div className="eleven wide column" id="onergeler">
-                {this.props.user &&
-                  this.props.user.votedCards.map(element => (
-                    <VoteCardForAkis
-                      key={element._id}
-                      data={element.mainCard}
-                      vote={element.vote}
-                      history={this.props.history}
-                      mode="profile"
-                    />
-                  ))}
-              </div>
-            </div>
-          </main>
-        </section>
+              </main>
+            </section>
+            <section className="mobile-hidden">
+              <main className="ui container d-flex">
+                <div className="ui stackable grid basic segment" id="akis">
+                  <div className="ui rail" style={{ width: "31.3%" }}>
+                    <div className="ui sticky fixed top  a-sticky">
+                      <ProfileCard />
+                      <FooterCard />
+                    </div>
+                  </div>
+                  <div className="five wide column sidebar mobile-hidden" />
+                  <div className="eleven wide column" id="onergeler">
+                    {this.props.user &&
+                      this.props.user.votedCards.map(element => (
+                        <VoteCardForAkis
+                          key={element._id}
+                          data={this.findVoteCard(element.mainCard._id)}
+                          vote={element.vote}
+                          history={this.props.history}
+                          mode="profile"
+                        />
+                      ))}
+                  </div>
+                </div>
+              </main>
+            </section>
+          </React.Fragment>
+        )}
       </React.Fragment>
     );
   }
@@ -87,7 +92,10 @@ const mapDispatchToProps = dispatch => {
   return {
     onGetCurrentUserForProfileMoreDetails: () =>
       dispatch(getCurrentUserForProfileMoreDetails()),
-    onUiFinishLoading: () => dispatch(uiFinishLoading())
+    onGetData: () => dispatch(getData()),
+
+    onUiFinishLoading: () => dispatch(uiFinishLoading()),
+    onUiStartLoading: () => dispatch(uiStartLoading())
   };
 };
 

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { url } from "../config.json";
 
 class Comment extends Component {
   state = { isUpvote: false };
@@ -14,7 +13,6 @@ class Comment extends Component {
 
   render() {
     const { owner, text, upvote, vote } = this.props.data;
-    console.log(this.props);
 
     return (
       <div className="column">
