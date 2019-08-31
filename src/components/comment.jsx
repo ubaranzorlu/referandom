@@ -10,6 +10,9 @@ class Comment extends Component {
       this.state.isUpvote = this.props.data.upvotedUsers.includes(
         this.props.user._id
       );
+    // console.log(this.props.data.upvotedUsers);
+    // console.log(this.props.user._id);
+    // console.log(this.state.isUpvote);
   }
 
   render() {

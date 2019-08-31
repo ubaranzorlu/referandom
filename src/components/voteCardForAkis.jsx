@@ -58,7 +58,10 @@ class VoteCardForAkis extends Component {
           display: false
         });
     }
+    this.findPopulerComments();
+  }
 
+  findPopulerComments = () => {
     let comments = [];
     let maxAgree = 0,
       maxDisagree = 0;
@@ -73,7 +76,7 @@ class VoteCardForAkis extends Component {
       }
     });
     this.setState({ comments });
-  }
+  };
 
   handleVote = async vote => {
     this.setState({ vote });
@@ -140,8 +143,8 @@ class VoteCardForAkis extends Component {
 
   handleUpvote = async comment => {
     this.props.onUpvoteComment(comment, this.props.data._id);
+    this.findPopulerComments();
 
-    this.forceUpdate();
     await this.props.onUpdateComment(comment);
   };
 

@@ -27,7 +27,10 @@ export const upvoteComment = (comment, voteCardId) => {
     const data = [...getState().voteCard.data];
 
     const { comments } = data.find(element => element._id === voteCardId);
-    const index = comments.indexOf(comment);
+    let index = -1;
+    comments.forEach((element, i) => {
+      if (element._id === comment._id) index = i;
+    });
 
     const indexOfUser = comments[index].upvotedUsers.indexOf(
       getState().user.data._id
@@ -39,7 +42,6 @@ export const upvoteComment = (comment, voteCardId) => {
       comments[index].upvote++;
       comments[index].upvotedUsers.push(getState().user.data._id);
     }
-
     dispatch(stateData(data));
   };
 };
