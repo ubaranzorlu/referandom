@@ -1,6 +1,6 @@
 import http from "../../services/httpService";
 import { apiUrl } from "../../config.json";
-import { SET_USER } from "./actionTypes";
+import { SET_USER, SET_USER_MORE } from "./actionTypes";
 import { getCurrentUser } from "./index";
 
 const apiEndpoint = apiUrl + "/users";
@@ -8,6 +8,13 @@ const apiEndpoint = apiUrl + "/users";
 export const setUser = user => {
   return {
     type: SET_USER,
+    user: user
+  };
+};
+
+export const setUserMore = user => {
+  return {
+    type: SET_USER_MORE,
     user: user
   };
 };
@@ -38,7 +45,7 @@ export const getCurrentUserForProfileMoreDetails = () => {
     const currentUser = await dispatch(getCurrentUser());
     if (currentUser) {
       const response = await http.get(apiEndpoint + "/me/" + currentUser._id);
-      dispatch(setUser(response.data));
+      dispatch(setUserMore(response.data));
     }
   };
 };

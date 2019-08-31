@@ -33,8 +33,6 @@ export const getVoteCardById = id => {
   return async dispatch => {
     const respond = await http.get(apiEndpoint + "/" + id);
     dispatch(setVoteCard(respond.data));
-
-    dispatch(uiFinishLoading());
   };
 };
 

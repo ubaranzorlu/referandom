@@ -77,7 +77,7 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user.data,
+    user: state.user.moreData,
     data: state.voteCard.data,
     isLoaded: state.ui.isLoaded
   };

@@ -9,6 +9,7 @@ import LoadingSpinner from "../components/loadingSpinner";
 import logger from "../services/logService";
 import {
   uiStartLoading,
+  uiFinishLoading,
   updateVoteCard,
   updateUser,
   updateComment,
@@ -35,7 +36,7 @@ class VoteCard extends Component {
     }
   };
   async componentWillMount() {
-    this.props.OnUiStartLoading();
+    this.props.onUiStartLoading();
     const id = this.props.history.location.pathname.slice(8);
     await this.props.onGetCurrentUserWithDetails();
     await this.props.onGetVoteCardById(id);
@@ -64,6 +65,7 @@ class VoteCard extends Component {
     }
     if (this.props.user) this.setState({ expand: true });
     this.setState({ display: true });
+    this.props.onUiFinishLoading();
   }
 
   handleVote = async vote => {
@@ -212,7 +214,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    OnUiStartLoading: () => dispatch(uiStartLoading()),
+    onUiStartLoading: () => dispatch(uiStartLoading()),
+    onUiFinishLoading: () => dispatch(uiFinishLoading()),
     onUpdateVoteCard: voteCard => dispatch(updateVoteCard(voteCard)),
     onUpdateUser: user => dispatch(updateUser(user)),
     onAddCommentForOneVoteCard: comment =>

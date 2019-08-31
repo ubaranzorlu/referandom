@@ -24,6 +24,7 @@ export {
 } from "./ui";
 export {
   setUser,
+  setUserMore,
   register,
   getCurrentUserWithDetails,
   getCurrentUserForProfileMoreDetails,

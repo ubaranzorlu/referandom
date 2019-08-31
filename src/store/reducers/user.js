@@ -1,7 +1,8 @@
-import { SET_USER } from "../actions/actionTypes";
+import { SET_USER, SET_USER_MORE } from "../actions/actionTypes";
 
 const initialState = {
-  data: null
+  data: null,
+  moreData: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -10,6 +11,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         data: action.user
+      };
+    case SET_USER_MORE:
+      return {
+        ...state,
+        moreData: action.user
       };
     default:
       return state;
