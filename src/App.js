@@ -51,10 +51,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <NavBar onClick={this.handleSidebarShow} onSize={this.onSize} />
-        <div
-          style={{ marginTop: this.state.navbarMargin }}
-          onClick={this.handleSidebarClose}
-        >
+        <div style={{ marginTop: "40px" }} onClick={this.handleSidebarClose}>
           <Switch>
             {this.props.currentUser && <Redirect exact to="/akis" from="/" />}
             {!this.props.currentUser && <Redirect exact to="/" from="/akis" />}
