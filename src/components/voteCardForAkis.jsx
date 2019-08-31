@@ -21,7 +21,8 @@ import {
 
 class VoteCardForAkis extends Component {
   state = {
-    comments: [],
+    indexOfMaxAgree: 0,
+    indexOfMaxDisagree: 0,
     vote: this.props.vote && null,
     chartData: {
       labels: ["Katılıyorum", "Katılmıyorum"],
@@ -62,20 +63,20 @@ class VoteCardForAkis extends Component {
   }
 
   findPopulerComments = () => {
-    let comments = [];
+    let indexOfMaxAgree, indexOfMaxDisagree;
     let maxAgree = 0,
       maxDisagree = 0;
     this.props.data.comments.forEach((element, i) => {
       if (maxAgree < element.upvote && element.vote) {
-        comments[0] = element;
+        indexOfMaxAgree = i;
         maxAgree = element.upvote;
       }
       if (maxDisagree < element.upvote && !element.vote) {
-        comments[1] = element;
+        indexOfMaxDisagree = i;
         maxDisagree = element.upvote;
       }
     });
-    this.setState({ comments });
+    this.setState({ indexOfMaxAgree, indexOfMaxDisagree });
   };
 
   handleVote = async vote => {
@@ -220,14 +221,24 @@ class VoteCardForAkis extends Component {
             <SharePanel data={this.props.data} vote={this.state.vote} />
 
             <div className="ui stackable two column grid yorumlar">
-              {this.state.comments.map(element => (
-                <Comment
-                  key={element._id}
-                  data={element}
-                  best={true}
-                  onUpvote={() => this.handleUpvote(element)}
-                />
-              ))}
+              <Comment
+                data={this.props.data.comments[this.state.indexOfMaxAgree]}
+                best={true}
+                onUpvote={() =>
+                  this.handleUpvote(
+                    this.props.data.comments[this.state.indexOfMaxAgree]
+                  )
+                }
+              />
+              <Comment
+                data={this.props.data.comments[this.state.indexOfMaxDisagree]}
+                best={true}
+                onUpvote={() =>
+                  this.handleUpvote(
+                    this.props.data.comments[this.state.indexOfMaxDisagree]
+                  )
+                }
+              />
             </div>
             <ExpandButton
               onClick={this.handleViewAll}
