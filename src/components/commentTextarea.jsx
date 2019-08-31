@@ -6,7 +6,6 @@ import {
   uiStopCommentButton,
   handleShowToast
 } from "../store/actions/index";
-import { url } from "../config.json";
 
 class CommentTextarea extends Component {
   state = {

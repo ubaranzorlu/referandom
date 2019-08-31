@@ -29,13 +29,27 @@ class App extends Component {
   onSize = size => {
     this.setState({ navbarMargin: size.height });
   };
+
   render() {
     return (
-      <SidebarCustom
-        sidebarShow={this.state.sidebarShow}
-        handleSidebarClose={this.handleSidebarClose}
-      >
+      <React.Fragment>
         <ToastNotification />
+
+        <SidebarCustom
+          className="desktop-hidden"
+          sidebarShow={this.state.sidebarShow}
+          handleSidebarClose={this.handleSidebarClose}
+        >
+          {this.renderItems()}
+        </SidebarCustom>
+
+        <div className="mobile-hidden">{this.renderItems()}</div>
+      </React.Fragment>
+    );
+  }
+  renderItems = () => {
+    return (
+      <React.Fragment>
         <NavBar onClick={this.handleSidebarShow} onSize={this.onSize} />
         <div
           style={{ marginTop: this.state.navbarMargin }}
@@ -55,9 +69,9 @@ class App extends Component {
             <Redirect to="/not-found" />
           </Switch>
         </div>
-      </SidebarCustom>
+      </React.Fragment>
     );
-  }
+  };
 }
 
 const mapStateToProps = state => {

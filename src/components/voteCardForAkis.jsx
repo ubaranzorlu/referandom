@@ -139,13 +139,10 @@ class VoteCardForAkis extends Component {
   };
 
   handleUpvote = async comment => {
-    console.log("a");
     this.props.onUpvoteComment(comment, this.props.data._id);
-    console.log("a");
 
     this.forceUpdate();
     await this.props.onUpdateComment(comment);
-    console.log("a");
   };
 
   handleDisplayVoteCards = () => {

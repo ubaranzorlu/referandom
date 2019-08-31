@@ -9,6 +9,8 @@ import {
   UI_STOP_LOGIN_BUTTON,
   UI_START_REGISTER_BUTTON,
   UI_STOP_REGISTER_BUTTON,
+  UI_START_SAVE_BUTTON,
+  UI_STOP_SAVE_BUTTON,
   UI_DISPLAY_VOTE_CARD,
   UI_EXPAND_VOTE_CARD
 } from "./actionTypes";
@@ -68,6 +70,17 @@ export const uiStartRegisterButton = () => {
 export const uiStopRegisterButton = () => {
   return {
     type: UI_STOP_REGISTER_BUTTON
+  };
+};
+
+export const uiStartSaveButton = () => {
+  return {
+    type: UI_START_SAVE_BUTTON
+  };
+};
+export const uiStopSaveButton = () => {
+  return {
+    type: UI_STOP_SAVE_BUTTON
   };
 };
 

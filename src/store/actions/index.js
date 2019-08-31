@@ -16,6 +16,8 @@ export {
   uiStopLoginButton,
   uiStartRegisterButton,
   uiStopRegisterButton,
+  uiStartSaveButton,
+  uiStopSaveButton,
   handleShowToast,
   uiDisplayVoteCard,
   uiExpandVoteCard

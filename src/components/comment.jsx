@@ -25,7 +25,7 @@ class Comment extends Component {
               <img src={owner.ppLink} alt="" />
             </div>
             <div className="header" href="#">
-              <h3>{owner.username}</h3>
+              <h3>{owner.name ? owner.name : owner.username}</h3>
               <p className="sub">
                 <i className="bookmark icon" />
                 <b>{vote ? "Katılmak" : "Katılmamak"}</b> için

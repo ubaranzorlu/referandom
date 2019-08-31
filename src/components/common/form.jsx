@@ -98,7 +98,7 @@ class FormClass extends Component {
   };
 
   renderInput = (name, placeholder, type = "text", className = "") => {
-    const { data, errors } = this.state;
+    const { data } = this.state;
 
     return (
       <React.Fragment>

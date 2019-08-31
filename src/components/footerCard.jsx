@@ -39,16 +39,36 @@ class Footer extends Component {
             </a>
           </div>
           <div className="ui inverted text social">
-            <a className="item" href="https://facebook.com/">
+            <a
+              className="item"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://facebook.com/"
+            >
               <i className="facebook f icon" />
             </a>
-            <a className="item" href="https://twitter.com/">
+            <a
+              className="item"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://twitter.com/"
+            >
               <i className="twitter icon" />
             </a>
-            <a className="item" href="https://instagram.com/">
+            <a
+              className="item"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://instagram.com/"
+            >
               <i className="instagram icon" />
             </a>
-            <a className="item" href="https://medium.com/">
+            <a
+              className="item"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://medium.com/"
+            >
               <i className="medium icon" />
             </a>
           </div>

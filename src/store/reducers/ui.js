@@ -9,6 +9,8 @@ import {
   UI_STOP_LOGIN_BUTTON,
   UI_START_REGISTER_BUTTON,
   UI_STOP_REGISTER_BUTTON,
+  UI_START_SAVE_BUTTON,
+  UI_STOP_SAVE_BUTTON,
   UI_DISPLAY_VOTE_CARD,
   UI_EXPAND_VOTE_CARD
 } from "../actions/actionTypes";
@@ -23,6 +25,7 @@ const initialState = {
   commentButton: false,
   loginButton: false,
   registerButton: false,
+  saveButton: false,
   uiVoteCards: []
 };
 
@@ -85,6 +88,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         registerButton: false
+      };
+    case UI_START_SAVE_BUTTON:
+      return {
+        ...state,
+        saveButton: true
+      };
+    case UI_STOP_SAVE_BUTTON:
+      return {
+        ...state,
+        saveButton: false
       };
     case UI_DISPLAY_VOTE_CARD:
       return {

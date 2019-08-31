@@ -4,7 +4,12 @@ import ImageUploader from "react-images-upload";
 import { Modal, Button } from "react-bootstrap";
 import Joi from "joi-browser";
 import FormClass from "./common/form";
-import { updateUser, handleShowToast } from "../store/actions/index";
+import {
+  uiStartSaveButton,
+  uiStopSaveButton,
+  updateUser,
+  handleShowToast
+} from "../store/actions/index";
 import { url } from "../config.json";
 
 class EditModal extends FormClass {
@@ -33,6 +38,7 @@ class EditModal extends FormClass {
 
   doSubmit = async () => {
     try {
+      this.props.onStartSaveButton();
       const user = {
         ...this.props.user,
         ...this.state.data,
@@ -47,8 +53,10 @@ class EditModal extends FormClass {
         errors.email = ex.response.data;
         this.setState({ errors });
       }
+      this.props.onStopSaveButton();
       this.props.onShowToast("Değiştirilemedi", "red");
     }
+    this.props.onStopSaveButton();
   };
 
   enterPressed = event => {
@@ -155,7 +163,9 @@ class EditModal extends FormClass {
             </Modal.Body>
             <Modal.Footer>
               <Button
-                className="ui blue button duzenle"
+                className={`ui blue button duzenle ${
+                  this.props.saveButton ? "loading" : ""
+                }`}
                 onClick={e => this.handleSubmit(e, null, "editProfil")}
               >
                 Kaydet
@@ -170,12 +180,15 @@ class EditModal extends FormClass {
 
 const mapStateToProps = state => {
   return {
+    saveButton: state.ui.saveButton,
     user: state.user.data
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    onStartSaveButton: () => dispatch(uiStartSaveButton()),
+    onStopSaveButton: () => dispatch(uiStopSaveButton()),
     onUpdateUser: user => dispatch(updateUser(user)),
     onShowToast: (text, variant) => dispatch(handleShowToast(text, variant))
   };

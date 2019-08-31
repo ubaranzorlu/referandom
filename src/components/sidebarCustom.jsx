@@ -15,7 +15,7 @@ class SidebarCustom extends Component {
   render() {
     return (
       <React.Fragment>
-        <Sidebar.Pushable>
+        <Sidebar.Pushable className={`${this.props.className}`}>
           {this.props.user && (
             <Sidebar
               as={Menu}
@@ -25,7 +25,7 @@ class SidebarCustom extends Component {
               onHide={this.props.handleSidebarClose}
               vertical
               visible={this.props.sidebarShow}
-              className="w-75 desktop-hidden"
+              className="w-75"
             >
               <div className="d-flex justify-content-start mt-4 ml-4 mb-2">
                 <img
@@ -51,7 +51,7 @@ class SidebarCustom extends Component {
               </Menu.Item>
               <Menu.Item className="p-4" as="a" href="/terms">
                 <List className="d-flex justify-content-start" size="huge">
-                  <Icon className="mr-3" name="file alternate " />
+                  <Icon className="mr-3" name="file alternate" />
                   Kullanım Şartları
                 </List>
               </Menu.Item>
