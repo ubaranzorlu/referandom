@@ -57,6 +57,51 @@ class NavBar extends FormClass {
     }
   };
 
+  loadUser = () => {
+    if (this.props.userWithDetails && !this.state.loaded) {
+      this.state.trigger = (
+        <span>
+          <img
+            src={this.props.userWithDetails.ppLink}
+            className="ui avatar image"
+            width="20"
+            alt=""
+          />
+        </span>
+      );
+      this.state.loaded = true;
+      this.forceUpdate();
+    }
+  };
+
+  render() {
+    this.loadUser();
+
+    return (
+      <div className="ui" id="page">
+        <Menu id="top">
+          <div
+            className={`ui top fixed inverted borderless menu ${
+              this.props.user ? "" : "pb-3 p-2 "
+            }`}
+          >
+            <div className="ui container d-flex justify-content-center">
+              <a className="item logo" href="/">
+                <img
+                  className="img"
+                  src={url + "img/referandom-w.svg"}
+                  alt="logo"
+                />
+                <h1 id="logo">REFERANDOM</h1>
+              </a>
+              {this.renderNavItems()}
+            </div>
+          </div>
+        </Menu>
+      </div>
+    );
+  }
+
   renderNavItems = () => {
     const { user } = this.props;
     if (user) {
@@ -84,13 +129,12 @@ class NavBar extends FormClass {
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-          <a
-            href="#"
+          <div
             onClick={this.props.onClick}
             className="desktop-hidden a-mobile-sidebar-link"
           >
             {this.state.trigger}
-          </a>
+          </div>
         </div>
       );
     } else {
@@ -138,51 +182,6 @@ class NavBar extends FormClass {
       );
     }
   };
-
-  loadUser = () => {
-    if (this.props.userWithDetails && !this.state.loaded) {
-      this.state.trigger = (
-        <span>
-          <img
-            src={this.props.userWithDetails.ppLink}
-            className="ui avatar image"
-            width="20"
-            alt=""
-          />
-        </span>
-      );
-      this.state.loaded = true;
-      this.forceUpdate();
-    }
-  };
-
-  render() {
-    this.loadUser();
-
-    return (
-      <div className="ui" id="page">
-        <Menu id="top">
-          <div
-            className={`ui top fixed inverted borderless menu ${
-              this.props.user ? "" : "pb-3 p-2 "
-            }`}
-          >
-            <div className="ui container d-flex justify-content-center">
-              <a className="item logo" href="/">
-                <img
-                  className="img"
-                  src={url + "img/referandom-w.svg"}
-                  alt="logo"
-                />
-                <h1 id="logo">REFERANDOM</h1>
-              </a>
-              {this.renderNavItems()}
-            </div>
-          </div>
-        </Menu>
-      </div>
-    );
-  }
 }
 
 const mapStateToProps = state => {

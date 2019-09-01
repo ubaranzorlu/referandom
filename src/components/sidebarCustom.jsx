@@ -15,7 +15,10 @@ class SidebarCustom extends Component {
   render() {
     return (
       <React.Fragment>
-        <Sidebar.Pushable className={`${this.props.className}`}>
+        <Sidebar.Pushable
+          style={{ transform: "none" }}
+          className={`${this.props.className}`}
+        >
           {this.props.user && (
             <Sidebar
               as={Menu}
@@ -26,6 +29,7 @@ class SidebarCustom extends Component {
               vertical
               visible={this.props.sidebarShow}
               className="w-75"
+              style={{ position: "fixed" }}
             >
               <div className="d-flex justify-content-start mt-4 ml-4 mb-2">
                 <img
@@ -80,7 +84,9 @@ class SidebarCustom extends Component {
             </Sidebar>
           )}
 
-          <Sidebar.Pusher>{this.props.children}</Sidebar.Pusher>
+          <Sidebar.Pusher style={{ minHeight: "100%", height: "100%" }}>
+            {this.props.children}
+          </Sidebar.Pusher>
         </Sidebar.Pushable>
         <ContactModal
           show={this.state.contactModalShow}
