@@ -15,14 +15,14 @@ import { url } from "../config.json";
 class EditModal extends FormClass {
   state = {
     data: {
-      name: "",
-      status: "",
-      website: "",
-      email: "",
-      location: ""
+      name: this.props.user.name,
+      status: this.props.user.status,
+      website: this.props.user.website,
+      email: this.props.user.email,
+      location: this.props.user.location
     },
     errors: {},
-    picture: null
+    picture: this.props.user.ppLink
   };
 
   schema = {

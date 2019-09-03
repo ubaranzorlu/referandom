@@ -43,14 +43,19 @@ class VoteCardForAkis extends Component {
     }
   };
   componentDidMount() {
+    let user;
+    if (this.props.visitedUser) user = this.props.visitedUser;
+    else if (this.props.user) user = this.props.user;
+
     let index = -1;
-    if (this.props.user)
-      this.props.user.votedCards.forEach((value, i) => {
+    if (user) {
+      user.votedCards.forEach((value, i) => {
         if (value.mainCard._id === this.props.data._id) index = i;
       });
+    }
 
     if (index !== -1) {
-      const vote = this.props.user.votedCards[index].vote;
+      const vote = user.votedCards[index].vote;
       this.setState({ vote });
       if (!this.handleDisplayVoteCards())
         this.props.onUiExpandVoteCard({
@@ -59,6 +64,7 @@ class VoteCardForAkis extends Component {
           display: false
         });
     }
+
     this.findPopulerComments();
   }
 

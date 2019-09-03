@@ -27,6 +27,7 @@ export {
   setUserMore,
   register,
   getCurrentUserWithDetails,
+  getUserForProfileMoreDetailsById,
   getCurrentUserForProfileMoreDetails,
   updateUser
 } from "./user";
@@ -43,5 +44,7 @@ export {
   updateComment,
   upvoteComment,
   upvoteCommentForOneVoteCard,
-  addCommentForOneVoteCard
+  addCommentForOneVoteCard,
+  deleteComment,
+  deleteCommentForOneVoteCard
 } from "./comment";

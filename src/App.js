@@ -56,13 +56,20 @@ class App extends Component {
             {this.props.currentUser && <Redirect exact to="/akis" from="/" />}
             {!this.props.currentUser && <Redirect exact to="/" from="/akis" />}
             <Route path="/akis" component={Akis} />
-            <Route path="/profile" component={Profile} />
             <Route exact path="/" component={Home} />
             <Route path="/logout" component={Logout} />
             <Route path="/not-found" component={NotFound} />
             <Route path="/terms" component={Terms} />
             <Route path="/privacy" component={Privacy} />
             <Route path="/onerge" component={VoteCard} />
+            <Route
+              path="/profile"
+              render={props => <Profile mode="myProfile" {...props} />}
+            />
+            <Route
+              path="/visit"
+              render={props => <Profile mode="visit" {...props} />}
+            />
             <Redirect to="/not-found" />
           </Switch>
         </div>

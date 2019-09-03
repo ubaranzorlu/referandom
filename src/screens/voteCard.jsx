@@ -13,6 +13,7 @@ import {
   updateVoteCard,
   updateUser,
   updateComment,
+  deleteCommentForOneVoteCard,
   addCommentForOneVoteCard,
   upvoteCommentForOneVoteCard,
   handleShowToast,
@@ -127,6 +128,10 @@ class VoteCard extends Component {
     await this.props.onUpdateComment(comment);
   };
 
+  handleDelete = async comment => {
+    await this.props.onDeleteComment(comment, this.props.data._id);
+  };
+
   handleComments = vote => {
     let comments = [];
     this.props.data.comments
@@ -175,7 +180,11 @@ class VoteCard extends Component {
                       {this.handleComments(true).map(element => (
                         <div className="mb-4" key={element._id}>
                           <Comment
+                            myComment={
+                              element.owner._id === this.props.user._id
+                            }
                             data={element}
+                            onDelete={() => this.handleDelete(element)}
                             onUpvote={() => this.handleUpvote(element)}
                           />
                         </div>
@@ -185,7 +194,11 @@ class VoteCard extends Component {
                       {this.handleComments(false).map(element => (
                         <div className="mb-4" key={element._id}>
                           <Comment
+                            myComment={
+                              element.owner._id === this.props.user._id
+                            }
                             data={element}
+                            onDelete={() => this.handleDelete(element)}
                             onUpvote={() => this.handleUpvote(element)}
                           />
                         </div>
@@ -219,6 +232,7 @@ const mapDispatchToProps = dispatch => {
     onAddCommentForOneVoteCard: comment =>
       dispatch(addCommentForOneVoteCard(comment)),
     onUpdateComment: comment => dispatch(updateComment(comment)),
+    onDeleteComment: comment => dispatch(deleteCommentForOneVoteCard(comment)),
     onUpvoteCommentForOneVoteCard: comment =>
       dispatch(upvoteCommentForOneVoteCard(comment)),
     onShowToast: (text, variant) => dispatch(handleShowToast(text, variant)),

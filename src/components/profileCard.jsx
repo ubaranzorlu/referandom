@@ -13,7 +13,9 @@ class ProfileCard extends Component {
   };
 
   render() {
-    const { user } = this.props;
+    let { user, mode } = this.props;
+    if (this.props.visitedUser) user = this.props.visitedUser;
+
     return (
       <React.Fragment>
         {user && (
@@ -31,12 +33,14 @@ class ProfileCard extends Component {
                     <h3>{user.name ? user.name : user.username}</h3>
                     <p>@{user.username}</p>
                   </div>
-                  <div
-                    className="ui blue button duzenle a-more-radius"
-                    onClick={() => this.setState({ editModalShow: true })}
-                  >
-                    Düzenle
-                  </div>
+                  {mode === "myProfile" && (
+                    <div
+                      className="ui blue button duzenle a-more-radius"
+                      onClick={() => this.setState({ editModalShow: true })}
+                    >
+                      Düzenle
+                    </div>
+                  )}
                 </a>
                 <p className="bio">
                   {user.status
@@ -86,6 +90,7 @@ class ProfileCard extends Component {
         <EditModal
           show={this.state.editModalShow}
           onHide={this.editModalClose}
+          user={this.props.user}
         />
       </React.Fragment>
     );

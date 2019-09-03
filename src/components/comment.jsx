@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { url } from "../config";
 
 class Comment extends Component {
   state = { isUpvote: false };
@@ -19,7 +20,7 @@ class Comment extends Component {
         <div
           className={`ui segment yorum a-more-radius ${vote ? "green" : "red"}`}
         >
-          <a className="info" href={owner.username}>
+          <a className="info" href={`${url}visit/${owner._id}`}>
             <div className="ui avatar image">
               <img src={owner.ppLink} alt="" />
             </div>
@@ -49,6 +50,15 @@ class Comment extends Component {
             </span>
             <b>{upvote}</b>
           </div>
+          {(this.props.myComment || this.props.user.isAdmin) && (
+            <div
+              className="ui button destekle a-more-radius red float-right"
+              onClick={this.props.onDelete}
+            >
+              <i className="times icon" />
+              <span className="text">Sil</span>
+            </div>
+          )}
         </div>
       </div>
     );

@@ -6,6 +6,7 @@ import FooterCard from "../components/footerCard";
 import LoadingSpinner from "../components/loadingSpinner";
 import {
   getData,
+  getUserForProfileMoreDetailsById,
   getCurrentUserForProfileMoreDetails,
   uiFinishLoading,
   uiStartLoading
@@ -14,7 +15,12 @@ import {
 class Profile extends Component {
   async componentDidMount() {
     this.props.onUiStartLoading();
-    await this.props.onGetCurrentUserForProfileMoreDetails();
+    const id = this.props.history.location.pathname.slice(7);
+    console.log(this.props);
+    if (this.props.mode === "visit")
+      await this.props.onGetUserWithDetailsById(id);
+    else await this.props.onGetCurrentUserForProfileMoreDetails();
+
     await this.props.onGetData();
     this.props.onUiFinishLoading();
   }
@@ -53,7 +59,12 @@ class Profile extends Component {
                 <div className="ui stackable grid basic segment" id="akis">
                   <div className="ui rail" style={{ width: "31.3%" }}>
                     <div className="ui sticky fixed top  a-sticky">
-                      <ProfileCard />
+                      <ProfileCard
+                        visitedUser={
+                          this.props.mode === "visit" ? this.props.user : null
+                        }
+                        mode={this.props.mode}
+                      />
                       <FooterCard />
                     </div>
                   </div>
@@ -62,6 +73,9 @@ class Profile extends Component {
                     {this.props.user &&
                       this.props.user.votedCards.map(element => (
                         <VoteCardForAkis
+                          visitedUser={
+                            this.props.mode === "visit" ? this.props.user : null
+                          }
                           key={element._id}
                           data={this.findVoteCard(element.mainCard._id)}
                           vote={element.vote}
@@ -90,6 +104,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    onGetUserWithDetailsById: id =>
+      dispatch(getUserForProfileMoreDetailsById(id)),
     onGetCurrentUserForProfileMoreDetails: () =>
       dispatch(getCurrentUserForProfileMoreDetails()),
     onGetData: () => dispatch(getData()),

@@ -16,7 +16,7 @@ class Footer extends Component {
         <footer id="profile-footer">
           <a
             className={`img-cover ${
-              this.props.mode === "home" ? "d-none" : "d-flex"
+              this.props.mode === "home" ? "d-none" : "d-block"
             }`}
             href="/"
           >

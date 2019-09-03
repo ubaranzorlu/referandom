@@ -50,6 +50,13 @@ export const getCurrentUserForProfileMoreDetails = () => {
   };
 };
 
+export const getUserForProfileMoreDetailsById = id => {
+  return async dispatch => {
+    const response = await http.get(apiEndpoint + "/me/" + id);
+    dispatch(setUserMore(response.data));
+  };
+};
+
 // export const getUser = (id) => {
 //   return async dispatch => {
 //     //    dispatch(uiStartLoading());

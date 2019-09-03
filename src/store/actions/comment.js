@@ -60,6 +60,36 @@ export const upvoteCommentForOneVoteCard = comment => {
   };
 };
 
+export const deleteComment = (comment, voteCardId) => {
+  return async (dispatch, getState) => {
+    const voteCards = [...getState().voteCard.data];
+    const data = voteCards.find(element => element._id === voteCardId);
+
+    await handleDelete(comment, data);
+    dispatch(setVoteCard(data));
+  };
+};
+
+export const deleteCommentForOneVoteCard = comment => {
+  return async (dispatch, getState) => {
+    const data = { ...getState().voteCard.voteCard };
+
+    await handleDelete(comment, data);
+    dispatch(setVoteCard(data));
+  };
+};
+
+export const handleDelete = async (comment, data) => {
+  let index = -1;
+  data.comments.forEach((element, i) => {
+    if (element._id === comment._id) index = i;
+  });
+
+  data.comments.splice(index, 1);
+
+  await http.delete(apiEndpoint + "/" + comment._id, comment);
+};
+
 const handleUpvote = (comment, data, state) => {
   let index = -1;
   data.comments.forEach((element, i) => {
