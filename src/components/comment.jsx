@@ -50,15 +50,16 @@ class Comment extends Component {
             </span>
             <b>{upvote}</b>
           </div>
-          {(this.props.myComment || this.props.user.isAdmin) && (
-            <div
-              className="ui button destekle a-more-radius red float-right"
-              onClick={this.props.onDelete}
-            >
-              <i className="times icon" />
-              <span className="text">Sil</span>
-            </div>
-          )}
+          {(this.props.myComment || this.props.user.isAdmin) &&
+            !this.props.best && (
+              <div
+                className="ui button destekle a-more-radius red float-right"
+                onClick={this.props.onDelete}
+              >
+                <i className="times icon" />
+                <span className="text">Sil</span>
+              </div>
+            )}
         </div>
       </div>
     );
