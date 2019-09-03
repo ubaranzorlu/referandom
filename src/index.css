@@ -109,6 +109,12 @@ body {
     margin-right: 15px;
   }
 }
+.radius-modal .modal-content {
+  border-radius: 20px !important;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+}
 #top .fixed.menu {
   padding: 10px 0px;
   background: #005c97;

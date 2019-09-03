@@ -2,14 +2,20 @@ import React, { Component } from "react";
 import { Icon, Menu, Sidebar, List } from "semantic-ui-react";
 import { connect } from "react-redux";
 import ContactModal from "./contactModal";
+import ExitWarningModal from "./exitWarningModal";
 
 class SidebarCustom extends Component {
   state = {
-    contactModalShow: false
+    contactModalShow: false,
+    exitWarningModalShow: false
   };
 
   contactModalClose = () => {
     this.setState({ contactModalShow: false });
+  };
+
+  exitWarningModalClose = () => {
+    this.setState({ exitWarningModalShow: false });
   };
 
   render() {
@@ -75,7 +81,11 @@ class SidebarCustom extends Component {
                   İletişim
                 </List>
               </Menu.Item>
-              <Menu.Item className="p-4" as="a" href="/logout">
+              <Menu.Item
+                className="p-4"
+                as="a"
+                onClick={() => this.setState({ exitWarningModalShow: true })}
+              >
                 <List className="d-flex justify-content-start" size="huge">
                   <Icon className="mr-3" name="times" />
                   Çıkış yap
@@ -91,6 +101,11 @@ class SidebarCustom extends Component {
         <ContactModal
           show={this.state.contactModalShow}
           onHide={this.contactModalClose}
+        />
+
+        <ExitWarningModal
+          show={this.state.exitWarningModalShow}
+          onHide={this.exitWarningModalClose}
         />
       </React.Fragment>
     );

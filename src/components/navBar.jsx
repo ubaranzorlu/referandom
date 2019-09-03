@@ -90,7 +90,7 @@ class NavBar extends FormClass {
                 <img
                   className="img"
                   src={url + "img/referandom-w.svg"}
-                  alt="logo"
+                  alt=""
                 />
                 <h1 id="logo">REFERANDOM</h1>
               </a>
