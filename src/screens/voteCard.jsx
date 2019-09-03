@@ -129,7 +129,12 @@ class VoteCard extends Component {
   };
 
   handleDelete = async comment => {
-    await this.props.onDeleteComment(comment, this.props.data._id);
+    try {
+      await this.props.onDeleteComment(comment, this.props.data._id);
+      this.props.onShowToast("Yorum başarıyla silindi", "green");
+    } catch (error) {
+      this.props.onShowToast("Yorum silinemedi", "red");
+    }
   };
 
   handleComments = vote => {
