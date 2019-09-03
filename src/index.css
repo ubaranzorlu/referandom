@@ -54,7 +54,7 @@ body {
   border-color: red !important;
 }
 .a-body-bg {
-  background-color: #0b0833;
+  background-color: #0b0833 !important;
 }
 .a-profile-card {
   border-radius: 20px !important;
@@ -90,6 +90,18 @@ body {
 .a-mobile-sidebar-link {
   margin-top: 10px;
   margin-right: 15px;
+}
+.a-main-home {
+  min-height: 100% !important;
+  margin-top: 70px !important;
+  margin-bottom: 90px !important;
+}
+@media screen and (min-width: 1024px) {
+  .a-main-home {
+    min-height: 100% !important;
+    margin-top: 110px !important;
+    margin-bottom: 90px !important;
+  }
 }
 @media screen and (min-width: 410px) {
   .a-mobile-sidebar-link {

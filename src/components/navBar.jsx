@@ -79,7 +79,7 @@ class NavBar extends FormClass {
 
     return (
       <div className="ui" id="page">
-        <Menu id="top">
+        <Menu className="a-body-bg" id="top">
           <div
             className={`ui top fixed inverted borderless menu ${
               this.props.user ? "" : "pb-3 p-2 "

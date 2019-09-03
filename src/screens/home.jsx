@@ -1,7 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import Joi from "joi-browser";
+import { Checkbox } from "semantic-ui-react";
 import FormClass from "../components/common/form";
+import FooterCard from "../components/footerCard";
 import {
   loginWithJwt,
   register,
@@ -83,21 +85,18 @@ class Home extends FormClass {
     const { isRegister } = this.state;
     return (
       <React.Fragment>
-        <main
-          className="ui container"
-          style={{
-            minHeight: "100%",
-            marginTop: "110px",
-            marginBottom: "90px"
-          }}
-        >
+        <main className="ui container a-main-home">
           <div
             className="ui two column doubling grid"
             style={{ minHeight: "100%" }}
           >
             <div className="row index" style={{ minHeight: "100%" }}>
-              <div className="column">
+              <div className="column d-flex align-items-start">
                 <div className="ui container a-text-align">
+                  <div className="invisible mobile-hidden m-0 p-0">
+                    <h2 className="ui inverted header">Giris yap</h2>
+                    <p className="ui inverted">Demokraside aktif ol!</p>
+                  </div>
                   <h2 className="ui inverted header">
                     <img
                       src="img/referandom-w.svg"
@@ -118,7 +117,7 @@ class Home extends FormClass {
                   </h2>
                 </div>
               </div>
-              <div className="column">
+              <div className="column d-flex align-items-start">
                 <form className="ui large form">
                   <h2 className="ui inverted header">
                     {isRegister ? "Kayıt ol" : "Giriş yap"}
@@ -134,8 +133,8 @@ class Home extends FormClass {
                           "text",
                           "a-more-radius"
                         )}
-                        {this.renderError("username")}
                       </div>
+                      {this.renderError("username")}
                     </div>
                     {isRegister && (
                       <div className="field">
@@ -147,8 +146,8 @@ class Home extends FormClass {
                             "text",
                             "a-more-radius"
                           )}
-                          {this.renderError("email")}
                         </div>
+                        {this.renderError("email")}
                       </div>
                     )}
                     <div className="field">
@@ -160,9 +159,19 @@ class Home extends FormClass {
                           "password",
                           "a-more-radius"
                         )}
-                        {this.renderError("password")}
                       </div>
+                      {this.renderError("password")}
                     </div>
+                    <p
+                      style={{ fontSize: "14px" }}
+                      className={`text-white ${
+                        this.state.isRegister ? "d-block" : "d-none"
+                      } `}
+                    >
+                      Kaydolduğunda <a href="/terms">Hizmet Şartları</a> dahil
+                      olmak üzere <a href="/privacy">Gizlilik Politikası'nı</a>{" "}
+                      kabul etmiş olursun.
+                    </p>
                     <div
                       className={`ui fluid large blue submit button a-more-radius ${
                         isRegister
@@ -198,6 +207,7 @@ class Home extends FormClass {
                       </a>
                     </p>
                   </div>
+                  <FooterCard mode="home" />
 
                   <div className="ui error message" />
                 </form>

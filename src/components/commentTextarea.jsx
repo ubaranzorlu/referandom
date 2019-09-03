@@ -61,12 +61,11 @@ class CommentTextarea extends Component {
           </h3>
           <div className="ui form">
             <div className="yorum">
-              <div className="ui avatar image foto">
-                <img
-                  src={`${this.props.user ? this.props.user.ppLink : ""}`}
-                  alt=""
-                />
-              </div>
+              <img
+                style={{ width: "45px", height: "45px", borderRadius: "50%" }}
+                src={`${this.props.user ? this.props.user.ppLink : ""}`}
+                alt=""
+              />
               <div className="kutu">
                 <textarea
                   rows="3"

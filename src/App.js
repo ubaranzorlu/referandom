@@ -34,6 +34,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <ToastNotification />
+        <NavBar onClick={this.handleSidebarShow} onSize={this.onSize} />
 
         <SidebarCustom
           className="desktop-hidden"
@@ -50,7 +51,6 @@ class App extends Component {
   renderItems = () => {
     return (
       <React.Fragment>
-        <NavBar onClick={this.handleSidebarShow} onSize={this.onSize} />
         <div style={{ marginTop: "50px" }} onClick={this.handleSidebarClose}>
           <Switch>
             {this.props.currentUser && <Redirect exact to="/akis" from="/" />}

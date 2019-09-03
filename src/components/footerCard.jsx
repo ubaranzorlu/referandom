@@ -14,7 +14,12 @@ class Footer extends Component {
     return (
       <React.Fragment>
         <footer id="profile-footer">
-          <a className="img-cover" href="/">
+          <a
+            className={`img-cover ${
+              this.props.mode === "home" ? "d-none" : "d-flex"
+            }`}
+            href="/"
+          >
             <img
               src="img/referandom-w.svg"
               alt=""
