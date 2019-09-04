@@ -6,6 +6,7 @@ import CommentTextarea from "../components/commentTextarea";
 import SharePanel from "../components/sharePanel";
 import VoteButtons from "../components/voteButtons";
 import LoadingSpinner from "../components/loadingSpinner";
+import OnergeExpired from "../components/onergeExpired";
 import logger from "../services/logService";
 import {
   uiStartLoading,
@@ -161,23 +162,36 @@ class VoteCard extends Component {
           >
             <div className="col-11 col-sm-10 col-md-9 col-lg-6" id="onergeler">
               <div className="onerge">
-                <Onerge
-                  data={this.props.data}
-                  display={this.state.display}
-                  chartData={this.state.chartData}
-                  chartOptions={this.state.chartOptions}
-                />
+                {!this.props.data.expired && (
+                  <Onerge
+                    data={this.props.data}
+                    display={this.state.display}
+                    chartData={this.state.chartData}
+                    chartOptions={this.state.chartOptions}
+                  />
+                )}
+                {this.props.data.expired && (
+                  <OnergeExpired
+                    data={this.props.data}
+                    display={this.state.display}
+                    chartData={this.state.chartData}
+                    chartOptions={this.state.chartOptions}
+                  />
+                )}
+
                 <VoteButtons
                   display={this.state.display}
                   expand={this.state.expand}
                   onClick={this.handleVote}
                 />
                 <div className={`d-${this.state.display ? "block" : "none"}`}>
-                  <CommentTextarea
-                    data={this.props.data}
-                    vote={this.state.vote}
-                    onAddReason={this.handleAddComment}
-                  />
+                  {!this.props.data.expired && (
+                    <CommentTextarea
+                      data={this.props.data}
+                      vote={this.state.vote}
+                      onAddReason={this.handleAddComment}
+                    />
+                  )}
                   <SharePanel data={this.props.data} vote={this.state.vote} />
 
                   <div className="row">
@@ -186,6 +200,7 @@ class VoteCard extends Component {
                         <div className="mb-4" key={element._id}>
                           <Comment
                             myComment={
+                              this.props.user &&
                               element.owner._id === this.props.user._id
                             }
                             data={element}
@@ -200,6 +215,7 @@ class VoteCard extends Component {
                         <div className="mb-4" key={element._id}>
                           <Comment
                             myComment={
+                              this.props.user &&
                               element.owner._id === this.props.user._id
                             }
                             data={element}

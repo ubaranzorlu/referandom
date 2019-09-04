@@ -199,10 +199,10 @@ class VoteCardForAkis extends Component {
             />
           )}
           <VoteButtons
-            display={this.handleDisplayVoteCards()}
-            expand={
-              this.props.data.expired ? true : !this.handleExpandVoteCards()
+            display={
+              this.props.data.expired ? true : this.handleDisplayVoteCards()
             }
+            expand={!this.handleExpandVoteCards()}
             onClick={this.handleVote}
           />
           <ExpandButton
@@ -210,7 +210,9 @@ class VoteCardForAkis extends Component {
             role="expand"
             vote={this.state.vote}
             display={
-              this.props.data.expired ? true : this.handleExpandVoteCards()
+              this.props.data.expired
+                ? !this.handleDisplayVoteCards()
+                : this.handleExpandVoteCards()
             }
             text="Genişlet"
             mode={this.props.mode}
@@ -219,11 +221,13 @@ class VoteCardForAkis extends Component {
           <div
             className={`d-${this.handleDisplayVoteCards() ? "block" : "none"}`}
           >
-            <CommentTextarea
-              data={this.props.data}
-              vote={this.state.vote}
-              onAddReason={this.handleAddComment}
-            />
+            {!this.props.data.expired && (
+              <CommentTextarea
+                data={this.props.data}
+                vote={this.state.vote}
+                onAddReason={this.handleAddComment}
+              />
+            )}
             <SharePanel data={this.props.data} vote={this.state.vote} />
 
             <div className="ui stackable two column grid yorumlar">

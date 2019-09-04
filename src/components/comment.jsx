@@ -22,7 +22,7 @@ class Comment extends Component {
         >
           <a className="info" href={`${url}visit/${owner._id}`}>
             <div className="ui avatar image">
-              <img src={owner.ppLink} alt="" />
+              <img src={url + owner.ppLink} alt="" />
             </div>
             <div className="header" href="#">
               <h3>{owner.name ? owner.name : owner.username}</h3>
@@ -50,7 +50,8 @@ class Comment extends Component {
             </span>
             <b>{upvote}</b>
           </div>
-          {(this.props.myComment || this.props.user.isAdmin) &&
+          {(this.props.myComment ||
+            (this.props.user && this.props.user.isAdmin)) &&
             !this.props.best && (
               <div
                 className="ui button destekle a-more-radius red float-right"

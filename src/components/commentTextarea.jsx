@@ -6,6 +6,7 @@ import {
   uiStopCommentButton,
   handleShowToast
 } from "../store/actions/index";
+import { url } from "../config";
 
 class CommentTextarea extends Component {
   state = {
@@ -63,7 +64,7 @@ class CommentTextarea extends Component {
             <div className="yorum">
               <img
                 style={{ width: "45px", height: "45px", borderRadius: "50%" }}
-                src={`${this.props.user ? this.props.user.ppLink : ""}`}
+                src={`${this.props.user ? url + this.props.user.ppLink : ""}`}
                 alt=""
               />
               <div className="kutu">

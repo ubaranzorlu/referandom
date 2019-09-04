@@ -115,6 +115,12 @@ body {
   display: flex;
   justify-content: center;
 }
+@media screen and (min-width: 426px) {
+  .a-meclis-bar {
+    margin-left: 80px;
+    margin-right: 80px;
+  }
+}
 #top .fixed.menu {
   padding: 10px 0px;
   background: #005c97;
@@ -483,6 +489,19 @@ body {
   background: #005c97;
   background: linear-gradient(to right, #363795, #005c97) !important;
   opacity: 0.8;
+  border-radius: 20px 20px 0px 0px;
+  color: #55060f;
+  right: 0;
+  width: 100%;
+}
+.onerge .segment.icerik .content .overlay-expired {
+  position: absolute;
+  top: 0;
+  z-index: 0;
+  height: 100%;
+  background: #005c97;
+  background: linear-gradient(to right, #363795, #005c97) !important;
+  opacity: 0.9;
   border-radius: 20px 20px 0px 0px;
   color: #55060f;
   right: 0;

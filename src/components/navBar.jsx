@@ -62,7 +62,7 @@ class NavBar extends FormClass {
       this.state.trigger = (
         <span>
           <img
-            src={this.props.userWithDetails.ppLink}
+            src={url + this.props.userWithDetails.ppLink}
             className="ui avatar image"
             width="20"
             alt=""
