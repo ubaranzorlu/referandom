@@ -2,12 +2,27 @@ import React, { Component } from "react";
 
 class ExpandButton extends Component {
   render() {
-    const { vote, onClick, role, role2, display, text, mode } = this.props;
+    const {
+      vote,
+      onClick,
+      role,
+      role2,
+      display,
+      text,
+      mode,
+      expired
+    } = this.props;
 
     return (
       <div className={`ui grid butonlar d-${display ? "block" : "none"}`}>
         <div
-          className={`column ${vote ? "katiliyorum" : "katilmiyorum"} ${
+          className={`column ${
+            vote
+              ? "katiliyorum"
+              : expired
+              ? "a-profile-daralt katilmiyorum"
+              : "katilmiyorum"
+          } ${
             role === "collapse"
               ? "a-daralt a-more-radius"
               : mode === "profile"

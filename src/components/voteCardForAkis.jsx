@@ -216,6 +216,7 @@ class VoteCardForAkis extends Component {
             }
             text="Genişlet"
             mode={this.props.mode}
+            expired={this.props.data.expired}
           />
 
           <div
