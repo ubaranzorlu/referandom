@@ -22,7 +22,12 @@ class ProfileCard extends Component {
           <React.Fragment>
             <div className="ui segment profile a-profile-card ">
               <div className="ui image cover">
-                <img src={url + "img/cover.jpg"} alt="cover" />
+                <img
+                  src={
+                    "https://firebasestorage.googleapis.com/v0/b/refern-7c476.appspot.com/o/image%2Fcover.jpg?alt=media&token=6e4e9d87-dae5-43f5-90bc-6f8efa2b9245"
+                  }
+                  alt="cover"
+                />
               </div>
               <div className="content">
                 <a className="info" href="#">
