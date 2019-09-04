@@ -44,7 +44,10 @@ class VoteCardForAkis extends Component {
     }
   };
   componentDidUpdate() {
-    window.scrollTo(0, this.props.scrollPosition);
+    if (this.props.scrollPosition !== 0) {
+      window.scrollTo(0, this.props.scrollPosition);
+      this.props.onUiScrollPosition(0);
+    }
   }
 
   componentDidMount() {
