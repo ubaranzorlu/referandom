@@ -161,7 +161,7 @@ class EditModal extends FormClass {
                       withLabel={false}
                       buttonText="Değiştir"
                       onChange={this.onDrop}
-                      imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                      imgExtension={[".jpg", ".gif", ".png", ".gif", ".jpeg"]}
                       maxFileSize={5242880}
                       singleImage={true}
                     />

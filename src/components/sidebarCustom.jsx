@@ -38,11 +38,17 @@ class SidebarCustom extends Component {
               style={{ position: "fixed" }}
             >
               <div className="d-flex justify-content-start mt-4 ml-4 mb-2">
-                <img
-                  src={this.props.user.ppLink}
-                  style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-                  alt=""
-                />
+                <a href="/profile">
+                  <img
+                    src={this.props.user.ppLink}
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      borderRadius: "50%"
+                    }}
+                    alt=""
+                  />
+                </a>
               </div>
               <div className="d-flex justify-content-start flex-column text-left ml-4 mb-3">
                 <h3 className="mb-0">

@@ -55,6 +55,7 @@ class App extends Component {
           <Switch>
             {this.props.currentUser && <Redirect exact to="/akis" from="/" />}
             {!this.props.currentUser && <Redirect exact to="/" from="/akis" />}
+
             <Route path="/akis" component={Akis} />
             <Route exact path="/" component={Home} />
             <Route path="/logout" component={Logout} />

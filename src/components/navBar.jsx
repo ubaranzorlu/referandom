@@ -87,11 +87,7 @@ class NavBar extends FormClass {
       <React.Fragment>
         <div className="ui" id="page">
           <Menu className="a-body-bg" id="top">
-            <div
-              className={`ui top fixed inverted borderless menu ${
-                this.props.user ? "" : "pb-3 p-2 "
-              }`}
-            >
+            <div className="ui top fixed inverted borderless menu">
               <div className="ui container d-flex justify-content-center">
                 <a className="item logo" href="/">
                   <img className="img" src={url + "img/logo.png"} alt="" />
@@ -150,7 +146,7 @@ class NavBar extends FormClass {
       );
     } else {
       return (
-        <div className="right menu not-login">
+        <div className="right menu not-login pb-3 p-2">
           <div className="ui form">
             <div className="fields item login">
               <div className="seven wide field email d-flex flex-column">
