@@ -16,7 +16,6 @@ class Profile extends Component {
   async componentDidMount() {
     this.props.onUiStartLoading();
     const id = this.props.history.location.pathname.slice(7);
-    console.log(this.props);
     if (this.props.mode === "visit")
       await this.props.onGetUserWithDetailsById(id);
     else await this.props.onGetCurrentUserForProfileMoreDetails();
@@ -39,11 +38,19 @@ class Profile extends Component {
             <section className="desktop-hidden">
               <main className="row justify-content-center d-flex">
                 <div className="col-11 col-sm-10 col-md-9 col-lg-6">
-                  <ProfileCard />
+                  <ProfileCard
+                    visitedUser={
+                      this.props.mode === "visit" ? this.props.user : null
+                    }
+                    mode={this.props.mode}
+                  />
 
                   {this.props.user &&
                     this.props.user.votedCards.map(element => (
                       <VoteCardForAkis
+                        visitedUser={
+                          this.props.mode === "visit" ? this.props.user : null
+                        }
                         key={element._id}
                         data={this.findVoteCard(element.mainCard._id)}
                         vote={element.vote}
