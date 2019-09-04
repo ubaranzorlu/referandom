@@ -112,13 +112,11 @@ class Onerge extends Component {
                 <div className="row">
                   <ChartBar
                     parti="akp"
-                    mode={mode}
                     name="AKP"
                     meclis={this.props.data.meclis}
                   />
                   <ChartBar
                     parti="chp"
-                    mode={mode}
                     name="CHP"
                     meclis={this.props.data.meclis}
                   />
@@ -126,13 +124,11 @@ class Onerge extends Component {
                 <div className="row">
                   <ChartBar
                     parti="hdp"
-                    mode={mode}
                     name="HDP"
                     meclis={this.props.data.meclis}
                   />
                   <ChartBar
                     parti="mhp"
-                    mode={mode}
                     name="MHP"
                     meclis={this.props.data.meclis}
                   />
@@ -140,13 +136,11 @@ class Onerge extends Component {
                 <div className="row">
                   <ChartBar
                     parti="iyip"
-                    mode={mode}
                     name="İYİP"
                     meclis={this.props.data.meclis}
                   />
                   <ChartBar
                     parti="bagimsiz"
-                    mode={mode}
                     name="BAĞIMSIZ"
                     meclis={this.props.data.meclis}
                   />
