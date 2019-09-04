@@ -20,7 +20,8 @@ export {
   uiStopSaveButton,
   handleShowToast,
   uiDisplayVoteCard,
-  uiExpandVoteCard
+  uiExpandVoteCard,
+  uiScrollPosition
 } from "./ui";
 export {
   setUser,

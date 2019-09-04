@@ -12,7 +12,8 @@ import {
   UI_START_SAVE_BUTTON,
   UI_STOP_SAVE_BUTTON,
   UI_DISPLAY_VOTE_CARD,
-  UI_EXPAND_VOTE_CARD
+  UI_EXPAND_VOTE_CARD,
+  UI_SCROLL_POSITION
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -26,11 +27,17 @@ const initialState = {
   loginButton: false,
   registerButton: false,
   saveButton: false,
-  uiVoteCards: []
+  uiVoteCards: [],
+  scrollPosition: 0
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case UI_SCROLL_POSITION:
+      return {
+        ...state,
+        scrollPosition: action.scrollPosition
+      };
     case UI_FINISH_LOADING:
       return {
         ...state,

@@ -16,7 +16,8 @@ import {
   upvoteComment,
   handleShowToast,
   uiDisplayVoteCard,
-  uiExpandVoteCard
+  uiExpandVoteCard,
+  uiScrollPosition
 } from "../store/actions/index";
 
 class VoteCardForAkis extends Component {
@@ -42,6 +43,10 @@ class VoteCardForAkis extends Component {
       }
     }
   };
+  componentDidUpdate() {
+    window.scrollTo(0, this.props.scrollPosition);
+  }
+
   componentDidMount() {
     let user;
     if (this.props.visitedUser) user = this.props.visitedUser;
@@ -132,6 +137,7 @@ class VoteCardForAkis extends Component {
   };
 
   handleViewAll = () => {
+    this.props.onUiScrollPosition(window.pageYOffset);
     this.props.history.push(`onerge/${this.props.data._id}`);
   };
 
@@ -269,12 +275,15 @@ class VoteCardForAkis extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user.data,
-    uiVoteCards: state.ui.uiVoteCards
+    uiVoteCards: state.ui.uiVoteCards,
+    scrollPosition: state.ui.scrollPosition
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    onUiScrollPosition: scrollPosition =>
+      dispatch(uiScrollPosition(scrollPosition)),
     onUpdateVoteCard: voteCard => dispatch(updateVoteCard(voteCard)),
     onUpdateUser: user => dispatch(updateUser(user)),
     onAddComment: (comment, voteCardId) =>

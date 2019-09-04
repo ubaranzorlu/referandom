@@ -12,8 +12,16 @@ import {
   UI_START_SAVE_BUTTON,
   UI_STOP_SAVE_BUTTON,
   UI_DISPLAY_VOTE_CARD,
-  UI_EXPAND_VOTE_CARD
+  UI_EXPAND_VOTE_CARD,
+  UI_SCROLL_POSITION
 } from "./actionTypes";
+
+export const uiScrollPosition = scrollPosition => {
+  return {
+    type: UI_SCROLL_POSITION,
+    scrollPosition: scrollPosition
+  };
+};
 
 export const uiFinishLoading = () => {
   return {
