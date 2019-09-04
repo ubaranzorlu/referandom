@@ -85,7 +85,7 @@ body {
 .a-toast {
   position: fixed;
   bottom: 20px;
-  z-index: 1;
+  z-index: 3;
 }
 .a-mobile-sidebar-link {
   margin-top: 10px;
