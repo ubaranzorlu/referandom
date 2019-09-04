@@ -47,10 +47,8 @@ class Onerge extends Component {
                 ? vote
                   ? "a-agree-card"
                   : "a-disagree-card"
-                : display
-                ? "a-more-radius overlay"
                 : "overlay"
-            }`}
+            } ${display ? "a-more-radius" : ""}`}
           />
           <p className="info">{text}</p>
           <p className="sub">
