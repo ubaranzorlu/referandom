@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Dropdown, Menu } from "semantic-ui-react";
 import sizeMe from "react-sizeme";
 import Joi from "joi-browser";
+import ExitWarningModal from "./exitWarningModal";
 import FormClass from "./common/form";
 import {
   login,
@@ -17,7 +18,8 @@ class NavBar extends FormClass {
     data: { username: "", password: "" },
     errors: {},
     trigger: null,
-    loaded: false
+    loaded: false,
+    exitWarningModalShow: false
   };
   schema = {
     username: Joi.string()
@@ -31,6 +33,10 @@ class NavBar extends FormClass {
   async componentDidMount() {
     await this.props.onGetCurrentUserWithDetails();
   }
+
+  exitWarningModalClose = () => {
+    this.setState({ exitWarningModalShow: false });
+  };
 
   doSubmit = async () => {
     try {
@@ -62,7 +68,7 @@ class NavBar extends FormClass {
       this.state.trigger = (
         <span>
           <img
-            src={url + this.props.userWithDetails.ppLink}
+            src={this.props.userWithDetails.ppLink}
             className="ui avatar image"
             width="20"
             alt=""
@@ -78,27 +84,29 @@ class NavBar extends FormClass {
     this.loadUser();
 
     return (
-      <div className="ui" id="page">
-        <Menu className="a-body-bg" id="top">
-          <div
-            className={`ui top fixed inverted borderless menu ${
-              this.props.user ? "" : "pb-3 p-2 "
-            }`}
-          >
-            <div className="ui container d-flex justify-content-center">
-              <a className="item logo" href="/">
-                <img
-                  className="img"
-                  src={url + "img/referandom-w.svg"}
-                  alt=""
-                />
-                <h1 id="logo">REFERANDOM</h1>
-              </a>
-              {this.renderNavItems()}
+      <React.Fragment>
+        <div className="ui" id="page">
+          <Menu className="a-body-bg" id="top">
+            <div
+              className={`ui top fixed inverted borderless menu ${
+                this.props.user ? "" : "pb-3 p-2 "
+              }`}
+            >
+              <div className="ui container d-flex justify-content-center">
+                <a className="item logo" href="/">
+                  <img className="img" src={url + "img/logo.png"} alt="" />
+                </a>
+                {this.renderNavItems()}
+              </div>
             </div>
-          </div>
-        </Menu>
-      </div>
+          </Menu>
+        </div>
+        <ExitWarningModal
+          show={this.state.exitWarningModalShow}
+          onHide={this.exitWarningModalClose}
+          device="desktop"
+        />
+      </React.Fragment>
     );
   }
 
@@ -123,7 +131,10 @@ class NavBar extends FormClass {
                 <i className="fa fa-cog pr-3" />
                 Ayarlar
               </Dropdown.Item>
-              <Dropdown.Item href="/logout">
+              <Dropdown.Item
+                href="#"
+                onClick={() => this.setState({ exitWarningModalShow: true })}
+              >
                 <i className="fa fa-times-circle pr-3" />
                 Çıkış yap
               </Dropdown.Item>

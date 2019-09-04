@@ -1,9 +1,6 @@
 #root {
   font-family: "Raleway", sans-serif !important;
 }
-#logo {
-  font-family: sans-serif !important;
-}
 body {
   font-family: "Raleway", sans-serif !important;
 }
@@ -185,10 +182,21 @@ body {
   font-weight: 900;
   margin: 15px 5px 0px 5px;
 }
+#top .logo .img {
+  width: 250px;
+}
+#top .logo {
+  padding-top: 25px !important;
+  padding-bottom: 25px !important;
+}
 @media screen and (max-width: 321px) {
   #top .logo .img {
     margin-left: -19px;
-    width: 30px;
+    width: 200px;
+  }
+  #top .logo {
+    padding-top: 25px !important;
+    padding-bottom: 25px !important;
   }
 }
 @media screen and (max-width: 376px) {
@@ -197,7 +205,11 @@ body {
     font-size: 23px;
   }
   #top .logo .img {
-    width: 30px;
+    width: 200px;
+  }
+  #top .logo {
+    padding-top: 25px !important;
+    padding-bottom: 25px !important;
   }
 }
 #top .fixed.menu {

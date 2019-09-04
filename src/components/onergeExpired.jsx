@@ -71,7 +71,7 @@ class Onerge extends Component {
             <div className="row justify-content-center d-flex text-white text-center my-3">
               <div className="col mb-4">
                 <React.Fragment>
-                  <h3>Referamdom Sonuçları</h3>
+                  <h3>Referandom Sonuçları</h3>
                   <div className="d-flex justify-content-center">
                     <Doughnut data={chartData} options={chartOptions} />
                   </div>
@@ -95,7 +95,13 @@ class Onerge extends Component {
               Önerge durumu:
               {this.props.data.meclis.agree >
               this.props.data.meclis.disagree ? (
-                <span style={{ color: "#09c635" }}> Meclisten geçti</span>
+                mode === "profile" ? (
+                  <span style={{ color: "#005c97" }}> Meclisten geçti</span>
+                ) : (
+                  <span style={{ color: "#09c635" }}> Meclisten geçti</span>
+                )
+              ) : mode === "profile" ? (
+                <span style={{ color: "#005c97" }}> Meclisten geçmedi</span>
               ) : (
                 <span style={{ color: "#d31021" }}> Meclisten geçmedi</span>
               )}

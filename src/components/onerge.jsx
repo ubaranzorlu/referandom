@@ -18,7 +18,7 @@ class Onerge extends Component {
         <div
           className="content"
           style={{
-            backgroundImage: `url(${url}${backgroundImage})`,
+            backgroundImage: `url(${backgroundImage})`,
             backgroundSize: "cover",
             backgroundPosition: "center"
           }}

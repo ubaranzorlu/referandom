@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import ImageUploader from "react-images-upload";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Spinner } from "react-bootstrap";
 import Joi from "joi-browser";
 import FormClass from "./common/form";
 import {
@@ -11,6 +11,7 @@ import {
   handleShowToast
 } from "../store/actions/index";
 import { url } from "../config.json";
+import { storage } from "../firebase";
 
 class EditModal extends FormClass {
   state = {
@@ -22,7 +23,9 @@ class EditModal extends FormClass {
       location: this.props.user.location
     },
     errors: {},
-    picture: this.props.user.ppLink
+    picture: null,
+    pictureLink: this.props.user.ppLink,
+    pictureLoading: false
   };
 
   schema = {
@@ -42,7 +45,7 @@ class EditModal extends FormClass {
       const user = {
         ...this.props.user,
         ...this.state.data,
-        ppLink: this.state.picture
+        ppLink: this.state.pictureLink
       };
       await this.props.onUpdateUser(user);
       this.props.onHide();
@@ -53,10 +56,33 @@ class EditModal extends FormClass {
         errors.email = ex.response.data;
         this.setState({ errors });
       }
+      console.log(ex);
       this.props.onStopSaveButton();
       this.props.onShowToast("Değiştirilemedi", "red");
     }
     this.props.onStopSaveButton();
+  };
+
+  handleUploadImage = async () => {
+    const uploadTask = storage
+      .ref(`image/${this.state.picture && this.state.picture.name}`)
+      .put(this.state.picture);
+    await uploadTask.on(
+      "state_changed",
+      snapshot => {},
+      error => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("image")
+          .child(this.state.picture.name)
+          .getDownloadURL()
+          .then(pictureLink => {
+            this.setState({ pictureLink, pictureLoading: false });
+          });
+      }
+    );
   };
 
   enterPressed = event => {
@@ -66,14 +92,15 @@ class EditModal extends FormClass {
     }
   };
 
-  onDrop = (pictureFiles, pictureDataURLs) => {
-    this.state.picture = pictureDataURLs.pop();
+  onDrop = async (pictureFiles, pictureDataURLs) => {
+    this.state.pictureLoading = true;
     this.forceUpdate();
+    this.state.picture = pictureFiles.pop();
+    this.handleUploadImage();
   };
 
   render() {
     const { user } = this.props;
-
     return (
       <React.Fragment>
         {user && (
@@ -93,13 +120,19 @@ class EditModal extends FormClass {
                 </div>
                 <div className="content">
                   <div className="info">
-                    <div className="ui avatar image">
-                      <img
-                        src={
-                          this.state.picture ? this.state.picture : user.ppLink
-                        }
-                        alt="profil"
-                      />
+                    <div
+                      className={`ui avatar image ${
+                        this.state.pictureLoading
+                          ? "d-flex justify-content-center align-items-center"
+                          : ""
+                      }`}
+                    >
+                      {!this.state.pictureLoading && (
+                        <img src={this.state.pictureLink} alt="profil" />
+                      )}
+                      {this.state.pictureLoading && (
+                        <Spinner animation="border" variant="dark" />
+                      )}
                     </div>
                     <div className="header" href="#">
                       <div className="d-flex" style={{ overFlow: "hidden" }}>
@@ -129,7 +162,7 @@ class EditModal extends FormClass {
                       buttonText="Değiştir"
                       onChange={this.onDrop}
                       imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                      maxFileSize={52428}
+                      maxFileSize={5242880}
                       singleImage={true}
                     />
                     {this.renderTextArea(

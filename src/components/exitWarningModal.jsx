@@ -13,7 +13,7 @@ class ExitWarningModal extends Component {
         centered
         dialogClassName="radius-modal d-flex justify-content-center"
       >
-        <Modal.Body className="d-flex flex-column justify-content-center align-items-center text-center px-0">
+        <Modal.Body className="d-flex flex-column justify-content-center align-items-center text-center">
           <img
             style={{ width: "40px", height: "40px" }}
             className="img"
