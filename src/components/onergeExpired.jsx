@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Progress } from "semantic-ui-react";
 import { Doughnut } from "react-chartjs-2";
 import { url } from "../config.json";
+import ChartBar from "./chartBar";
 
 class Onerge extends Component {
   state = {
@@ -109,78 +110,46 @@ class Onerge extends Component {
             {display && (
               <React.Fragment>
                 <div className="row">
-                  <div className="col">
-                    <h4>AKP</h4>
-                    <Progress
-                      className="bg-danger"
-                      percent={
-                        (meclis.akp.agree * 100) /
-                        (Number(meclis.akp.agree) + Number(meclis.akp.disagree))
-                      }
-                      success
-                    />
-                  </div>
-                  <div className="col">
-                    <h4>CHP</h4>
-                    <Progress
-                      className="bg-danger"
-                      percent={
-                        (meclis.chp.agree * 100) /
-                        (Number(meclis.chp.agree) + Number(meclis.chp.disagree))
-                      }
-                      success
-                    />
-                  </div>
+                  <ChartBar
+                    parti="akp"
+                    mode={mode}
+                    name="AKP"
+                    meclis={this.props.data.meclis}
+                  />
+                  <ChartBar
+                    parti="chp"
+                    mode={mode}
+                    name="CHP"
+                    meclis={this.props.data.meclis}
+                  />
                 </div>
                 <div className="row">
-                  <div className="col">
-                    <h4>HDP</h4>
-                    <Progress
-                      className="bg-danger"
-                      percent={
-                        (meclis.hdp.agree * 100) /
-                        (Number(meclis.hdp.agree) + Number(meclis.hdp.disagree))
-                      }
-                      success
-                    />
-                  </div>
-                  <div className="col">
-                    <h4>MHP</h4>
-                    <Progress
-                      className="bg-danger"
-                      percent={
-                        (meclis.mhp.agree * 100) /
-                        (Number(meclis.mhp.agree) + Number(meclis.mhp.disagree))
-                      }
-                      success
-                    />
-                  </div>
+                  <ChartBar
+                    parti="hdp"
+                    mode={mode}
+                    name="HDP"
+                    meclis={this.props.data.meclis}
+                  />
+                  <ChartBar
+                    parti="mhp"
+                    mode={mode}
+                    name="MHP"
+                    meclis={this.props.data.meclis}
+                  />
                 </div>
                 <div className="row">
-                  <div className="col">
-                    <h4>IYIP</h4>
-                    <Progress
-                      className="bg-danger"
-                      percent={
-                        (meclis.iyip.agree * 100) /
-                        (Number(meclis.iyip.agree) +
-                          Number(meclis.iyip.disagree))
-                      }
-                      success
-                    />
-                  </div>
-                  <div className="col">
-                    <h4>BAĞIMSIZ</h4>
-                    <Progress
-                      className="bg-danger"
-                      percent={
-                        (meclis.bagimsiz.agree * 100) /
-                        (Number(meclis.bagimsiz.agree) +
-                          Number(meclis.bagimsiz.disagree))
-                      }
-                      success
-                    />
-                  </div>
+                  <ChartBar
+                    parti="iyip"
+                    mode={mode}
+                    name="İYİP"
+                    meclis={this.props.data.meclis}
+                  />
+                  <ChartBar
+                    parti="bagimsiz"
+                    mode={mode}
+                    name="BAĞIMSIZ"
+                    meclis={this.props.data.meclis}
+                  />
                 </div>
               </React.Fragment>
             )}
