@@ -3,11 +3,11 @@ import { Progress } from "semantic-ui-react";
 
 class ChartBar extends Component {
   render() {
-    const { parti, meclis, name } = this.props;
+    const { parti, meclis, name, textColor } = this.props;
     return (
       <React.Fragment>
         <div className="col">
-          <h4>{name}</h4>
+          <h4 style={{ color: textColor }}>{name}</h4>
           <Progress
             className="bg-danger border border-light"
             percent={

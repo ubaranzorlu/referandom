@@ -111,11 +111,13 @@ class Onerge extends Component {
               <React.Fragment>
                 <div className="row">
                   <ChartBar
+                    textColor="orange"
                     parti="akp"
                     name="AKP"
                     meclis={this.props.data.meclis}
                   />
                   <ChartBar
+                    textColor="red"
                     parti="chp"
                     name="CHP"
                     meclis={this.props.data.meclis}
@@ -123,11 +125,13 @@ class Onerge extends Component {
                 </div>
                 <div className="row">
                   <ChartBar
+                    textColor="purple"
                     parti="hdp"
                     name="HDP"
                     meclis={this.props.data.meclis}
                   />
                   <ChartBar
+                    textColor="blue"
                     parti="mhp"
                     name="MHP"
                     meclis={this.props.data.meclis}
@@ -135,11 +139,13 @@ class Onerge extends Component {
                 </div>
                 <div className="row">
                   <ChartBar
+                    textColor="#1CA8E3"
                     parti="iyip"
                     name="İYİP"
                     meclis={this.props.data.meclis}
                   />
                   <ChartBar
+                    textColor="#AEC0C7"
                     parti="bagimsiz"
                     name="BAĞIMSIZ"
                     meclis={this.props.data.meclis}
