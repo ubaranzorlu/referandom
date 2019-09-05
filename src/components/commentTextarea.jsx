@@ -21,6 +21,11 @@ class CommentTextarea extends Component {
 
   handleSubmit = async e => {
     this.props.onStartCommentButton();
+    if (!this.props.user) {
+      this.props.onShowToast("Yorum gönderebilmek için giriş yapınız", "red");
+      this.props.onStopCommentButton();
+      return;
+    }
 
     const isComment = this.props.data.comments.find(element => {
       if (element.owner._id === this.props.user._id) return element;
