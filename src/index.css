@@ -188,6 +188,7 @@ body {
 }
 #top .logo .img {
   width: 250px;
+  height: 36.438px;
 }
 #top .logo {
   padding-top: 25px !important;
@@ -210,6 +211,7 @@ body {
   }
   #top .logo .img {
     width: 200px;
+    height: 29.15px;
   }
   #top .logo {
     padding-top: 25px !important;
