@@ -120,8 +120,7 @@ body {
 }
 .a-sidebar {
   background: #0b0833 !important;
-  box-shadow: 4px 0px 10px rgba(0, 0, 0, 1) !important;
-  opacity: 0.1;
+  box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.7) !important;
 }
 #top .fixed.menu {
   padding: 10px 0px;
