@@ -4,10 +4,11 @@ class SharePanel extends Component {
   state = { copied: false };
   handleCopy = () => {
     this.setState({ copied: true });
-    if (navigator)
+    if (navigator.clipboard) {
       navigator.clipboard.writeText(
         `https://referandom.com/onerge/${this.props.data._id}`
       );
+    }
 
     setTimeout(() => this.setState({ copied: false }), 860);
   };

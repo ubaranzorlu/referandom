@@ -17,7 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 class App extends Component {
-  state = { navbarMargin: 0, sidebarShow: false };
+  state = { navbarMargin: 0, sidebarShow: false, redirect: null };
 
   async componentDidMount() {
     await this.props.onGetCurrentUser();
@@ -28,6 +28,7 @@ class App extends Component {
 
   onSize = size => {
     this.setState({ navbarMargin: size.height });
+    this.setState({ redirect: <Redirect exact to="/" from="/profile" /> });
   };
 
   render() {
@@ -55,6 +56,7 @@ class App extends Component {
           <Switch>
             {this.props.currentUser && <Redirect exact to="/akis" from="/" />}
             {!this.props.currentUser && <Redirect exact to="/" from="/akis" />}
+            {!this.props.currentUser && this.state.redirect}
 
             <Route path="/akis" component={Akis} />
             <Route exact path="/" component={Home} />

@@ -34,7 +34,7 @@ class SidebarCustom extends Component {
               onHide={this.props.handleSidebarClose}
               vertical
               visible={this.props.sidebarShow}
-              className="w-75"
+              className="w-75 a-sidebar"
               style={{ position: "fixed" }}
             >
               <div className="d-flex justify-content-start mt-4 ml-4 mb-2">

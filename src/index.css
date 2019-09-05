@@ -118,6 +118,10 @@ body {
     margin-right: 80px;
   }
 }
+.a-sidebar {
+  background: #0b0833 !important;
+  box-shadow: 4px 0px 10px rgba(0, 0, 0, 1) !important;
+}
 #top .fixed.menu {
   padding: 10px 0px;
   background: #005c97;
