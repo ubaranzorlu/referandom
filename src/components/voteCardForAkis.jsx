@@ -22,8 +22,8 @@ import {
 
 class VoteCardForAkis extends Component {
   state = {
-    indexOfMaxAgree: 0,
-    indexOfMaxDisagree: 0,
+    indexOfMaxAgree: -1,
+    indexOfMaxDisagree: -1,
     vote: this.props.vote && null,
     chartData: {
       labels: ["Katılıyorum", "Katılmıyorum"],
@@ -77,9 +77,10 @@ class VoteCardForAkis extends Component {
   }
 
   findPopulerComments = () => {
-    let indexOfMaxAgree, indexOfMaxDisagree;
-    let maxAgree = 0,
-      maxDisagree = 0;
+    let indexOfMaxAgree = -1,
+      indexOfMaxDisagree = -1;
+    let maxAgree = -1,
+      maxDisagree = -1;
     this.props.data.comments.forEach((element, i) => {
       if (maxAgree < element.upvote && element.vote) {
         indexOfMaxAgree = i;
@@ -184,6 +185,7 @@ class VoteCardForAkis extends Component {
   };
 
   render() {
+    console.log(this.state.indexOfMaxDisagree);
     return (
       <React.Fragment>
         <div className="onerge">
@@ -240,8 +242,8 @@ class VoteCardForAkis extends Component {
             )}
             <SharePanel data={this.props.data} vote={this.state.vote} />
 
-            {this.props.data.comments[0] && (
-              <div className="ui stackable two column grid yorumlar">
+            <div className="ui stackable two column grid yorumlar">
+              {this.state.indexOfMaxAgree !== -1 && (
                 <Comment
                   data={this.props.data.comments[this.state.indexOfMaxAgree]}
                   best={true}
@@ -251,6 +253,8 @@ class VoteCardForAkis extends Component {
                     )
                   }
                 />
+              )}
+              {this.state.indexOfMaxDisagree !== -1 && (
                 <Comment
                   data={this.props.data.comments[this.state.indexOfMaxDisagree]}
                   best={true}
@@ -260,8 +264,9 @@ class VoteCardForAkis extends Component {
                     )
                   }
                 />
-              </div>
-            )}
+              )}
+            </div>
+
             <ExpandButton
               onClick={this.handleViewAll}
               role="collapse"
