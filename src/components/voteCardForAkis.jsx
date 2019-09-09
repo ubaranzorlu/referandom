@@ -240,26 +240,28 @@ class VoteCardForAkis extends Component {
             )}
             <SharePanel data={this.props.data} vote={this.state.vote} />
 
-            <div className="ui stackable two column grid yorumlar">
-              <Comment
-                data={this.props.data.comments[this.state.indexOfMaxAgree]}
-                best={true}
-                onUpvote={() =>
-                  this.handleUpvote(
-                    this.props.data.comments[this.state.indexOfMaxAgree]
-                  )
-                }
-              />
-              <Comment
-                data={this.props.data.comments[this.state.indexOfMaxDisagree]}
-                best={true}
-                onUpvote={() =>
-                  this.handleUpvote(
-                    this.props.data.comments[this.state.indexOfMaxDisagree]
-                  )
-                }
-              />
-            </div>
+            {this.props.data.comments[0] && (
+              <div className="ui stackable two column grid yorumlar">
+                <Comment
+                  data={this.props.data.comments[this.state.indexOfMaxAgree]}
+                  best={true}
+                  onUpvote={() =>
+                    this.handleUpvote(
+                      this.props.data.comments[this.state.indexOfMaxAgree]
+                    )
+                  }
+                />
+                <Comment
+                  data={this.props.data.comments[this.state.indexOfMaxDisagree]}
+                  best={true}
+                  onUpvote={() =>
+                    this.handleUpvote(
+                      this.props.data.comments[this.state.indexOfMaxDisagree]
+                    )
+                  }
+                />
+              </div>
+            )}
             <ExpandButton
               onClick={this.handleViewAll}
               role="collapse"

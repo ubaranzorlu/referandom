@@ -194,38 +194,40 @@ class VoteCard extends Component {
                   )}
                   <SharePanel data={this.props.data} vote={this.state.vote} />
 
-                  <div className="row">
-                    <div className="col yorumlar">
-                      {this.handleComments(true).map(element => (
-                        <div className="mb-4" key={element._id}>
-                          <Comment
-                            myComment={
-                              this.props.user &&
-                              element.owner._id === this.props.user._id
-                            }
-                            data={element}
-                            onDelete={() => this.handleDelete(element)}
-                            onUpvote={() => this.handleUpvote(element)}
-                          />
-                        </div>
-                      ))}
+                  {this.props.data.comments[0] && (
+                    <div className="row">
+                      <div className="col yorumlar">
+                        {this.handleComments(true).map(element => (
+                          <div className="mb-4" key={element._id}>
+                            <Comment
+                              myComment={
+                                this.props.user &&
+                                element.owner._id === this.props.user._id
+                              }
+                              data={element}
+                              onDelete={() => this.handleDelete(element)}
+                              onUpvote={() => this.handleUpvote(element)}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                      <div className="col yorumlar">
+                        {this.handleComments(false).map(element => (
+                          <div className="mb-4" key={element._id}>
+                            <Comment
+                              myComment={
+                                this.props.user &&
+                                element.owner._id === this.props.user._id
+                              }
+                              data={element}
+                              onDelete={() => this.handleDelete(element)}
+                              onUpvote={() => this.handleUpvote(element)}
+                            />
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <div className="col yorumlar">
-                      {this.handleComments(false).map(element => (
-                        <div className="mb-4" key={element._id}>
-                          <Comment
-                            myComment={
-                              this.props.user &&
-                              element.owner._id === this.props.user._id
-                            }
-                            data={element}
-                            onDelete={() => this.handleDelete(element)}
-                            onUpvote={() => this.handleUpvote(element)}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
