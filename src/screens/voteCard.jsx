@@ -58,7 +58,8 @@ class VoteCard extends Component {
     let index = -1;
     if (this.props.user)
       this.props.user.votedCards.forEach((value, i) => {
-        if (value.mainCard._id === this.props.data._id) index = i;
+        if (value.mainCard && value.mainCard._id === this.props.data._id)
+          index = i;
       });
 
     if (index !== -1) {
@@ -197,19 +198,22 @@ class VoteCard extends Component {
                   {this.props.data.comments[0] && (
                     <div className="row">
                       <div className="col yorumlar">
-                        {this.handleComments(true).map(element => (
-                          <div className="mb-4" key={element._id}>
-                            <Comment
-                              myComment={
-                                this.props.user &&
-                                element.owner._id === this.props.user._id
-                              }
-                              data={element}
-                              onDelete={() => this.handleDelete(element)}
-                              onUpvote={() => this.handleUpvote(element)}
-                            />
-                          </div>
-                        ))}
+                        {this.handleComments(true).map(
+                          element =>
+                            element.owner && (
+                              <div className="mb-4" key={element._id}>
+                                <Comment
+                                  myComment={
+                                    this.props.user &&
+                                    element.owner._id === this.props.user._id
+                                  }
+                                  data={element}
+                                  onDelete={() => this.handleDelete(element)}
+                                  onUpvote={() => this.handleUpvote(element)}
+                                />
+                              </div>
+                            )
+                        )}
                       </div>
                       <div className="col yorumlar">
                         {this.handleComments(false).map(element => (

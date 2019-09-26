@@ -58,7 +58,8 @@ class VoteCardForAkis extends Component {
     let index = -1;
     if (user) {
       user.votedCards.forEach((value, i) => {
-        if (value.mainCard._id === this.props.data._id) index = i;
+        if (value.mainCard && value.mainCard._id === this.props.data._id)
+          index = i;
       });
     }
 
