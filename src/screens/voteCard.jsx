@@ -197,7 +197,7 @@ class VoteCard extends Component {
 
                   {this.props.data.comments[0] && (
                     <div className="row">
-                      <div className="col yorumlar">
+                      <div className="col-md-6 yorumlar">
                         {this.handleComments(true).map(
                           element =>
                             element.owner && (
@@ -215,20 +215,23 @@ class VoteCard extends Component {
                             )
                         )}
                       </div>
-                      <div className="col yorumlar">
-                        {this.handleComments(false).map(element => (
-                          <div className="mb-4" key={element._id}>
-                            <Comment
-                              myComment={
-                                this.props.user &&
-                                element.owner._id === this.props.user._id
-                              }
-                              data={element}
-                              onDelete={() => this.handleDelete(element)}
-                              onUpvote={() => this.handleUpvote(element)}
-                            />
-                          </div>
-                        ))}
+                      <div className="col-md-6 yorumlar">
+                        {this.handleComments(false).map(
+                          element =>
+                            element.owner && (
+                              <div className="mb-4" key={element._id}>
+                                <Comment
+                                  myComment={
+                                    this.props.user &&
+                                    element.owner._id === this.props.user._id
+                                  }
+                                  data={element}
+                                  onDelete={() => this.handleDelete(element)}
+                                  onUpvote={() => this.handleUpvote(element)}
+                                />
+                              </div>
+                            )
+                        )}
                       </div>
                     </div>
                   )}
