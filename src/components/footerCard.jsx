@@ -72,7 +72,7 @@ class Footer extends Component {
               className="item"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://medium.com/referandom"
+              href="https://medium.com/@referandom"
             >
               <i className="medium icon" />
             </a>
