@@ -38,17 +38,26 @@ class Footer extends Component {
           <h6 className="pt-3 pb-2 text-center text-light">Sosyal Medya</h6>
           <ul className="list-inline text-center">
             <li className="list-inline-item mx-3 a-footer-social">
-              <a href="https://www.facebook.com" className="text-light">
+              <a
+                href="https://www.facebook.com/referandom"
+                className="text-light"
+              >
                 <i className="fa fa-facebook fa-2x" aria-hidden="true" />
               </a>
             </li>
             <li className="list-inline-item mx-3 a-footer-social">
-              <a href="https://twitter.com" className="text-light">
+              <a
+                href="https://twitter.com/referandomcom"
+                className="text-light"
+              >
                 <i className="fa fa-twitter-square fa-2x" aria-hidden="true" />
               </a>
             </li>
             <li className="list-inline-item mx-3 a-footer-social">
-              <a href="https://www.instagram.com" className="text-light">
+              <a
+                href="https://www.instagram.com/referandom"
+                className="text-light"
+              >
                 <i className="fa fa-instagram fa-2x" aria-hidden="true" />
               </a>
             </li>

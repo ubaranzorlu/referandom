@@ -48,7 +48,7 @@ class Footer extends Component {
               className="item"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://facebook.com/"
+              href="https://facebook.com/referandom"
             >
               <i className="facebook f icon" />
             </a>
@@ -56,7 +56,7 @@ class Footer extends Component {
               className="item"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://twitter.com/"
+              href="https://twitter.com/referandomcom"
             >
               <i className="twitter icon" />
             </a>
@@ -64,7 +64,7 @@ class Footer extends Component {
               className="item"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://instagram.com/"
+              href="https://instagram.com/referandom"
             >
               <i className="instagram icon" />
             </a>
@@ -72,7 +72,7 @@ class Footer extends Component {
               className="item"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://medium.com/"
+              href="https://medium.com/referandom"
             >
               <i className="medium icon" />
             </a>
