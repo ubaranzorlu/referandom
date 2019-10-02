@@ -123,10 +123,6 @@ class NavBar extends FormClass {
                 <i className="fa fa-user pr-3" />
                 Profil
               </Dropdown.Item>
-              <Dropdown.Item>
-                <i className="fa fa-cog pr-3" />
-                Ayarlar
-              </Dropdown.Item>
               <Dropdown.Item
                 href="#"
                 onClick={() => this.setState({ exitWarningModalShow: true })}

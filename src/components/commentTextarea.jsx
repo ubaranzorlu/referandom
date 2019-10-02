@@ -28,7 +28,7 @@ class CommentTextarea extends Component {
     }
 
     const isComment = this.props.data.comments.find(element => {
-      if (element.owner._id === this.props.user._id) return element;
+      if (element && element.owner._id === this.props.user._id) return element;
     });
     if (isComment) {
       this.props.onShowToast("En fazla bir yorum yapabilirsin", "red");
