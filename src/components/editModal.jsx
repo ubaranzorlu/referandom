@@ -17,10 +17,20 @@ class EditModal extends FormClass {
   state = {
     data: {
       name: this.props.user.name,
-      status: this.props.user.status,
-      website: this.props.user.website,
+      status:
+        this.props.user.status ===
+        "Student at University. Loves to build new tools using popular technologies as a creator."
+          ? "Kişisel bilgi eklenmedi."
+          : this.props.user.status,
+      website:
+        this.props.user.website === "No website"
+          ? "Website eklenmedi"
+          : this.props.user.website,
       email: this.props.user.email,
-      location: this.props.user.location
+      location:
+        this.props.user.location === "No Location"
+          ? "Lokasyan eklenmedi"
+          : this.props.user.location
     },
     errors: {},
     picture: null,

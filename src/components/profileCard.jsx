@@ -22,12 +22,7 @@ class ProfileCard extends Component {
           <React.Fragment>
             <div className="ui segment profile a-profile-card ">
               <div className="ui image cover">
-                <img
-                  src={
-                    "https://firebasestorage.googleapis.com/v0/b/refern-7c476.appspot.com/o/image%2Fcover.jpg?alt=media&token=6e4e9d87-dae5-43f5-90bc-6f8efa2b9245"
-                  }
-                  alt="cover"
-                />
+                <img src="https://firebasestorage.googleapis.com/v0/b/refern-7c476.appspot.com/o/Politics.jpg?alt=media&token=77a5187b-a9fb-4233-b872-672ea19bbdbd"></img>
               </div>
               <div className="content">
                 <a className="info" href="#">
@@ -48,9 +43,10 @@ class ProfileCard extends Component {
                   )}
                 </a>
                 <p className="bio">
-                  {user.status
+                  {user.status !==
+                  "Student at University. Loves to build new tools using popular technologies as a creator."
                     ? user.status
-                    : "Student at University. Loves to build new tools using popular technologies as a creator."}
+                    : "Kişisel bilgi eklenmedi."}
                 </p>
                 <ul className="links">
                   <li>
@@ -62,9 +58,9 @@ class ProfileCard extends Component {
                           : "https://www.referandombeta.herokuapp.com"
                       }
                     >
-                      {user.website
+                      {user.website !== "No website"
                         ? user.website
-                        : "referandombeta.herokuapp.com"}
+                        : "Website eklenmedi"}
                     </a>
                   </li>
                   <li>
@@ -73,7 +69,9 @@ class ProfileCard extends Component {
                   </li>
                   <li>
                     <i className="map marker alternate icon" />{" "}
-                    {user.location ? user.location : "Konum yok"}
+                    {user.location !== "No Location"
+                      ? user.location
+                      : "Lokasyon eklenmedi"}
                   </li>
                 </ul>
               </div>
