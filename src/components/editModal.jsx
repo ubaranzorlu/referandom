@@ -124,7 +124,7 @@ class EditModal extends FormClass {
                 <div className="ui image cover">
                   <img
                     style={{ borderRadius: 0 }}
-                    src={url + "img/cover.jpg"}
+                    src="https://firebasestorage.googleapis.com/v0/b/refern-7c476.appspot.com/o/Politics.jpg?alt=media&token=77a5187b-a9fb-4233-b872-672ea19bbdbd"
                     alt="cover"
                   />
                 </div>
